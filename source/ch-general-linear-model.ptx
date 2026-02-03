@@ -141,7 +141,7 @@
         covariance_{xy} = \hat{r} * s_x * s_y
       </me>
       <me>
-        \hat{\beta_x} = \frac{\hat{r} * s_x * s_y}{s_x * s_x} = r * \frac{s_y}{s_x}
+        \hat{\beta_x} = \frac{\hat{r} * s_x * s_y}{s_x * s_x} = \hat{r} * \frac{s_y}{s_x}
       </me>
       <p>
         That is, the regression slope is equal to the correlation value multiplied by the ratio of standard deviations of y and x. One thing this tells us is that when the standard deviations of x and y are the same (e.g. when the data have been converted to Z scores), then the correlation estimate is equal to the regression slope estimate.
