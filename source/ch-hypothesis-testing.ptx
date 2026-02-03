@@ -4,15 +4,518 @@
 
   <introduction>
     <p>
-      <!-- Chapter introduction content goes here -->
+      In the first chapter we discussed the three major goals of statistics:
+    </p>
+    <ul>
+      <li>Describe</li>
+      <li>Decide</li>
+      <li>Predict</li>
+    </ul>
+    <p>
+      In this chapter we will introduce the ideas behind the use of statistics to make decisions <mdash/> in particular, decisions about whether a particular hypothesis is supported by the data.
     </p>
   </introduction>
 
-  <section xml:id="sec-null-hypothesis">
-    <title>The Null Hypothesis</title>
+  <section xml:id="sec-nhst">
+    <title>Null Hypothesis Statistical Testing (NHST)</title>
     <p>
-      <!-- Section content goes here -->
+      The specific type of hypothesis testing that we will discuss is known (for reasons that will become clear) as <em>null hypothesis statistical testing</em> (NHST). If you pick up almost any scientific or biomedical research publication, you will see NHST being used to test hypotheses, and in their introductory psychology textbook, Gerrig <ampersand/> Zimbardo (2002) referred to NHST as the <q>backbone of psychological research</q>. Thus, learning how to use and interpret the results from hypothesis testing is essential to understand the results from many fields of research.
     </p>
+    <p>
+      It is also important for you to know, however, that NHST is deeply flawed, and that many statisticians and researchers (including myself) think that it has been the cause of serious problems in science, which we will discuss in Chapter 18. For more than 50 years, there have been calls to abandon NHST in favor of other approaches (like those that we will discuss in the following chapters):
+    </p>
+    <ul>
+      <li><q>The test of statistical significance in psychological research may be taken as an instance of a kind of essential mindlessness in the conduct of research</q> (Bakan, 1966)</li>
+      <li>Hypothesis testing is <q>a wrongheaded view about what constitutes scientific progress</q> (Luce, 1988)</li>
+    </ul>
+    <p>
+      NHST is also widely misunderstood, largely because it violates our intuitions about how statistical hypothesis testing should work. Let's look at an example to see this.
+    </p>
+  </section>
+
+  <section xml:id="sec-nhst-example">
+    <title>Null hypothesis statistical testing: An example</title>
+    <p>
+      There is great interest in the use of body-worn cameras by police officers, which are thought to reduce the use of force and improve officer behavior. However, in order to establish this we need experimental evidence, and it has become increasingly common for governments to use randomized controlled trials to test such ideas. A randomized controlled trial of the effectiveness of body-worn cameras was performed by the Washington, DC government and DC Metropolitan Police Department in 2015/2016. Officers were randomly assigned to wear a body-worn camera or not, and their behavior was then tracked over time to determine whether the cameras resulted in less use of force and fewer civilian complaints about officer behavior.
+    </p>
+    <p>
+      Before we get to the results, let's ask how you would think the statistical analysis might work. Let's say we want to specifically test the hypothesis of whether the use of force is decreased by the wearing of cameras. The randomized controlled trial provides us with the data to test the hypothesis <mdash/> namely, the rates of use of force by officers assigned to either the camera or control groups. The next obvious step is to look at the data and determine whether they provide convincing evidence for or against this hypothesis. That is: What is the likelihood that body-worn cameras reduce the use of force, given the data and everything else we know?
+    </p>
+    <p>
+      It turns out that this is <em>not</em> how null hypothesis testing works. Instead, we first take our hypothesis of interest (i.e. that body-worn cameras reduce use of force), and flip it on its head, creating a <em>null hypothesis</em> <mdash/> in this case, the null hypothesis would be that cameras do not reduce use of force. Importantly, we then assume that the null hypothesis is true. We then look at the data, and determine how likely the data would be if the null hypothesis were true. If the data are sufficiently unlikely under the null hypothesis that we can reject the null in favor of the <em>alternative hypothesis</em> which is our hypothesis of interest. If there is not sufficient evidence to reject the null, then we say that we retain (or <q>fail to reject</q>) the null, sticking with our initial assumption that the null is true.
+    </p>
+    <p>
+      Understanding some of the concepts of NHST, particularly the notorious <q>p-value</q>, is invariably challenging the first time one encounters them, because they are so counter-intuitive. As we will see later, there are other approaches that provide a much more intuitive way to address hypothesis testing (but have their own complexities). However, before we get to those, it's important for you to have a deep understanding of how hypothesis testing works, because it's clearly not going to go away any time soon.
+    </p>
+  </section>
+
+  <section xml:id="sec-process-nhst">
+    <title>The process of null hypothesis testing</title>
+    <p>
+      We can break the process of null hypothesis testing down into a number of steps:
+    </p>
+    <ol>
+      <li>Formulate a hypothesis that embodies our prediction (<em>before seeing the data</em>)</li>
+      <li>Specify null and alternative hypotheses</li>
+      <li>Collect some data relevant to the hypothesis</li>
+      <li>Fit a model to the data that represents the alternative hypothesis and compute a test statistic</li>
+      <li>Compute the probability of the observed value of that statistic assuming that the null hypothesis is true</li>
+      <li>Assess the <q>statistical significance</q> of the result</li>
+    </ol>
+    <p>
+      For a hands-on example, let's use the NHANES data to ask the following question: Is physical activity related to body mass index? In the NHANES dataset, participants were asked whether they engage regularly in moderate or vigorous-intensity sports, fitness or recreational activities (stored in the variable <m>PhysActive</m>). The researchers also measured height and weight and used them to compute the <em>Body Mass Index</em> (BMI):
+    </p>
+    <me>
+      BMI = \frac{weight(kg)}{height(m)^2}
+    </me>
+
+    <subsection xml:id="subsec-step1-formulate">
+      <title>Step 1: Formulate a hypothesis of interest</title>
+      <p>
+        We hypothesize that BMI is greater for people who do not engage in physical activity, compared to those who do.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-step2-specify">
+      <title>Step 2: Specify the null and alternative hypotheses</title>
+      <p>
+        For step 2, we need to specify our null hypothesis (which we call <m>H_0</m>) and our alternative hypothesis (which we call <m>H_A</m>). <m>H_0</m> is the baseline against which we test our hypothesis of interest: that is, what would we expect the data to look like if there was no effect? The null hypothesis always involves some kind of equality (<m>=</m>, <m>\le</m>, or <m>\ge</m>). <m>H_A</m> describes what we expect if there actually is an effect. The alternative hypothesis always involves some kind of inequality (<m>\ne</m>, <m>\gt</m>, or <m>\lt</m>). Importantly, null hypothesis testing operates under the assumption that the null hypothesis is true unless the evidence shows otherwise.
+      </p>
+      <p>
+        We also have to decide whether we want to test a <em>directional</em> or <em>non-directional</em> hypotheses. A non-directional hypothesis simply predicts that there will be a difference, without predicting which direction it will go. For the BMI/activity example, a non-directional null hypothesis would be:
+      </p>
+      <me>
+        H_0: BMI_{active} = BMI_{inactive}
+      </me>
+      <p>
+        and the corresponding non-directional alternative hypothesis would be:
+      </p>
+      <me>
+        H_A: BMI_{active} \neq BMI_{inactive}
+      </me>
+      <p>
+        A directional hypothesis, on the other hand, predicts which direction the difference would go. For example, we have strong prior knowledge to predict that people who engage in physical activity should weigh less than those who do not, so we would propose the following directional null hypothesis:
+      </p>
+      <me>
+        H_0: BMI_{active} \ge BMI_{inactive}
+      </me>
+      <p>
+        and directional alternative:
+      </p>
+      <me>
+        H_A: BMI_{active} \lt BMI_{inactive}
+      </me>
+      <p>
+        As we will see later, testing a non-directional hypothesis is more conservative, so this is generally to be preferred unless there is a strong <em>a priori</em> reason to hypothesize an effect in a particular direction. Hypotheses, including whether they are directional or not, should always be specified prior to looking at the data!
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-step3-collect">
+      <title>Step 3: Collect some data</title>
+      <p>
+        In this case, we will sample 250 individuals from the NHANES dataset. Figure <xref ref="fig-bmi-sample"/> shows an example of such a sample, with BMI shown separately for active and inactive individuals, and Table <xref ref="table-bmi-summary"/> shows summary statistics for each group.
+      </p>
+
+      <table xml:id="table-bmi-summary">
+        <title>Summary of BMI data for active versus inactive individuals</title>
+        <tabular halign="center">
+          <row header="yes" bottom="minor">
+            <cell>PhysActive</cell>
+            <cell>N</cell>
+            <cell>Mean</cell>
+            <cell>SD</cell>
+          </row>
+          <row>
+            <cell>No</cell>
+            <cell>131</cell>
+            <cell>30.44</cell>
+            <cell>7.41</cell>
+          </row>
+          <row>
+            <cell>Yes</cell>
+            <cell>119</cell>
+            <cell>27.87</cell>
+            <cell>5.33</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <figure xml:id="fig-bmi-sample">
+        <caption>Box plot of BMI data from a sample of adults from the NHANES dataset, split by whether they reported engaging in regular physical activity.</caption>
+        <image source="bmi_boxplot.png" width="50%">
+          <description>A box plot showing BMI distributions for physically active and inactive individuals. The inactive group shows a higher median BMI and greater variability compared to the active group.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-step4-model">
+      <title>Step 4: Fit a model to the data and compute a test statistic</title>
+      <p>
+        We next want to use the data to compute a statistic that will ultimately let us decide whether the null hypothesis is rejected or not. To do this, the model needs to quantify the amount of evidence in favor of the alternative hypothesis, relative to the variability in the data. Thus we can think of the test statistic as providing a measure of the size of the effect compared to the variability in the data. In general, this test statistic will have a probability distribution associated with it, because that allows us to determine how likely our observed value of the statistic is under the null hypothesis.
+      </p>
+      <p>
+        For the BMI example, we need a test statistic that allows us to test for a difference between two means, since the hypotheses are stated in terms of mean BMI for each group. One statistic that is often used to compare two means is the <em>t</em> statistic, first developed by the statistician William Sealy Gossett, who worked for the Guinness Brewery in Dublin and wrote under the pen name <q>Student</q> - hence, it is often called <q>Student's <em>t</em> statistic</q>. The <em>t</em> statistic is appropriate for comparing the means of two groups when the sample sizes are relatively small and the population standard deviation is unknown. The <em>t</em> statistic for comparison of two independent groups is computed as:
+      </p>
+      <me>
+        t = \frac{\bar{X_1} - \bar{X_2}}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}}
+      </me>
+      <p>
+        where <m>\bar{X}_1</m> and <m>\bar{X}_2</m> are the means of the two groups, <m>S^2_1</m> and <m>S^2_2</m> are the estimated variances of the groups, and <m>n_1</m> and <m>n_2</m> are the sizes of the two groups. Because the variance of a difference between two independent variables is the sum of the variances of each individual variable (<m>var(A - B) = var(A) + var(B)</m>), we add the variances for each group divided by their sample sizes in order to compute the standard error of the difference. Thus, one can view the <em>t</em> statistic as a way of quantifying how large the difference between groups is in relation to the sampling variability of the difference between means.
+      </p>
+      <p>
+        The <em>t</em> statistic is distributed according to a probability distribution known as a <em>t</em> distribution. The <em>t</em> distribution looks quite similar to a normal distribution, but it differs depending on the number of degrees of freedom. When the degrees of freedom are large (say 1000), then the <em>t</em> distribution looks essentially like the normal distribution, but when they are small then the <em>t</em> distribution has longer tails than the normal (see Figure <xref ref="fig-t-versus-normal"/>). In the simplest case, where the groups are the same size and have equal variance, the degrees of freedom for the <em>t</em> test is the number of observations minus 2, since we have computed two means and thus given up two degrees of freedom. In this case it's pretty clear from the box plot that the inactive group is more variable than the active group, and the numbers in each group differ, so we need to use a slightly more complex formula for the degrees of freedom, which is often referred to as a <q>Welch t-test</q>. The formula is:
+      </p>
+      <me>
+        \mathrm{d.f.} = \frac{\left(\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}\right)^2}{\frac{\left(S_1^2/n_1\right)^2}{n_1-1} + \frac{\left(S_2^2/n_2\right)^2}{n_2-1}}
+      </me>
+      <p>
+        This will be equal to <m>n_1 + n_2 - 2</m> when the variances and sample sizes are equal, and otherwise will be smaller, in effect imposing a penalty on the test for differences in sample size or variance. For this example, that comes out to 222.62 which is slightly below the value of 248 that one would get by subtracting 2 from the sample size.
+      </p>
+
+      <figure xml:id="fig-t-versus-normal">
+        <caption>Each panel shows the t distribution (in blue dashed line) overlaid on the normal distribution (in solid red line). The left panel shows a t distribution with 4 degrees of freedom, in which case the distribution is similar but has slightly wider tails. The right panel shows a t distribution with 1000 degrees of freedom, in which case it is virtually identical to the normal.</caption>
+        <image source="t_versus_normal.png" width="75%">
+          <description>Two side-by-side plots comparing t distributions to normal distributions. The left plot shows a t distribution with 4 degrees of freedom that has noticeably wider tails than the normal distribution. The right plot shows a t distribution with 1000 degrees of freedom that is nearly identical to the normal distribution.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-step5-probability">
+      <title>Step 5: Determine the probability of the observed result under the null hypothesis</title>
+      <p>
+        This is the step where NHST starts to violate our intuition. Rather than determining the likelihood that the null hypothesis is true given the data, we instead determine the likelihood under the null hypothesis of observing a statistic at least as extreme as one that we have observed <mdash/> because we started out by assuming that the null hypothesis is true! To do this, we need to know the expected probability distribution for the statistic under the null hypothesis, so that we can ask how likely the result would be under that distribution. Note that when I say <q>how likely the result would be</q>, what I really mean is <q>how likely the observed result or one more extreme would be</q>. There are (at least) two reasons that we need to add this caveat. The first is that when we are talking about continuous values, the probability of any particular value is zero (as you might remember if you've taken a calculus class). More importantly, we are trying to determine how weird our result would be if the null hypothesis were true, and any result that is more extreme will be even more weird, so we want to count all of those weirder possibilities when we compute the probability of our result under the null hypothesis.
+      </p>
+      <p>
+        We can obtain this <q>null distribution</q> either using a theoretical distribution (like the <em>t</em> distribution), or using randomization. Before we move to our BMI example, let's start with some simpler examples.
+      </p>
+
+      <subsubsection xml:id="subsubsec-pvalues-simple">
+        <title>P-values: A very simple example</title>
+        <p>
+          Let's say that we wish to determine whether a particular coin is biased towards landing heads. To collect data, we flip the coin 100 times, and let's say we count 70 heads. In this example, <m>H_0: P(heads) \le 0.5</m> and <m>H_A: P(heads) \gt 0.5</m>, and our test statistic is simply the number of heads that we counted. The question that we then want to ask is: How likely is it that we would observe 70 or more heads in 100 coin flips if the true probability of heads is 0.5? We can imagine that this might happen very occasionally just by chance, but doesn't seem very likely. To quantify this probability, we can use the <em>binomial distribution</em>:
+        </p>
+        <me>
+          P(X \le k) = \sum_{i=0}^k \binom{N}{k} p^i (1-p)^{(n-i)}
+        </me>
+        <p>
+          This equation will tell us the probability of a certain number of heads (<m>k</m>) or fewer, given a particular probability of heads (<m>p</m>) and number of events (<m>N</m>). However, what we really want to know is the probability of a certain number or more, which we can obtain by subtracting from one, based on the rules of probability:
+        </p>
+        <me>
+          P(X \ge k) = 1 - P(X \lt k)
+        </me>
+
+        <figure xml:id="fig-coin-flips">
+          <caption>Distribution of numbers of heads (out of 100 flips) across 100,000 simulated runs with the observed value of 70 flips represented by the vertical line.</caption>
+          <image source="coin_flips_histogram.png" width="50%">
+            <description>A histogram showing the distribution of the number of heads in 100,000 simulations of 100 coin flips. The distribution is centered around 50 heads and appears roughly normal. A vertical red line at 70 heads shows the observed value, which is in the far right tail of the distribution.</description>
+          </image>
+        </figure>
+
+        <p>
+          Using the binomial distribution, the probability of 69 or fewer heads given P(heads)=0.5 is 0.999965, so the probability of 70 or more heads is simply one minus that value (0.000035). This computation shows us that the likelihood of getting 70 or more heads if the coin is indeed fair is very small.
+        </p>
+        <p>
+          Now, what if we didn't have a standard function to tell us the probability of that number of heads? We could instead determine it by simulation <mdash/> we repeatedly flip a coin 100 times using a true probability of 0.5, and then compute the distribution of the number of heads across those simulation runs. Figure <xref ref="fig-coin-flips"/> shows the result from this simulation. Here we can see that the probability computed via simulation (0.000040) is very close to the theoretical probability (0.000035).
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="subsubsec-pvalues-tdist">
+        <title>Computing p-values using the <em>t</em> distribution</title>
+        <p>
+          Now let's compute a p-value for our BMI example using the <em>t</em> distribution. First we compute the <em>t</em> statistic using the values from our sample that we calculated above, where we find that <m>t = 3.03</m>. The question that we then want to ask is: What is the likelihood that we would find a <em>t</em> statistic of this size, if the true difference between groups is zero or less (i.e. the directional null hypothesis)?
+        </p>
+        <p>
+          We can use the <em>t</em> distribution to determine this probability. Above we noted that the appropriate degrees of freedom (after correcting for differences in variance and sample size) was 222.62. We can use a function from our statistical software to determine the probability of finding a value of the <em>t</em> statistic greater than or equal to our observed value. We find that <m>p(t \gt 3.03, df = 222.62) = 0.001355</m>, which tells us that our observed <em>t</em> statistic value of 3.03 is relatively unlikely if the null hypothesis really is true.
+        </p>
+        <p>
+          In this case, we used a directional hypothesis, so we only had to look at one end of the null distribution. If we wanted to test a non-directional hypothesis, then we would need to be able to identify how unexpected the size of the effect is, regardless of its direction. In the context of the t-test, this means that we need to know how likely it is that the statistic would be as extreme in either the positive or negative direction. To do this, we multiply the observed <em>t</em> value by -1, since the <em>t</em> distribution is centered around zero, and then add together the two tail probabilities to get a <em>two-tailed</em> p-value: <m>p(t \gt 3.03 \text{ or } t \lt -3.03, df = 222.62) = 0.002710</m>. Here we see that the p value for the two-tailed test is twice as large as that for the one-tailed test, which reflects the fact that an extreme value is less surprising since it could have occurred in either direction.
+        </p>
+        <p>
+          How do you choose whether to use a one-tailed versus a two-tailed test? The two-tailed test is always going to be more conservative, so it's always a good bet to use that one, unless you had a very strong prior reason for using a one-tailed test. In that case, you should have written down the hypothesis before you ever looked at the data. In Chapter 18 we will discuss the idea of pre-registration of hypotheses, which formalizes the idea of writing down your hypotheses before you ever see the actual data. You should <em>never</em> make a decision about how to perform a hypothesis test once you have looked at the data, as this can introduce serious bias into the results.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="subsubsec-pvalues-randomization">
+        <title>Computing p-values using randomization</title>
+        <p>
+          So far we have seen how we can use the t-distribution to compute the probability of the data under the null hypothesis, but we can also do this using simulation. The basic idea is that we generate simulated data like those that we would expect under the null hypothesis, and then ask how extreme the observed data are in comparison to those simulated data. The key question is: How can we generate data for which the null hypothesis is true? The general answer is that we can randomly rearrange the data in a particular way that makes the data look like they would if the null was really true. This is similar to the idea of bootstrapping, in the sense that it uses our own data to come up with an answer, but it does it in a different way.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="subsubsec-randomization-simple">
+        <title>Randomization: a simple example</title>
+        <p>
+          Let's start with a simple example. Let's say that we want to compare the mean squatting ability of football players with cross-country runners, with <m>H_0: \mu_{FB} \le \mu_{XC}</m> and <m>H_A: \mu_{FB} \gt \mu_{XC}</m>. We measure the maximum squatting ability of 5 football players and 5 cross-country runners (which we will generate randomly, assuming that <m>\mu_{FB} = 300</m>, <m>\mu_{XC} = 140</m>, and <m>\sigma = 30</m>). The data are shown in Table <xref ref="table-squat-data"/>.
+        </p>
+
+        <table xml:id="table-squat-data">
+          <title>Squatting data for the two groups</title>
+          <tabular halign="center">
+            <row header="yes" bottom="minor">
+              <cell>Group</cell>
+              <cell>Squat (lbs)</cell>
+              <cell>Shuffled Squat (lbs)</cell>
+            </row>
+            <row>
+              <cell>FB</cell>
+              <cell>295</cell>
+              <cell>295</cell>
+            </row>
+            <row>
+              <cell>FB</cell>
+              <cell>310</cell>
+              <cell>150</cell>
+            </row>
+            <row>
+              <cell>FB</cell>
+              <cell>325</cell>
+              <cell>155</cell>
+            </row>
+            <row>
+              <cell>FB</cell>
+              <cell>275</cell>
+              <cell>310</cell>
+            </row>
+            <row>
+              <cell>FB</cell>
+              <cell>345</cell>
+              <cell>345</cell>
+            </row>
+            <row>
+              <cell>XC</cell>
+              <cell>150</cell>
+              <cell>135</cell>
+            </row>
+            <row>
+              <cell>XC</cell>
+              <cell>155</cell>
+              <cell>325</cell>
+            </row>
+            <row>
+              <cell>XC</cell>
+              <cell>135</cell>
+              <cell>125</cell>
+            </row>
+            <row>
+              <cell>XC</cell>
+              <cell>160</cell>
+              <cell>275</cell>
+            </row>
+            <row>
+              <cell>XC</cell>
+              <cell>125</cell>
+              <cell>160</cell>
+            </row>
+          </tabular>
+        </table>
+
+        <figure xml:id="fig-squat-boxplot">
+          <caption>Left: Box plots of simulated squatting ability for football players and cross-country runners. Right: Box plots for subjects assigned to each group after scrambling group labels.</caption>
+          <image source="squat_boxplot.png" width="75%">
+            <description>Two side-by-side box plots. The left panel shows a clear difference between FB (higher median around 310 lbs) and XC (lower median around 145 lbs) groups. The right panel shows the same data after shuffling, with much more similar distributions between groups.</description>
+          </image>
+        </figure>
+
+        <p>
+          From the plot on the left side of Figure <xref ref="fig-squat-boxplot"/> it's clear that there is a large difference between the two groups. We can do a standard t-test to test our hypothesis, which gives a result with <m>t = 7.78</m>, <m>df = 8</m>, and <m>p = 0.00004</m>.
+        </p>
+        <p>
+          If we look at the p-value reported here, we see that the likelihood of such a difference under the null hypothesis is very small, using the <em>t</em> distribution to define the null.
+        </p>
+        <p>
+          Now let's see how we could answer the same question using randomization. The basic idea is that if the null hypothesis of no difference between groups is true, then it shouldn't matter which group one comes from (football players versus cross-country runners) <mdash/> thus, to create data that are like our actual data but also conform to the null hypothesis, we can randomly reorder the data for the individuals in the dataset, and then recompute the difference between the groups. The results of such a shuffle are shown in the column labeled <q>shuffleSquat</q> in Table <xref ref="table-squat-data"/>, and the boxplots of the resulting data are in the right panel of Figure <xref ref="fig-squat-boxplot"/>.
+        </p>
+
+        <figure xml:id="fig-shuffle-hist">
+          <caption>Histogram of t-values for the difference in means between the football and cross-country groups after randomly shuffling group membership. The vertical line denotes the actual difference observed between the two groups, and the dotted line shows the theoretical t distribution for this analysis.</caption>
+          <image source="shuffle_histogram.png" width="50%">
+            <description>A histogram showing the distribution of t-values from 10,000 randomized shuffles. The distribution is roughly normal and centered around zero. A vertical red line at t=7.78 shows the observed value, which is far in the right tail. A dotted line overlays the theoretical t distribution.</description>
+          </image>
+        </figure>
+
+        <p>
+          After scrambling the data, we see that the two groups are now much more similar, and in fact the cross-country group now has a slightly higher mean. Now let's do that 10000 times and store the <em>t</em> statistic for each iteration; if you are doing this on your own computer, it will take a moment to complete. Figure <xref ref="fig-shuffle-hist"/> shows the histogram of the <em>t</em> values across all of the random shuffles. As expected under the null hypothesis, this distribution is centered at zero (the mean of the distribution is -0.001). From the figure we can also see that the distribution of <em>t</em> values after shuffling roughly follows the theoretical <em>t</em> distribution under the null hypothesis (with mean=0), showing that randomization worked to generate null data. We can compute the p-value from the randomized data by measuring how many of the shuffled values are at least as extreme as the observed value: <m>p(t \gt 7.78, df = 8)</m> using randomization = 0.00005. This p-value is very similar to the p-value that we obtained using the <em>t</em> distribution, and both are quite extreme, suggesting that the observed data are very unlikely to have arisen if the null hypothesis is true <mdash/> and in this case we <em>know</em> that it's not true, because we generated the data.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="subsubsec-randomization-bmi">
+        <title>Randomization: BMI/activity example</title>
+        <p>
+          Now let's use randomization to compute the p-value for the BMI/activity example. In this case, we will randomly shuffle the <c>PhysActive</c> variable and compute the difference between groups after each shuffle, and then compare our observed <em>t</em> statistic to the distribution of <em>t</em> statistics from the shuffled datasets. Figure <xref ref="fig-sim-diff"/> shows the distribution of <em>t</em> values from the shuffled samples, and we can also compute the probability of finding a value as large or larger than the observed value. The p-value obtained from randomization (0.001400) is very similar to the one obtained using the <em>t</em> distribution (0.001355). The advantage of the randomization test is that it doesn't require that we assume that the data from each of the groups are normally distributed, though the t-test is generally quite robust to violations of that assumption. In addition, the randomization test can allow us to compute p-values for statistics when we don't have a theoretical distribution like we do for the t-test.
+        </p>
+
+        <figure xml:id="fig-sim-diff">
+          <caption>Histogram of t statistics after shuffling of group labels, with the observed value of the t statistic shown in the vertical line, and values at least as extreme as the observed value shown in lighter gray</caption>
+          <image source="sim_diff_histogram.png" width="50%">
+            <description>A histogram showing the distribution of t statistics from 5000 randomizations of the BMI data. The distribution is centered around zero. A vertical blue line shows the observed t statistic around 3, with the region beyond it shaded in light gray to indicate the p-value.</description>
+          </image>
+        </figure>
+
+        <p>
+          We do have to make one main assumption when we use the randomization test, which we refer to as <em>exchangeability</em>. This means that all of the observations are distributed in the same way, such that we can interchange them without changing the overall distribution. The main place where this can break down is when there are related observations in the data; for example, if we had data from individuals in 4 different families, then we couldn't assume that individuals were exchangeable, because siblings would be closer to each other than they are to individuals from other families. In general, if the data were obtained by random sampling, then the assumption of exchangeability should hold.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="subsec-step6-assess">
+      <title>Step 6: Assess the <q>statistical significance</q> of the result</title>
+      <p>
+        The next step is to determine whether the p-value that results from the previous step is small enough that we are willing to reject the null hypothesis and conclude instead that the alternative is true. How much evidence do we require? This is one of the most controversial questions in statistics, in part because it requires a subjective judgment <mdash/> there is no <q>correct</q> answer.
+      </p>
+      <p>
+        Historically, the most common answer to this question has been that we should reject the null hypothesis if the p-value is less than 0.05. This comes from the writings of Ronald Fisher, who has been referred to as <q>the single most important figure in 20th century statistics</q> (Efron, 1998):
+      </p>
+      <blockquote>
+        <p>
+          <q>If P is between .1 and .9 there is certainly no reason to suspect the hypothesis tested. If it is below .02 it is strongly indicated that the hypothesis fails to account for the whole of the facts. We shall not often be astray if we draw a conventional line at .05 ... it is convenient to draw the line at about the level at which we can say: Either there is something in the treatment, or a coincidence has occurred such as does not occur more than once in twenty trials</q> (Fisher, 1925)
+        </p>
+      </blockquote>
+      <p>
+        However, Fisher never intended <m>p \lt 0.05</m> to be a fixed rule:
+      </p>
+      <blockquote>
+        <p>
+          <q>no scientific worker has a fixed level of significance at which from year to year, and in all circumstances, he rejects hypotheses; he rather gives his mind to each particular case in the light of his evidence and his ideas</q> (Fisher, 1956)
+        </p>
+      </blockquote>
+      <p>
+        Instead, it is likely that <m>p \lt .05</m> became a ritual due to the reliance upon tables of p-values that were used before computing made it easy to compute p values for arbitrary values of a statistic. All of the tables had an entry for 0.05, making it easy to determine whether one's statistic exceeded the value needed to reach that level of significance.
+      </p>
+      <p>
+        The choice of statistical thresholds remains deeply controversial, and recently (Benjamin et al., 2018) it has been proposed that the default threshold be changed from .05 to .005, making it substantially more stringent and thus more difficult to reject the null hypothesis. In large part this move is due to growing concerns that the evidence obtained from a significant result at <m>p \lt .05</m> is relatively weak; we will return to this in our later discussion of reproducibility in Chapter 18.
+      </p>
+
+      <subsubsection xml:id="subsubsec-neyman-pearson">
+        <title>Hypothesis testing as decision-making: The Neyman-Pearson approach</title>
+        <p>
+          Whereas Fisher thought that the p-value could provide evidence regarding a specific hypothesis, the statisticians Jerzy Neyman and Egon Pearson disagreed vehemently. Instead, they proposed that we think of hypothesis testing in terms of its error rate in the long run:
+        </p>
+        <blockquote>
+          <p>
+            <q>no test based upon a theory of probability can by itself provide any valuable evidence of the truth or falsehood of a hypothesis. But we may look at the purpose of tests from another viewpoint. Without hoping to know whether each separate hypothesis is true or false, we may search for rules to govern our behaviour with regard to them, in following which we insure that, in the long run of experience, we shall not often be wrong</q> (Neyman and Pearson, 1933)
+          </p>
+        </blockquote>
+        <p>
+          That is: We can't know which specific decisions are right or wrong, but if we follow the rules, we can at least know how often our decisions will be wrong in the long run.
+        </p>
+        <p>
+          To understand the decision making framework that Neyman and Pearson developed, we first need to discuss statistical decision making in terms of the kinds of outcomes that can occur. There are two possible states of reality (<m>H_0</m> is true, or <m>H_0</m> is false), and two possible decisions (reject <m>H_0</m>, or retain <m>H_0</m>). There are two ways in which we can make a correct decision:
+        </p>
+        <ul>
+          <li>We can reject <m>H_0</m> when it is false (in the language of signal detection theory, we call this a <em>hit</em>)</li>
+          <li>We can retain <m>H_0</m> when it is true (somewhat confusingly in this context, this is called a <em>correct rejection</em>)</li>
+        </ul>
+        <p>
+          There are also two kinds of errors we can make:
+        </p>
+        <ul>
+          <li>We can reject <m>H_0</m> when it is actually true (we call this a <em>false alarm</em>, or <em>Type I error</em>)</li>
+          <li>We can retain <m>H_0</m> when it is actually false (we call this a <em>miss</em>, or <em>Type II error</em>)</li>
+        </ul>
+        <p>
+          Neyman and Pearson coined two terms to describe the probability of these two types of errors in the long run:
+        </p>
+        <ul>
+          <li>P(Type I error) = <m>\alpha</m></li>
+          <li>P(Type II error) = <m>\beta</m></li>
+        </ul>
+        <p>
+          That is, if we set <m>\alpha</m> to .05, then in the long run we should make a Type I error 5% of the time. Whereas it's common to set <m>\alpha</m> as .05, the standard value for an acceptable level of <m>\beta</m> is .2 <mdash/> that is, we are willing to accept that 20% of the time we will fail to detect a true effect when it truly exists. We will return to this later when we discuss statistical power in Chapter 10, which is the complement of Type II error.
+        </p>
+      </subsubsection>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-significant-result-meaning">
+    <title>What does a significant result mean?</title>
+    <p>
+      There is a great deal of confusion about what p-values actually mean (Gigerenzer, 2004). Let's say that we do an experiment comparing the means between conditions, and we find a difference with a p-value of .01. There are a number of possible interpretations that one might entertain.
+    </p>
+
+    <subsection xml:id="subsec-null-prob">
+      <title>Does it mean that the probability of the null hypothesis being true is .01?</title>
+      <p>
+        No. Remember that in null hypothesis testing, the p-value is the probability of the data given the null hypothesis (<m>P(data|H_0)</m>). It does not warrant conclusions about the probability of the null hypothesis given the data (<m>P(H_0|data)</m>). We will return to this question when we discuss Bayesian inference in a later chapter, as Bayes theorem lets us invert the conditional probability in a way that allows us to determine the probability of the hypothesis given the data.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-wrong-decision-prob">
+      <title>Does it mean that the probability that you are making the wrong decision is .01?</title>
+      <p>
+        No. This would be <m>P(H_0|data)</m>, but remember as above that p-values are probabilities of data under <m>H_0</m>, not probabilities of hypotheses.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-replication-prob">
+      <title>Does it mean that if you ran the study again, you would obtain the same result 99% of the time?</title>
+      <p>
+        No. The p-value is a statement about the likelihood of a particular dataset under the null; it does not allow us to make inferences about the likelihood of future events such as replication.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-practical-importance">
+      <title>Does it mean that you have found a practically important effect?</title>
+      <p>
+        No. There is an essential distinction between <em>statistical significance</em> and <em>practical significance</em>. As an example, let's say that we performed a randomized controlled trial to examine the effect of a particular diet on body weight, and we find a statistically significant effect at <m>p \lt .05</m>. What this doesn't tell us is how much weight was actually lost, which we refer to as the <em>effect size</em> (to be discussed in more detail in Chapter 10). If we think about a study of weight loss, then we probably don't think that the loss of one ounce (i.e. the weight of a few potato chips) is practically significant. Let's look at our ability to detect a significant difference of 1 ounce as the sample size increases.
+      </p>
+
+      <figure xml:id="fig-sig-results">
+        <caption>The proportion of significant results for a very small change (1 ounce, which is about .001 standard deviations) as a function of sample size.</caption>
+        <image source="sig_results_sample_size.png" width="75%">
+          <description>A line plot showing how the proportion of significant results increases with sample size on a log scale. The x-axis shows sample sizes from 32 to 131,072 per group on a log2 scale. The y-axis shows proportion of significant results from 0 to 1. The line starts near 0.05 at small sample sizes and increases sigmoidally, reaching above 0.9 at the largest sample sizes. A horizontal dashed line at 0.05 indicates the nominal alpha level.</description>
+        </image>
+      </figure>
+
+      <p>
+        Figure <xref ref="fig-sig-results"/> shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets. While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of <em>statistical power</em> in Chapter 10, but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-multiple-testing">
+    <title>NHST in a modern context: Multiple testing</title>
+    <p>
+      So far we have discussed examples where we are interested in testing a single statistical hypothesis, and this is consistent with traditional science which often measured only a few variables at a time. However, in modern science we can often measure millions of variables per individual. For example, in genetic studies that quantify the entire genome, there may be many millions of measures per individual, and in the brain imaging research that my group does, we often collect data from more than 100,000 locations in the brain at once. When standard hypothesis testing is applied in these contexts, bad things can happen unless we take appropriate care.
+    </p>
+    <p>
+      Let's look at an example to see how this might work. There is great interest in understanding the genetic factors that can predispose individuals to major mental illnesses such as schizophrenia, because we know that about 80% of the variation between individuals in the presence of schizophrenia is due to genetic differences. The Human Genome Project and the ensuing revolution in genome science has provided tools to examine the many ways in which humans differ from one another in their genomes. One approach that has been used in recent years is known as a <em>genome-wide association study</em> (GWAS), in which the genome of each individual is characterized at one million or more places to determine which letters of the genetic code they have at each location, focusing on locations where humans tend to differ frequently. After these have been determined, the researchers perform a statistical test at each location in the genome to determine whether people diagnosed with schizophrenia are more or less likely to have one specific version of the genetic sequence at that location.
+    </p>
+    <p>
+      Let's imagine what would happen if the researchers simply asked whether the test was significant at <m>p \lt .05</m> at each location, when in fact there is no true effect at any of the locations. To do this, we generate a large number of simulated <em>t</em> values from a null distribution, and ask how many of them are significant at <m>p \lt .05</m>. Let's do this many times, and each time count up how many of the tests come out as significant (see Figure <xref ref="fig-null-sim"/>).
+    </p>
+
+    <figure xml:id="fig-null-sim">
+      <caption>Left: A histogram of the number of significant results in each set of one million statistical tests, when there is in fact no true effect. Right: A histogram of the number of significant results across all simulation runs after applying the Bonferroni correction for multiple tests.</caption>
+      <image source="null_simulation_histogram.png" width="75%">
+        <description>Two side-by-side histograms. The left panel shows a distribution of the number of significant results centered around 50,000 out of 1 million tests. The right panel shows a distribution centered very close to zero after Bonferroni correction is applied.</description>
+      </image>
+    </figure>
+
+    <p>
+      This shows that about 5% of all of the tests were significant in each run, meaning that if we were to use <m>p \lt .05</m> as our threshold for statistical significance, then even if there were no truly significant relationships present, we would still <q>find</q> about 500 genes that were seemingly significant in each study (the expected number of significant results is simply <m>n \times \alpha</m>). That is because while we controlled for the error per test, we didn't control the error rate across our entire <em>family</em> of tests (known as the <em>familywise error</em>), which is what we really want to control if we are going to be looking at the results from a large number of tests. Using <m>p \lt .05</m>, our familywise error rate in the above example is one <mdash/> that is, we are pretty much guaranteed to make at least one error in any particular study.
+    </p>
+    <p>
+      A simple way to control for the familywise error is to divide the alpha level by the number of tests; this is known as the <em>Bonferroni</em> correction, named after the Italian statistician Carlo Bonferroni. Using the data from our example above, we see in Figure <xref ref="fig-null-sim"/> that only about 5 percent of studies show any significant results using the corrected alpha level of 0.000005 instead of the nominal level of .05. We have effectively controlled the familywise error, such that the probability of making <em>any</em> errors in our study is controlled at right around .05.
+    </p>
+  </section>
+
+  <section xml:id="sec-hypothesis-testing-learning-objectives">
+    <title>Learning objectives</title>
+    <ul>
+      <li>Identify the components of a hypothesis test, including the parameter of interest, the null and alternative hypotheses, and the test statistic.</li>
+      <li>Describe the proper interpretations of a p-value as well as common misinterpretations</li>
+      <li>Distinguish between the two types of error in hypothesis testing, and the factors that determine them.</li>
+      <li>Describe how resampling can be used to compute a p-value.</li>
+      <li>Describe the problem of multiple testing, and how it can be addressed</li>
+      <li>Describe the main criticisms of null hypothesis statistical testing</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-hypothesis-testing-suggested-readings">
+    <title>Suggested readings</title>
+    <ul>
+      <li><url href="https://library.mpib-berlin.mpg.de/ft/gg/GG_Mindless_2004.pdf" visual="library.mpib-berlin.mpg.de">Mindless Statistics, by Gerd Gigerenzer</url></li>
+    </ul>
   </section>
 
 </chapter>
