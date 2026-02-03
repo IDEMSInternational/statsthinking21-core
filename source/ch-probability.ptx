@@ -51,7 +51,7 @@
     <subsection xml:id="subsec-probability-empirical-frequency">
       <title>Empirical frequency</title>
       <p>
-        Another way to determine the probability of an event is to do the experiment many times and count how often each event happens. From the relative frequency of the different outcomes, we can compute the probability of each outcome. For example, let's say that we are interested in knowing the probability of rain in San Francisco. We first have to define the experiment <mdash/> let's say that we will look at the National Weather Service data for each day in 2017 and determine whether there was any rain at the downtown San Francisco weather station. According to these data, in 2017 there were 73 rainy days. To compute the probability of rain in San Francisco, we simply divide the number of rainy days by the number of days counted (365), giving P(rain in SF in 2017) = 0.2.
+        Another way to determine the probability of an event is to do the experiment many times and count how often each event happens. From the relative frequency of the different outcomes, we can compute the probability of each outcome. For example, let's say that we are interested in knowing the probability of rain in San Francisco. We first have to define the experiment <mdash/> let's say that we will look at the National Weather Service data for each day in 2017 and determine whether there was any rain at the downtown San Francisco weather station. According to these data, in 2017 there were 73 rainy days. To compute the probability of rain in San Francisco, we simply divide the number of rainy days by the number of days counted (365), giving <m>P(\text{rain in SF in 2017}) = 0.2</m>.
       </p>
       <p>
         How do we know that empirical probability gives us the right number? The answer to this question comes from the <em>law of large numbers</em>, which shows that the empirical probability will approach the true probability as the sample size increases. We can see this by simulating a large number of coin flips, and looking at our estimate of the probability of heads after each flip. We will spend more time discussing simulation in a later chapter; for now, just assume that we have a computational way to generate a random outcome for each coin flip.
@@ -390,11 +390,11 @@
     </p>
     <ul>
       <li>Describe the sample space for a selected random experiment.</li>
-      <li>Compute relative frequency and empirical probability for a given set of events</li>
+      <li>Compute relative frequency and empirical probability for a given set of events.</li>
       <li>Compute probabilities of single events, complementary events, and the unions and intersections of collections of events.</li>
       <li>Describe the law of large numbers.</li>
-      <li>Describe the difference between a probability and a conditional probability</li>
-      <li>Describe the concept of statistical independence</li>
+      <li>Describe the difference between a probability and a conditional probability.</li>
+      <li>Describe the concept of statistical independence.</li>
       <li>Use Bayes' theorem to compute the inverse conditional probability.</li>
     </ul>
   </section>
