@@ -25,7 +25,7 @@
 
       <colophon>
         <copyright>
-          <year>2019<ndash />2026</year>
+          <year>2019<ndash/>2026</year>
           <holder>Russell A. Poldrack</holder>
           <minilicense>CC BY-NC 4.0 License</minilicense>
           <shortlicense>
@@ -43,7 +43,7 @@
           The goal of this book is to tell the story of statistics as it is used today by researchers around the world.
           It's a different story than the one told in most introductory statistics books, which focus on teaching how to
           use a set of tools to achieve very specific goals. This book focuses on understanding the basic ideas of
-          <em>statistical thinking</em> <mdash /> a systematic way of thinking about how we describe the world and use data to make
+          <em>statistical thinking</em> <mdash/> a systematic way of thinking about how we describe the world and use data to make
           decisions and predictions, all in the context of the inherent uncertainty that exists in the real world.
         </p>
       </preface>
