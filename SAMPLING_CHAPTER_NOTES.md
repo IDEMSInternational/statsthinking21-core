@@ -3,6 +3,9 @@
 ## Overview
 This document provides information about the conversion of the Sampling chapter from R Markdown to PreTeXt format.
 
+## Project Configuration Note
+The `project.ptx` file uses the attribute-based format compatible with PreTeXt 2.32.0 (as specified in requirements.txt). Do not convert to child element format as that is incompatible with this version.
+
 ## Image Placeholders
 
 The Sampling chapter includes references to two figures that are dynamically generated using R code in the original .Rmd file:
