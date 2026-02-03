@@ -10,17 +10,13 @@ output:
 # Probability
 
 ```{r echo=FALSE,message=FALSE}
+source("R/setup.R")
 library(dplyr)
 library(reshape2)
 library(tidyr)
 library(ggplot2)
-library(knitr)
 library(readr)
-library(cowplot)
 library(janitor)
-# load the NHANES data library
-library(NHANES)
-
 ```
 
 Probability theory is the branch of mathematics that deals with chance and uncertainty.  It forms an important part of the foundation for statistics, because it provides us with the mathematical tools to describe uncertain events.  The study of probability arose in part due to interest in understanding games of chance, like cards or dice.  These games provide useful examples of many statistical concepts, because when we repeat these games the likelihood of different outcomes remains (mostly) the same. However, there are deep questions about the meaning of probability that we will not address here; see Suggested Readings at the end if you are interested in learning more about this fascinating topic and its history.
