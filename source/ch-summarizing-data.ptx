@@ -4,15 +4,464 @@
 
   <introduction>
     <p>
-      <!-- Chapter introduction content goes here -->
+      I mentioned in the Introduction that one of the big discoveries of statistics is the idea that we can better understand the world by throwing away information, and that's exactly what we are doing when we summarize a dataset. In this Chapter we will discuss why and how to summarize data.
     </p>
   </introduction>
 
-  <section xml:id="sec-central-tendency">
-    <title>Central Tendency</title>
+  <section xml:id="sec-why-summarize-data">
+    <title>Why summarize data?</title>
     <p>
-      <!-- Section content goes here -->
+      When we summarize data, we are necessarily throwing away information, and one might plausibly object to this. As an example, let's go back to the PURE study that we discussed in Chapter 1. Are we not supposed to believe that all of the details about each individual matter, beyond those that are summarized in the dataset? What about the specific details of how the data were collected, such as the time of day or the mood of the participant? All of these details are lost when we summarize the data.
     </p>
+    <p>
+      One reason that we summarize data is that it provides us with a way to <em>generalize</em> <mdash/> that is, to make general statements that extend beyond specific observations. The importance of generalization was highlighted by the writer Jorge Luis Borges in his short story <q>Funes the Memorious</q>, which describes an individual who loses the ability to forget. Borges focuses in on the relation between generalization (i.e. throwing away data) and thinking: <q>To think is to forget a difference, to generalize, to abstract. In the overly replete world of Funes, there were nothing but details.</q>
+    </p>
+    <p>
+      Psychologists have long studied all of the ways in which generalization is central to thinking. One example is categorization: We are able to easily recognize different examples of the category of <q>birds</q> even though the individual examples may be very different in their surface features (such as an ostrich, a robin, and a chicken). Importantly, generalization lets us make predictions about these individuals <mdash/> in the case of birds, we can predict that they can fly and eat seeds, and that they probably can't drive a car or speak English. These predictions won't always be right, but they are often good enough to be useful in the world.
+    </p>
+  </section>
+
+  <section xml:id="sec-summarizing-tables">
+    <title>Summarizing data using tables</title>
+    <p>
+      A simple way to summarize data is to generate a table representing counts of various types of observations. This type of table has been used for thousands of years (see Figure <xref ref="fig-sales-contract"/>).
+    </p>
+
+    <figure xml:id="fig-sales-contract">
+      <caption>A Sumerian tablet from the Louvre, showing a sales contract for a house and field. Public domain, via Wikimedia Commons.</caption>
+      <image source="Sales_contract_Shuruppak_Louvre_AO3760.jpg" width="30%">
+        <description>A photograph of an ancient Sumerian clay tablet with cuneiform writing showing a sales contract for a house and field.</description>
+      </image>
+    </figure>
+
+    <p>
+      Let's look at some examples of the use of tables, using a more realistic dataset. Throughout this book we will use the <url href="https://www.cdc.gov/nchs/nhanes/index.htm" visual="www.cdc.gov/nchs/nhanes">National Health and Nutrition Examination Survey (NHANES)</url> dataset. This is an ongoing study that assesses the health and nutrition status of a sample of individuals from the United States on many different variables. We will use a version of the dataset that is available for the R statistical software package. For this example, we will look at a simple variable, called <em>PhysActive</em> in the dataset. This variable contains one of three different values: <q>Yes</q> or <q>No</q> (indicating whether or not the person reports doing <q>moderate or vigorous-intensity sports, fitness or recreational activities</q>), or <q>NA</q> if the data are missing for that individual. There are different reasons that the data might be missing; for example, this question was not asked of children younger than 12 years of age, while in other cases an adult may have declined to answer the question during the interview, or the interviewer's recording of the answer on their form might be unreadable.
+    </p>
+
+    <subsection xml:id="subsec-frequency-distributions">
+      <title>Frequency distributions</title>
+      <p>
+        A <em>distribution</em> describes how data are divided between different possible values. For this example, let's look at how many people fall into each of the physical activity categories.
+      </p>
+
+      <table xml:id="table-phys-active">
+        <title>Frequency distribution for PhysActive variable</title>
+        <tabular halign="left">
+          <row header="yes" bottom="minor">
+            <cell>PhysActive</cell>
+            <cell>AbsoluteFrequency</cell>
+          </row>
+          <row>
+            <cell>No</cell>
+            <cell>3677</cell>
+          </row>
+          <row>
+            <cell>Yes</cell>
+            <cell>4649</cell>
+          </row>
+          <row>
+            <cell>NA</cell>
+            <cell>1674</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Table <xref ref="table-phys-active"/> shows the frequencies of each of the different values; there were 3677 individuals who responded <q>No</q> to the question, 4649 who responded <q>Yes</q>, and 1674 for whom no response was given. We call this a <em>frequency distribution</em> because it tells us how frequent each of the possible values is within our sample.
+      </p>
+
+      <p>
+        This shows us the absolute frequency of the two responses, for everyone who actually gave a response. We can see from this that there are more people saying <q>Yes</q> than <q>No</q>, but it can be hard to tell from absolute numbers how big the difference is in relative terms. For this reason, we often would rather present the data using <em>relative frequency</em>, which is obtained by dividing each frequency by the sum of all frequencies:
+      </p>
+
+      <me>
+        relative\ frequency_i = \frac{absolute\ frequency_i}{\sum_{j=1}^N absolute\ frequency_j}
+      </me>
+
+      <p>
+        The relative frequency provides a much easier way to see how big the imbalance is. We can also interpret the relative frequencies as percentages by multiplying them by 100. In this example, we will drop the NA values as well, since we would like to be able to interpret the relative frequencies of active versus inactive people. However, for this to make sense we have to assume that the NA values are missing <q>at random</q>, meaning that their presence or absence is not related to the true value of the variable for that person. For example, if inactive participants were more likely to refuse to answer the question than active participants, then that would <em>bias</em> our estimate of the frequency of physical activity, meaning that our estimate would be different from the true value.
+      </p>
+
+      <table xml:id="table-phys-active-filtered">
+        <title>Absolute and relative frequencies and percentages for PhysActive variable</title>
+        <tabular halign="left">
+          <row header="yes" bottom="minor">
+            <cell>PhysActive</cell>
+            <cell>AbsoluteFrequency</cell>
+            <cell>RelativeFrequency</cell>
+            <cell>Percentage</cell>
+          </row>
+          <row>
+            <cell>No</cell>
+            <cell>3677</cell>
+            <cell>0.442</cell>
+            <cell>44.2</cell>
+          </row>
+          <row>
+            <cell>Yes</cell>
+            <cell>4649</cell>
+            <cell>0.558</cell>
+            <cell>55.8</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Table <xref ref="table-phys-active-filtered"/> lets us see that 44.2 percent of the individuals in the NHANES sample said <q>No</q> and 55.8 percent said <q>Yes</q>.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-cumulative-distributions">
+      <title>Cumulative distributions</title>
+      <p>
+        The <em>PhysActive</em> variable that we examined above only had two possible values, but often we wish to summarize data that can have many more possible values. When those values are quantitative, then one useful way to summarize them is via what we call a <em>cumulative</em> frequency representation: rather than asking how many observations take on a specific value, we ask how many have a value some specific value <em>or less</em>.
+      </p>
+
+      <p>
+        Let's look at another variable in the NHANES dataset, called <em>SleepHrsNight</em> which records how many hours the participant reports sleeping on usual weekdays. Table <xref ref="table-sleep"/> shows a frequency table created as we did above, after removing anyone with missing data for this question. We can already begin to summarize the dataset just by looking at the table; for example, we can see that most people report sleeping between 6 and 8 hours. To see this even more clearly, we can plot a <em>histogram</em> which shows the number of cases having each of the different values; see left panel of Figure <xref ref="fig-sleep-hist"/>. We can also plot the relative frequencies, which we will often refer to as <em>densities</em> <mdash/> see the right panel of Figure <xref ref="fig-sleep-hist"/>.
+      </p>
+
+      <table xml:id="table-sleep">
+        <title>Frequency distribution for number of hours of sleep per night in the NHANES dataset</title>
+        <tabular halign="center">
+          <row header="yes" bottom="minor">
+            <cell>SleepHrsNight</cell>
+            <cell>AbsoluteFrequency</cell>
+            <cell>RelativeFrequency</cell>
+            <cell>Percentage</cell>
+          </row>
+          <row>
+            <cell>2</cell>
+            <cell>9</cell>
+            <cell>0.001</cell>
+            <cell>0.1</cell>
+          </row>
+          <row>
+            <cell>3</cell>
+            <cell>49</cell>
+            <cell>0.006</cell>
+            <cell>0.6</cell>
+          </row>
+          <row>
+            <cell>4</cell>
+            <cell>200</cell>
+            <cell>0.024</cell>
+            <cell>2.4</cell>
+          </row>
+          <row>
+            <cell>5</cell>
+            <cell>406</cell>
+            <cell>0.049</cell>
+            <cell>4.9</cell>
+          </row>
+          <row>
+            <cell>6</cell>
+            <cell>1172</cell>
+            <cell>0.141</cell>
+            <cell>14.1</cell>
+          </row>
+          <row>
+            <cell>7</cell>
+            <cell>1394</cell>
+            <cell>0.168</cell>
+            <cell>16.8</cell>
+          </row>
+          <row>
+            <cell>8</cell>
+            <cell>2641</cell>
+            <cell>0.318</cell>
+            <cell>31.8</cell>
+          </row>
+          <row>
+            <cell>9</cell>
+            <cell>1101</cell>
+            <cell>0.133</cell>
+            <cell>13.3</cell>
+          </row>
+          <row>
+            <cell>10</cell>
+            <cell>594</cell>
+            <cell>0.072</cell>
+            <cell>7.2</cell>
+          </row>
+          <row>
+            <cell>11</cell>
+            <cell>73</cell>
+            <cell>0.009</cell>
+            <cell>0.9</cell>
+          </row>
+          <row>
+            <cell>12</cell>
+            <cell>667</cell>
+            <cell>0.080</cell>
+            <cell>8.0</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <figure xml:id="fig-sleep-hist">
+        <caption>Left: Histogram showing the number (left) and proportion (right) of people reporting each possible value of the SleepHrsNight variable.</caption>
+        <image source="sleepHist.png" width="80%">
+          <description>Two side-by-side histograms. The left histogram shows absolute frequency with bars ranging from 0 to about 2600, with the tallest bar at 8 hours. The right histogram shows the same data as proportions/density, with the same shape but y-axis ranging from 0 to about 0.32.</description>
+        </image>
+      </figure>
+
+      <p>
+        What if we want to know how many people report sleeping 5 hours or less? To find this, we can compute a <em>cumulative distribution</em>. To compute the cumulative frequency for some value j, we add up the frequencies for all of the values up to and including j:
+      </p>
+
+      <me>
+        cumulative\ frequency_j = \sum_{i=1}^{j}{absolute\ frequency_i}
+      </me>
+
+      <table xml:id="table-sleep-cumulative">
+        <title>Absolute and cumulative frequency distributions for SleepHrsNight variable</title>
+        <tabular halign="center">
+          <row header="yes" bottom="minor">
+            <cell>SleepHrsNight</cell>
+            <cell>AbsoluteFrequency</cell>
+            <cell>CumulativeFrequency</cell>
+          </row>
+          <row>
+            <cell>2</cell>
+            <cell>9</cell>
+            <cell>9</cell>
+          </row>
+          <row>
+            <cell>3</cell>
+            <cell>49</cell>
+            <cell>58</cell>
+          </row>
+          <row>
+            <cell>4</cell>
+            <cell>200</cell>
+            <cell>258</cell>
+          </row>
+          <row>
+            <cell>5</cell>
+            <cell>406</cell>
+            <cell>664</cell>
+          </row>
+          <row>
+            <cell>6</cell>
+            <cell>1172</cell>
+            <cell>1836</cell>
+          </row>
+          <row>
+            <cell>7</cell>
+            <cell>1394</cell>
+            <cell>3230</cell>
+          </row>
+          <row>
+            <cell>8</cell>
+            <cell>2641</cell>
+            <cell>5871</cell>
+          </row>
+          <row>
+            <cell>9</cell>
+            <cell>1101</cell>
+            <cell>6972</cell>
+          </row>
+          <row>
+            <cell>10</cell>
+            <cell>594</cell>
+            <cell>7566</cell>
+          </row>
+          <row>
+            <cell>11</cell>
+            <cell>73</cell>
+            <cell>7639</cell>
+          </row>
+          <row>
+            <cell>12</cell>
+            <cell>667</cell>
+            <cell>8306</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Let's do this for our sleep variable, computing the absolute and cumulative frequency. In the left panel of Figure <xref ref="fig-sleep-cumulative"/> we plot the data to see what these representations look like; the absolute frequency values are plotted in solid lines, and the cumulative frequencies are plotted in dashed lines. We see that the cumulative frequency is <em>monotonically increasing</em> <mdash/> that is, it can only go up or stay constant, but it can never decrease. Again, we usually find the relative frequencies to be more useful than the absolute; those are plotted in the right panel of Figure <xref ref="fig-sleep-cumulative"/>. Importantly, the shape of the relative frequency plot is exactly the same as the absolute frequency plot <mdash/> only the size of the values has changed.
+      </p>
+
+      <figure xml:id="fig-sleep-cumulative">
+        <caption>A plot of the relative (solid) and cumulative relative (dashed) values for frequency (left) and proportion (right) for the possible values of SleepHrsNight.</caption>
+        <image source="sleepAbsCumulRelFreq.png" width="80%">
+          <description>Two side-by-side line plots. Both show solid lines representing frequency/proportion and dashed lines representing cumulative frequency/proportion. The solid lines show a peak at 8 hours, while the dashed lines show a monotonically increasing S-shaped curve.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-plotting-histograms">
+      <title>Plotting histograms</title>
+      <p>
+        The variables that we examined above were fairly simple, having only a few possible values. Now let's look at a more complex variable: Age. First let's plot the <em>Age</em> variable for all of the individuals in the NHANES dataset (see left panel of Figure <xref ref="fig-age-hist"/>). What do you see there? First, you should notice that the number of individuals in each age group is declining over time. This makes sense because the population is being randomly sampled, and thus death over time leads to fewer people in the older age ranges. Second, you probably notice a large spike in the graph at age 80. What do you think that's about?
+      </p>
+
+      <p>
+        If we were to look up the information about the NHANES dataset, we would see the following definition for the <em>Age</em> variable: <q>Age in years at screening of study participant. Note: Subjects 80 years or older were recorded as 80.</q> The reason for this is that the relatively small number of individuals with very high ages would make it potentially easier to identify the specific person in the dataset if you knew their exact age; researchers generally promise their participants to keep their identity confidential, and this is one of the things they can do to help protect their research subjects. This also highlights the fact that it's always important to know where one's data have come from and how they have been processed; otherwise we might interpret them improperly, thinking that 80-year-olds had been somehow overrepresented in the sample.
+      </p>
+
+      <figure xml:id="fig-age-hist">
+        <caption>A histogram of the Age (left) and Height (right) variables in NHANES.</caption>
+        <image source="ageHist.png" width="80%">
+          <description>Two histograms side-by-side. Left shows age distribution with decreasing frequency and a spike at age 80. Right shows height distribution with a peak around 170 cm and a long left tail.</description>
+        </image>
+      </figure>
+
+      <p>
+        Let's look at another more complex variable in the NHANES dataset: Height. The histogram of height values is plotted in the right panel of Figure <xref ref="fig-age-hist"/>. The first thing you should notice about this distribution is that most of its density is centered around about 170 cm, but the distribution has a <q>tail</q> on the left; there are a small number of individuals with much smaller heights. What do you think is going on here?
+      </p>
+
+      <p>
+        You may have intuited that the small heights are coming from the children in the dataset. One way to examine this is to plot the histogram with separate colors for children and adults (left panel of Figure <xref ref="fig-height-hist-sep"/>). This shows that all of the very short heights were indeed coming from children in the sample. Let's create a new version of NHANES that only includes adults, and then plot the histogram just for them (right panel of Figure <xref ref="fig-height-hist-sep"/>). In that plot the distribution looks much more symmetric. As we will see later, this is a nice example of a <em>normal</em> (or <em>Gaussian</em>) distribution.
+      </p>
+
+      <figure xml:id="fig-height-hist-sep">
+        <caption>Histogram of heights for NHANES. A: values plotted separately for children (gray) and adults (black). B: values for adults only. C: Same as B, but with bin width = 0.1</caption>
+        <image source="heightHistSep.png" width="80%">
+          <description>Three histograms showing height distributions. Panel A shows overlapping histograms for children and adults. Panel B shows a symmetric distribution for adults only. Panel C shows the same adult distribution with finer binning, appearing more jagged.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-histogram-bins">
+      <title>Histogram bins</title>
+      <p>
+        In our earlier example with the sleep variable, the data were reported in whole numbers, and we simply counted the number of people who reported each possible value. However, if you look at a few values of the Height variable in NHANES (as shown in Table <xref ref="table-height-vals"/>), you will see that it was measured in centimeters down to the first decimal place.
+      </p>
+
+      <table xml:id="table-height-vals">
+        <title>A few values of Height from the NHANES data frame.</title>
+        <tabular halign="center">
+          <row header="yes" bottom="minor">
+            <cell>Height</cell>
+          </row>
+          <row>
+            <cell>169.6</cell>
+          </row>
+          <row>
+            <cell>169.8</cell>
+          </row>
+          <row>
+            <cell>167.5</cell>
+          </row>
+          <row>
+            <cell>155.2</cell>
+          </row>
+          <row>
+            <cell>173.8</cell>
+          </row>
+          <row>
+            <cell>174.5</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Panel C of Figure <xref ref="fig-height-hist-sep"/> shows a histogram that counts the density of each possible value down the first decimal place. That histogram looks really jagged, which is because of the variability in specific decimal place values. For example, the value 173.2 occurs many times, while the value 173.3 only occurs a few times. We probably don't think that there is really such a big difference between the prevalence of these two heights; more likely this is just due to random variability in our sample of people.
+      </p>
+
+      <p>
+        In general, when we create a histogram of data that are continuous or where there are many possible values, we will <em>bin</em> the values so that instead of counting and plotting the frequency of every specific value, we count and plot the frequency of values falling within specific ranges. That's why the plot looked less jagged above in Panel B; in this panel we set the bin width to 1, which means that the histogram is computed by combining values within bins with a width of one; thus, the values 1.3, 1.5, and 1.6 would all count toward the frequency of the same bin, which would span from values equal to one up through values less than 2.
+      </p>
+
+      <p>
+        Note that once the bin size has been selected, then the number of bins is determined by the data:
+      </p>
+
+      <me>
+        number\, of\, bins = \frac{range\, of\, scores}{bin\, width}
+      </me>
+
+      <p>
+        There is no hard and fast rule for how to choose the optimal bin width. Occasionally it will be obvious (as when there are only a few possible values), but in many cases it would require trial and error. There are methods that try to find an optimal bin size automatically, such as the Freedman-Diaconis method that we will use in some later examples.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-idealized-distributions">
+    <title>Idealized representations of distributions</title>
+    <p>
+      Datasets are like snowflakes, in that every one is different, but nonetheless there are patterns that one often sees in different types of data. This allows us to use idealized representations of the data to further summarize them. Let's take the adult height data plotted in Figure <xref ref="fig-height-hist-sep"/>, and plot them alongside a very different variable: pulse rate (heartbeats per minute), also measured in NHANES (see Figure <xref ref="fig-normal-dist-plots"/>).
+    </p>
+
+    <figure xml:id="fig-normal-dist-plots">
+      <caption>Histograms for height (left) and pulse (right) in the NHANES dataset, with the normal distribution overlaid for each dataset.</caption>
+      <image source="NormalDistPlotsWithDist.png" width="80%">
+        <description>Two histograms side-by-side with smooth bell-shaped curves overlaid. The left shows height distribution centered around 170 cm, and the right shows pulse distribution centered around 73 bpm. Both histograms are reasonably well-fit by the overlaid normal distribution curves.</description>
+      </image>
+    </figure>
+
+    <p>
+      While these plots certainly don't look exactly the same, both have the general characteristic of being relatively symmetric around a rounded peak in the middle. This shape is in fact one of the commonly observed shapes of distributions when we collect data, which we call the <em>normal</em> (or <em>Gaussian</em>) distribution. This distribution is defined in terms of two values (which we call <em>parameters</em> of the distribution): the location of the center peak (which we call the <em>mean</em>) and the width of the distribution (which is described in terms of a parameter called the <em>standard deviation</em>). Figure <xref ref="fig-normal-dist-plots"/> shows the appropriate normal distribution plotted on top of each of the histograms. You can see that although the curves don't fit the data exactly, they do a pretty good job of characterizing the distribution <mdash/> with just two numbers!
+    </p>
+
+    <p>
+      As we will see later when we discuss the central limit theorem, there is a deep mathematical reason why many variables in the world exhibit the form of a normal distribution.
+    </p>
+
+    <subsection xml:id="subsec-skewness">
+      <title>Skewness</title>
+      <p>
+        The examples in Figure <xref ref="fig-normal-dist-plots"/> followed the normal distribution fairly well, but in many cases the data will deviate in a systematic way from the normal distribution. One way in which the data can deviate is when they are asymmetric, such that one tail of the distribution is more dense than the other. We refer to this as <q>skewness</q>. Skewness commonly occurs when the measurement is constrained to be non-negative, such as when we are counting things or measuring elapsed times (and thus the variable can't take on negative values).
+      </p>
+
+      <p>
+        An example of relatively mild skewness can be seen in the average waiting times at the airport security lines at San Francisco International Airport, plotted in the left panel of Figure <xref ref="fig-sfo-wait-times"/>. You can see that while most wait times are less than 20 minutes, there are a number of cases where they are much longer, over 60 minutes! This is an example of a <q>right-skewed</q> distribution, where the right tail is longer than the left; these are common when looking at counts or measured times, which can't be less than zero. It's less common to see <q>left-skewed</q> distributions, but they can occur, for example when looking at fractional values that can't take a value greater than one.
+      </p>
+
+      <figure xml:id="fig-sfo-wait-times">
+        <caption>Examples of right-skewed and long-tailed distributions. Left: Average wait times for security at SFO Terminal A (Jan-Oct 2017), obtained from https://awt.cbp.gov/. Right: A histogram of the number of Facebook friends amongst 3,663 individuals, obtained from the Stanford Large Network Database. The person with the maximum number of friends is indicated by the diamond.</caption>
+        <image source="SFOWaitTimes.png" width="80%">
+          <description>Two histograms showing right-skewed distributions. Left shows airport wait times with most values under 20 minutes but a long right tail to 60+ minutes. Right shows Facebook friends with most having few friends but one outlier with many friends marked by a diamond.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-long-tailed">
+      <title>Long-tailed distributions</title>
+      <p>
+        Historically, statistics has focused heavily on data that are normally distributed, but there are many data types that look nothing like the normal distribution. In particular, many real-world distributions are <q>long-tailed</q>, meaning that the right tail extends far beyond the most typical members of the distribution; that is, they are extremely skewed. One of the most interesting types of data where long-tailed distributions occur arises from the analysis of social networks. For an example, let's look at the Facebook friend data from the <url href="https://snap.stanford.edu/data/egonets-Facebook.html" visual="snap.stanford.edu">Stanford Large Network Database</url> and plot the histogram of number of friends across the 3,663 people in the database (see right panel of Figure <xref ref="fig-sfo-wait-times"/>). As we can see, this distribution has a very long right tail <mdash/> the average person has 44 friends, while the person with the most friends (denoted by the diamond) has 1043!
+      </p>
+
+      <p>
+        Long-tailed distributions are increasingly being recognized in the real world. In particular, many features of complex systems are characterized by these distributions, from the frequency of words in text, to the number of flights in and out of different airports, to the connectivity of brain networks. There are a number of different ways that long-tailed distributions can come about, but a common one occurs in cases of the so-called <q>Matthew effect</q> from the Christian Bible:
+      </p>
+
+      <blockquote>
+        <p>
+          For to every one who has will more be given, and he will have abundance; but from him who has not, even what he has will be taken away. <mdash/> Matthew 25:29, Revised Standard Version
+        </p>
+      </blockquote>
+
+      <p>
+        This is often paraphrased as <q>the rich get richer</q>. In these situations, advantages compound, such that those with more friends have access to even more new friends, and those with more money have the ability to do things that increase their riches even more.
+      </p>
+
+      <p>
+        As the course progresses we will see several examples of long-tailed distributions, and we should keep in mind that many of the tools in statistics can fail when faced with long-tailed data. As Nassim Nicholas Taleb pointed out in his book <q>The Black Swan</q>, such long-tailed distributions played a critical role in the 2008 financial crisis, because many of the financial models used by traders assumed that financial systems would follow the normal distribution, which they clearly did not.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-learning-objectives">
+    <title>Learning objectives</title>
+    <p>
+      Having read this chapter, you should be able to:
+    </p>
+    <ul>
+      <li>Compute absolute, relative, and cumulative frequency distributions for a given dataset</li>
+      <li>Generate a graphical representation of a frequency distribution</li>
+      <li>Describe the difference between a normal and a long-tailed distribution, and describe the situations that commonly give rise to each</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-suggested-readings">
+    <title>Suggested readings</title>
+    <ul>
+      <li><em>The Black Swan: The Impact of the Highly Improbable</em>, by Nassim Nicholas Taleb</li>
+    </ul>
   </section>
 
 </chapter>
