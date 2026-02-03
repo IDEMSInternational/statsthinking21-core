@@ -1,0 +1,3 @@
+# PreTeXt requirements for building the book
+# Using version 2.32.0 to avoid rs_services.xml cache issues in newer versions
+pretext == 2.32.0
