@@ -236,7 +236,7 @@
       <!-- R code output showing Bayes factor results would appear here -->
 
       <p>
-        This shows us that the alternative hypothesis is 0.058 times more likely than the null hypothesis, which means that the null hypothesis is 1/0.058 ~ 17 times more likely than the alternative hypothesis given these data. This is fairly strong, if not completely overwhelming, evidence in favor of the null hypothesis.
+        This shows us that the alternative hypothesis is 0.058 times more likely than the null hypothesis, which means that the null hypothesis is 1/0.058 <m>\approx</m> 17 times more likely than the alternative hypothesis given these data. This is fairly strong, if not completely overwhelming, evidence in favor of the null hypothesis.
       </p>
     </subsection>
   </section>
