@@ -65,7 +65,7 @@
       y_i = \beta + \epsilon
     </me>
     <p>
-      The subscript <m>i</m> doesn't appear on the right side of the equation, which means that the prediction of the model doesn't depend on which observation we are looking at <mdash/> it's the same for all of them. The question then becomes: how do we estimate the best values of the parameter(s) in the model? In this particular case, what single value is the best estimate for <m>\beta</m>? And, more importantly, how do we even define <em>best</em>?
+      The subscript <m>i</m> doesn't appear on the right side of the equation, which means that the prediction of the model doesn't depend on which observation we are looking at <mdash/> it's the same for all of them. Here <m>\epsilon</m> represents the error term for observation <m>i</m>. The question then becomes: how do we estimate the best values of the parameter(s) in the model? In this particular case, what single value is the best estimate for <m>\beta</m>? And, more importantly, how do we even define <em>best</em>?
     </p>
     <p>
       One very simple estimator that we might imagine is the <em>mode</em>, which is simply the most common value in the dataset. This redescribes the entire set of children in terms of a single number. If we wanted to predict the height of any new children, then our predicted value would be the same number:
@@ -314,7 +314,7 @@
     </table>
 
     <p>
-      The mean is now almost 10 million dollars, which is not really representative of any of the people in the bar <mdash/> in particular, it is heavily driven by the outlying value of Beyoncé. In general, the mean is highly sensitive to extreme values, which is why it's always important to ensure that there are no extreme values when using the mean to summarize data.
+      The mean is now almost $10 million, which is not really representative of any of the people in the bar <mdash/> in particular, it is heavily driven by the outlying value of Beyoncé. In general, the mean is highly sensitive to extreme values, which is why it's always important to ensure that there are no extreme values when using the mean to summarize data.
     </p>
 
     <subsection xml:id="subsec-median">
