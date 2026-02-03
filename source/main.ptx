@@ -73,8 +73,6 @@
 
       <references xml:id="references">
         <title>References</title>
-      text = text.replace('{\\`e}', 'è')
-    <!-- Generated 32 bibliography entries from psych10-book.bib -->
     
       <biblio type="raw" xml:id="Sullivan-2012ta">
         Gail M Sullivan and Richard Feinn. <title>Using Effect Size-or Why the P Value Is Not Enough</title>. <journal>J Grad Med Educ</journal>, <volume>4</volume>, (3), 279-82. 2012. doi:<url href="https://doi.org/10.4300/JGME-D-12-00156.1">10.4300/JGME-D-12-00156.1</url>.
@@ -109,7 +107,7 @@
       </biblio>
     
       <biblio type="raw" xml:id="efron1998">
-        Bradley Efron. <title>R. A. Fisher in the 21st century (Invited paper presented at the                1996 R. A. Fisher Lecture)</title>. <journal>Statist. Sci.</journal>, <volume>13</volume>, (2), 95--122. 1998. doi:<url href="https://doi.org/10.1214/ss/1028905930">10.1214/ss/1028905930</url>.
+        Bradley Efron. <title>R. A. Fisher in the 21st century (Invited paper presented at the 1996 R. A. Fisher Lecture)</title>. <journal>Statist. Sci.</journal>, <volume>13</volume>, (2), 95--122. 1998. doi:<url href="https://doi.org/10.1214/ss/1028905930">10.1214/ss/1028905930</url>.
       </biblio>
     
       <biblio type="raw" xml:id="dehg-ment-zhan-2017">
