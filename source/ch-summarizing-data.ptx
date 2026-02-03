@@ -75,7 +75,7 @@
       </p>
 
       <me>
-        relative\ frequency_i = \frac{absolute\ frequency_i}{\sum_{j=1}^N absolute\ frequency_j}
+        \text{relative frequency}_i = \frac{\text{absolute frequency}_i}{\sum_{j=1}^N \text{absolute frequency}_j}
       </me>
 
       <p>
@@ -211,7 +211,7 @@
       </p>
 
       <me>
-        cumulative\ frequency_j = \sum_{i=1}^{j}{absolute\ frequency_i}
+        \text{cumulative frequency}_j = \sum_{i=1}^{j}{\text{absolute frequency}_i}
       </me>
 
       <table xml:id="table-sleep-cumulative">
@@ -371,7 +371,7 @@
       </p>
 
       <me>
-        number\, of\, bins = \frac{range\, of\, scores}{bin\, width}
+        \text{number of bins} = \frac{\text{range of scores}}{\text{bin width}}
       </me>
 
       <p>
