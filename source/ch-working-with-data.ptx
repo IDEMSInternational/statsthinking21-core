@@ -4,15 +4,241 @@
 
   <introduction>
     <p>
-      <!-- Chapter introduction content goes here -->
+      This chapter introduces the fundamental concepts of data and measurement that are essential for statistical thinking.
     </p>
   </introduction>
 
-  <section xml:id="sec-data-types">
-    <title>Types of Data</title>
+  <section xml:id="sec-what-are-data">
+    <title>What are data?</title>
     <p>
-      <!-- Section content goes here -->
+      The first important point about data is that data <em>are</em> <mdash/> meaning that the word <q>data</q> is plural (though some people disagree with me on this). You might also wonder how to pronounce <q>data</q> <mdash/> I say <q>day-tah</q>, but I know many people who say <q>dah-tah</q>, and I have been able to remain friends with them in spite of this. Now, if I heard them say <q>the data is</q> then that would be a bigger issue...
     </p>
+
+    <subsection xml:id="subsec-qualitative-data">
+      <title>Qualitative data</title>
+      <p>
+        Data are composed of <em>variables</em>, where a variable reflects a unique measurement or quantity. Some variables are <em>qualitative</em>, meaning that they describe a quality rather than a numeric quantity. For example, in my stats course I generally give an introductory survey, both to obtain data to use in class and to learn more about the students. One of the questions that I ask is <q>What is your favorite food?</q>, to which some of the answers have been: blueberries, chocolate, tamales, pasta, pizza, and mango. Those data are not intrinsically numerical; we could assign numbers to each one (1=blueberries, 2=chocolate, etc), but we would just be using the numbers as labels rather than as real numbers. This also constrains what we should do with those numbers; for example, it wouldn't make sense to compute the average of those numbers. However, we will often code qualitative data using numbers in order to make them easier to work with, as you will see later.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-quantitative-data">
+      <title>Quantitative data</title>
+      <p>
+        More commonly in statistics we will work with <em>quantitative</em> data, meaning data that are numerical. For example, Table <xref ref="table-why-taking-class"/> shows the results from another question that I ask in my introductory class, which is <q>Why are you taking this class?</q>
+      </p>
+
+      <table xml:id="table-why-taking-class">
+        <title>Counts of the prevalence of different responses to the question "Why are you taking this class?"</title>
+        <tabular halign="left">
+          <row header="yes" bottom="minor">
+            <cell>Why are you taking this class?</cell>
+            <cell>Number of students</cell>
+          </row>
+          <row>
+            <cell>It fulfills a degree plan requirement</cell>
+            <cell>105</cell>
+          </row>
+          <row>
+            <cell>It fulfills a General Education Breadth Requirement</cell>
+            <cell>32</cell>
+          </row>
+          <row>
+            <cell>It is not required but I am interested in the topic</cell>
+            <cell>11</cell>
+          </row>
+          <row>
+            <cell>Other</cell>
+            <cell>4</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Note that the students' answers were qualitative, but we generated a quantitative summary of them by counting how many students gave each response.
+      </p>
+
+      <subsubsection xml:id="subsubsec-types-of-numbers">
+        <title>Types of numbers</title>
+        <p>
+          There are several different types of numbers that we work with in statistics. It's important to understand these differences, in part because statistical analysis languages (such as R) often distinguish between them.
+        </p>
+
+        <p>
+          <term>Binary numbers</term>. The simplest are binary numbers <mdash/> that is, zero or one. We will often use binary numbers to represent whether something is true or false, or present or absent. For example, I might ask 10 people if they have ever experienced a migraine headache, recording their answers as <q>Yes</q> or <q>No</q>. It's often useful to instead use <em>logical</em> values, which take the value of either <c>TRUE</c> or <c>FALSE</c>. This can be especially useful when we start using programming languages like R to analyze our data, since these languages already understand the concepts of TRUE and FALSE. In fact, most programming languages treat truth values and binary numbers equivalently. The number 1 is equal to the logical value <c>TRUE</c>, and the number zero is equal to the logical value <c>FALSE</c>.
+        </p>
+
+        <p>
+          <term>Integers</term>. Integers are whole numbers with no fractional or decimal part. We most commonly encounter integers when we count things, but they also often occur in psychological measurement. For example, in my introductory survey I administer a set of questions about attitudes towards statistics (such as <q>Statistics seems very mysterious to me.</q>), on which the students respond with a number between 1 (<q>Disagree strongly</q>) and 7 (<q>Agree strongly</q>).
+        </p>
+
+        <p>
+          <term>Real numbers</term>. Most commonly in statistics we work with real numbers, which have a fractional/decimal part. For example, we might measure someone's weight, which can be measured to an arbitrary level of precision, from kilograms down to micrograms.
+        </p>
+      </subsubsection>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-discrete-continuous">
+    <title>Discrete versus continuous measurements</title>
+    <p>
+      A <em>discrete</em> measurement is one that takes one of a finite set of particular values. These could be qualitative values (for example, different breeds of dogs) or numerical values (for example, how many friends one has on Facebook). Importantly, there is no middle ground between the measurements; it doesn't make sense to say that one has 33.7 friends.
+    </p>
+    <p>
+      A <em>continuous</em> measurement is one that is defined in terms of a real number. It could fall anywhere in a particular range of values, though usually our measurement tools will limit the precision with which we can measure it; for example, a floor scale might measure weight to the nearest kg, even though weight could in theory be measured with much more precision.
+    </p>
+    <p>
+      It is common in statistics courses to go into more detail about different <q>scales</q> of measurement, which are discussed in more detail in the Appendix to this chapter. The most important takeaway from this is that some kinds of statistics don't make sense on some kinds of data. For example, imagine that we were to collect postal Zip Code data from a number of individuals. Those numbers are represented as integers, but they don't actually refer to a numeric scale; each zip code basically serves as a label for a different region. For this reason, it wouldn't make sense to talk about the average zip code, for example.
+    </p>
+  </section>
+
+  <section xml:id="sec-good-measurement">
+    <title>What makes a good measurement?</title>
+    <p>
+      In many fields such as psychology, the thing that we are measuring is not a physical feature, but instead is an unobservable theoretical concept, which we usually refer to as a <em>construct</em>. For example, let's say that I want to test how well you understand the distinction between the different types of numbers described above. I could give you a pop quiz that would ask you several questions about these concepts and count how many you got right. This test might or might not be a good measurement of the construct of your actual knowledge <mdash/> for example, if I were to write the test in a confusing way or use language that you don't understand, then the test might suggest you don't understand the concepts when really you do. On the other hand, if I give a multiple choice test with very obvious wrong answers, then you might be able to perform well on the test even if you don't actually understand the material.
+    </p>
+    <p>
+      It is usually impossible to measure a construct without some amount of error. In the example above, you might know the answer, but you might mis-read the question and get it wrong. In other cases, there is error intrinsic to the thing being measured, such as when we measure how long it takes a person to respond on a simple reaction time test, which will vary from trial to trial for many reasons. We generally want our measurement error to be as low as possible, which we can achieve either by improving the quality of the measurement (for example, using a better time to measure reaction time), or by averaging over a larger number of indvidiual measurements.
+    </p>
+    <p>
+      Sometimes there is a standard against which other measurements can be tested, which we might refer to as a <q>gold standard</q> <mdash/> for example, measurement of sleep can be done using many different devices (such as devices that measure movement in bed), but they are generally considered inferior to the gold standard of polysomnography (which uses measurement of brain waves to quantify the amount of time a person spends in each stage of sleep). Often the gold standard is more difficult or expensive to perform, and the cheaper method is used even though it might have greater error.
+    </p>
+    <p>
+      When we think about what makes a good measurement, we usually distinguish two different aspects of a good measurement: it should be <em>reliable</em>, and it should be <em>valid</em>.
+    </p>
+
+    <subsection xml:id="subsec-reliability">
+      <title>Reliability</title>
+      <p>
+        Reliability refers to the consistency of our measurements. One common form of reliability, known as <q>test-retest reliability</q>, measures how well the measurements agree if the same measurement is performed twice. For example, I might give you a questionnaire about your attitude towards statistics today, repeat this same questionnaire tomorrow, and compare your answers on the two days; we would hope that they would be very similar to one another, unless something happened in between the two tests that should have changed your view of statistics (like reading this book!).
+      </p>
+      <p>
+        Another way to assess reliability comes in cases where the data include subjective judgments. For example, let's say that a researcher wants to determine whether a treatment changes how well an autistic child interacts with other children, which is measured by having experts watch the child and rate their interactions with the other children. In this case we would like to make sure that the answers don't depend on the individual rater <mdash/> that is, we would like for there to be high <em>inter-rater reliability</em>. This can be assessed by having more than one rater perform the rating, and then comparing their ratings to make sure that they agree well with one another.
+      </p>
+      <p>
+        Reliability is important if we want to compare one measurement to another, because the relationship between two different variables can't be any stronger than the relationship between either of the variables and itself (i.e., its reliability). This means that an unreliable measure can never have a strong statistical relationship with any other measure. For this reason, researchers developing a new measurement (such as a new survey) will often go to great lengths to establish and improve its reliability.
+      </p>
+
+      <figure xml:id="fig-reliability-validity">
+        <caption>A figure demonstrating the distinction between reliability and validity, using shots at a bullseye. Reliability refers to the consistency of location of shots, and validity refers to the accuracy of the shots with respect to the center of the bullseye.</caption>
+        <image source="ReliabilityValidity.png" width="60%">
+          <description>A four-panel figure showing dots representing shots at a bullseye target with concentric red circles. Panel A (Reliable and valid) shows tightly clustered dots at the center. Panel B (Unreliable but valid) shows scattered dots centered around the bullseye. Panel C (Reliable but invalid) shows tightly clustered dots offset from center. Panel D (Unreliable and invalid) shows scattered dots offset from center.</description>
+        </image>
+      </figure>
+    </subsection>
+
+    <subsection xml:id="subsec-validity">
+      <title>Validity</title>
+      <p>
+        Reliability is important, but on its own it's not enough: After all, I could create a perfectly reliable measurement on a personality test by re-coding every answer using the same number, regardless of how the person actually answers. We want our measurements to also be <em>valid</em> <mdash/> that is, we want to make sure that we are actually measuring the construct that we think we are measuring (Figure <xref ref="fig-reliability-validity"/>). There are many different types of validity that are commonly discussed; we will focus on three of them.
+      </p>
+      <p>
+        <term>Face validity</term>. Does the measurement make sense on its face? If I were to tell you that I was going to measure a person's blood pressure by looking at the color of their tongue, you would probably think that this was not a valid measure on its face. On the other hand, using a blood pressure cuff would have face validity. This is usually a first reality check before we dive into more complicated aspects of validity.
+      </p>
+      <p>
+        <term>Construct validity</term>. Is the measurement related to other measurements in an appropriate way? This is often subdivided into two aspects. <em>Convergent validity</em> means that the measurement should be closely related to other measures that are thought to reflect the same construct. Let's say that I am interested in measuring how extroverted a person is using either a questionnaire or an interview. Convergent validity would be demonstrated if both of these different measurements are closely related to one another. On the other hand, measurements thought to reflect different constructs should be unrelated, known as <em>divergent validity</em>. If my theory of personality says that extraversion and conscientiousness are two distinct constructs, then I should also see that my measurements of extraversion are <em>unrelated</em> to measurements of conscientiousness.
+      </p>
+      <p>
+        <term>Predictive validity</term>. If our measurements are truly valid, then they should also be predictive of other outcomes. For example, let's say that we think that the psychological trait of sensation seeking (the desire for new experiences) is related to risk taking in the real world. To test for predictive validity of a measurement of sensation seeking, we would test how well scores on the test predict scores on a different survey that measures real-world risk taking.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-data-learning-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      Having read this chapter, you should be able to:
+    </p>
+    <ul>
+      <li>Distinguish between different types of variables (quantitative/qualitative, binary/integer/real, discrete/continuous) and give examples of each of these kinds of variables</li>
+      <li>Distinguish between the concepts of reliability and validity and apply each concept to a particular dataset</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-data-suggested-readings">
+    <title>Suggested readings</title>
+    <ul>
+      <li><url href="http://www.personality-project.org/r/book/" visual="personality-project.org/r/book"><em>An Introduction to Psychometric Theory with Applications in R</em></url> <mdash/> A free online textbook on psychological measurement</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-data-appendix">
+    <title>Appendix</title>
+
+    <subsection xml:id="subsec-scales-measurement">
+      <title>Scales of measurement</title>
+      <p>
+        All variables must take on at least two different possible values (otherwise they would be a <em>constant</em> rather than a variable), but different values of the variable can relate to each other in different ways, which we refer to as <em>scales of measurement</em>. There are four ways in which the different values of a variable can differ.
+      </p>
+      <ul>
+        <li><em>Identity</em>: Each value of the variable has a unique meaning.</li>
+        <li><em>Magnitude</em>: The values of the variable reflect different magnitudes and have an ordered relationship to one another <mdash/> that is, some values are larger and some are smaller.</li>
+        <li><em>Equal intervals</em>: Units along the scale of measurement are equal to one another. This means, for example, that the difference between 1 and 2 would be equal in its magnitude to the difference between 19 and 20.</li>
+        <li><em>Absolute zero</em>: The scale has a true meaningful zero point. For example, for many measurements of physical quantities such as height or weight, this is the complete absence of the thing being measured.</li>
+      </ul>
+      <p>
+        There are four different scales of measurement that go along with these different ways that values of a variable can differ.
+      </p>
+      <p>
+        <term>Nominal scale</term>. A nominal variable satisfies the criterion of identity, such that each value of the variable represents something different, but the numbers simply serve as qualitative labels as discussed above. For example, we might ask people for their political party affiliation, and then code those as numbers: 1 = <q>Republican</q>, 2 = <q>Democrat</q>, 3 = <q>Libertarian</q>, and so on. However, the different numbers do not have any ordered relationship with one another.
+      </p>
+      <p>
+        <term>Ordinal scale</term>. An ordinal variable satisfies the criteria of identity and magnitude, such that the values can be ordered in terms of their magnitude. For example, we might ask a person with chronic pain to complete a form every day assessing how bad their pain is, using a 1-7 numeric scale. Note that while the person is presumably feeling more pain on a day when they report a 6 versus a day when they report a 3, it wouldn't make sense to say that their pain is twice as bad on the former versus the latter day; the ordering gives us information about relative magnitude, but the differences between values are not necessarily equal in magnitude.
+      </p>
+      <p>
+        <term>Interval scale</term>. An interval scale has all of the features of an ordinal scale, but in addition the intervals between units on the measurement scale can be treated as equal. A standard example is physical temperature measured in Celsius or Fahrenheit; the physical difference between 10 and 20 degrees is the same as the physical difference between 90 and 100 degrees, but each scale can also take on negative values.
+      </p>
+      <p>
+        <term>Ratio scale</term>. A ratio scale variable has all four of the features outlined above: identity, magnitude, equal intervals, and absolute zero. The difference between a ratio scale variable and an interval scale variable is that the ratio scale variable has a true zero point. Examples of ratio scale variables include physical height and weight, along with temperature measured in Kelvin.
+      </p>
+      <p>
+        There are two important reasons that we must pay attention to the scale of measurement of a variable. First, the scale determines what kind of mathematical operations we can apply to the data (see Table <xref ref="table-measurement-types"/>). A nominal variable can only be compared for equality; that is, do two observations on that variable have the same numeric value? It would not make sense to apply other mathematical operations to a nominal variable, since they don't really function as numbers in a nominal variable, but rather as labels. With ordinal variables, we can also test whether one value is greater or lesser than another, but we can't do any arithmetic. Interval and ratio variables allow us to perform arithmetic; with interval variables we can only add or subtract values, whereas with ratio variables we can also multiply and divide values.
+      </p>
+
+      <table xml:id="table-measurement-types">
+        <title>Different scales of measurement admit different types of numeric operations</title>
+        <tabular halign="center">
+          <row header="yes" bottom="minor">
+            <cell>Scale</cell>
+            <cell>Equal/not equal</cell>
+            <cell><m>&gt;</m>/<m>&lt;</m></cell>
+            <cell><m>+</m>/<m>-</m></cell>
+            <cell>Multiply/divide</cell>
+          </row>
+          <row>
+            <cell>Nominal</cell>
+            <cell>OK</cell>
+            <cell></cell>
+            <cell></cell>
+            <cell></cell>
+          </row>
+          <row>
+            <cell>Ordinal</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+            <cell></cell>
+            <cell></cell>
+          </row>
+          <row>
+            <cell>Interval</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+            <cell></cell>
+          </row>
+          <row>
+            <cell>Ratio</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+            <cell>OK</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        These constraints also imply that there are certain kinds of statistics that we can compute on each type of variable. Statistics that simply involve counting of different values (such as the most common value, known as the <em>mode</em>), can be calculated on any of the variable types. Other statistics are based on ordering or ranking of values (such as the <em>median</em>, which is the middle value when all of the values are ordered by their magnitude), and these require that the value at least be on an ordinal scale. Finally, statistics that involve adding up values (such as the average, or <em>mean</em>), require that the variables be at least on an interval scale. Having said that, we should note that it's quite common for researchers to compute the mean of variables that are only ordinal (such as responses on personality tests), but this can sometimes be problematic.
+      </p>
+    </subsection>
   </section>
 
 </chapter>

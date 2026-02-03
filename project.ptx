@@ -6,9 +6,9 @@
 -->
 <project ptx-version="2">
   <targets>
-    <target name="html" format="html" source="main.ptx" publication="publication.ptx" />
-    <target name="latex" format="latex" source="main.ptx" publication="publication.ptx" />
-    <target name="pdf" format="pdf" source="main.ptx" publication="publication.ptx" />
-    <target name="web" format="html" source="main.ptx" publication="publication.ptx" deploy="yes" />
+    <target name="html" format="html" source="source/main.ptx" publication="publication/publication.ptx" />
+    <target name="latex" format="latex" source="source/main.ptx" publication="publication/publication.ptx" />
+    <target name="pdf" format="pdf" source="source/main.ptx" publication="publication/publication.ptx" />
+    <target name="web" format="html" source="source/main.ptx" publication="publication/publication.ptx" deploy="yes" />
   </targets>
 </project>
