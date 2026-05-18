@@ -423,11 +423,11 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
         The next step is to determine whether the p-value that results from the previous step is small enough that we are willing to reject the null hypothesis and conclude instead that the alternative is true. How much evidence do we require? This is one of the most controversial questions in statistics, in part because it requires a subjective judgment <mdash/> there is no <q>correct</q> answer.
       </p>
       <p>
-        Historically, the most common answer to this question has been that we should reject the null hypothesis if the p-value is less than 0.05. This comes from the writings of Ronald Fisher, who has been referred to as <q>the single most important figure in 20th century statistics</q> (Efron, 1998):
+        Historically, the most common answer to this question has been that we should reject the null hypothesis if the p-value is less than 0.05. This comes from the writings of Ronald Fisher, who has been referred to as <q>the single most important figure in 20th century statistics</q> <xref ref="efron1998"/>:
       </p>
       <blockquote>
         <p>
-          <q>If P is between .1 and .9 there is certainly no reason to suspect the hypothesis tested. If it is below .02 it is strongly indicated that the hypothesis fails to account for the whole of the facts. We shall not often be astray if we draw a conventional line at .05 ... it is convenient to draw the line at about the level at which we can say: Either there is something in the treatment, or a coincidence has occurred such as does not occur more than once in twenty trials</q> (Fisher, 1925)
+          <q>If P is between .1 and .9 there is certainly no reason to suspect the hypothesis tested. If it is below .02 it is strongly indicated that the hypothesis fails to account for the whole of the facts. We shall not often be astray if we draw a conventional line at .05 ... it is convenient to draw the line at about the level at which we can say: Either there is something in the treatment, or a coincidence has occurred such as does not occur more than once in twenty trials</q> <xref ref="fisher1925statistical"/>
         </p>
       </blockquote>
       <p>
@@ -435,7 +435,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       </p>
       <blockquote>
         <p>
-          <q>no scientific worker has a fixed level of significance at which from year to year, and in all circumstances, he rejects hypotheses; he rather gives his mind to each particular case in the light of his evidence and his ideas</q> (Fisher, 1956)
+          <q>no scientific worker has a fixed level of significance at which from year to year, and in all circumstances, he rejects hypotheses; he rather gives his mind to each particular case in the light of his evidence and his ideas</q> <xref ref="fish-1956"/>
         </p>
       </blockquote>
       <p>
@@ -452,7 +452,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
         </p>
         <blockquote>
           <p>
-            <q>no test based upon a theory of probability can by itself provide any valuable evidence of the truth or falsehood of a hypothesis. But we may look at the purpose of tests from another viewpoint. Without hoping to know whether each separate hypothesis is true or false, we may search for rules to govern our behaviour with regard to them, in following which we insure that, in the long run of experience, we shall not often be wrong</q> (Neyman and Pearson, 1933)
+            <q>no test based upon a theory of probability can by itself provide any valuable evidence of the truth or falsehood of a hypothesis. But we may look at the purpose of tests from another viewpoint. Without hoping to know whether each separate hypothesis is true or false, we may search for rules to govern our behaviour with regard to them, in following which we insure that, in the long run of experience, we shall not often be wrong</q> <xref ref="Neyman289"/>
           </p>
         </blockquote>
         <p>
