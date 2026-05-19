@@ -80,6 +80,7 @@
       <p>
         The parameter is an unknown constant and no probability statement concerning its value may be made.
       </p>
+      <attribution><xref ref="Neyman37"/></attribution>
     </blockquote>
     <p>
       Instead, we have to view the confidence interval procedure from the same standpoint that we viewed hypothesis testing: As a procedure that in the long run will allow us to make correct statements with a particular probability. Thus, the proper interpretation of the 95% confidence interval is that it is an interval that will contain the true population mean 95% of the time, and in fact we can confirm that using simulation, as you will see below.
@@ -169,7 +170,7 @@
         There is a close relationship between confidence intervals and hypothesis tests. In particular, if the confidence interval does not include the null hypothesis, then the associated statistical test would be statistically significant. For example, if you are testing whether the mean of a sample is greater than zero with <m>\alpha = 0.05</m>, you could simply check to see whether zero is contained within the 95% confidence interval for the mean.
       </p>
       <p>
-        Things get trickier if we want to compare the means of two conditions. There are a couple of situations that are clear. First, if each mean is contained within the confidence interval for the other mean, then there is definitely no significant difference at the chosen confidence level. Second, if there is no overlap between the confidence intervals, then there is certainly a significant difference at the chosen level; in fact, this test is substantially <em>conservative</em>, such that the actual error rate will be lower than the chosen level. But what about the case where the confidence intervals overlap one another but don't contain the means for the other group? In this case the answer depends on the relative variability of the two variables, and there is no general answer. However, one should in general avoid using the <q>eyeball test</q> for overlapping confidence intervals.
+        Things get trickier if we want to compare the means of two conditions <xref ref="sche-gent-2001"/>. There are a couple of situations that are clear. First, if each mean is contained within the confidence interval for the other mean, then there is definitely no significant difference at the chosen confidence level. Second, if there is no overlap between the confidence intervals, then there is certainly a significant difference at the chosen level; in fact, this test is substantially <em>conservative</em>, such that the actual error rate will be lower than the chosen level. But what about the case where the confidence intervals overlap one another but don't contain the means for the other group? In this case the answer depends on the relative variability of the two variables, and there is no general answer. However, one should in general avoid using the <q>eyeball test</q> for overlapping confidence intervals.
       </p>
     </subsection>
   </section>
@@ -180,7 +181,7 @@
       <p>
         Statistical significance is the least interesting thing about the results. You should describe the results in terms of measures of magnitude <mdash/> not just, does a treatment affect people, but how much does it affect them.
       </p>
-      <attribution>Gene Glass</attribution>
+      <attribution>Gene Glass, quoted in <xref ref="Sullivan-2012ta"/></attribution>
     </blockquote>
     <p>
       In the previous chapter, we discussed the idea that statistical significance may not necessarily reflect practical significance. In order to discuss practical significance, we need a standard way to describe the size of an effect in terms of the actual data, which we refer to as an <em>effect size</em>. In this section we will introduce the concept and discuss various ways that effect sizes can be calculated.
@@ -278,7 +279,7 @@
         We also discussed the <em>odds ratio</em>, which is simply the ratio of two odds. The odds ratio is a useful way to describe effect sizes for binary variables.
       </p>
       <p>
-        For example, let's take the case of smoking and lung cancer. A study published in the International Journal of Cancer in 2012 combined data regarding the occurrence of lung cancer in smokers and individuals who have never smoked across a number of different studies. Note that these data come from case-control studies, which means that participants in the studies were recruited because they either did or did not have cancer; their smoking status was then examined. These numbers (shown in Table <xref ref="table-smoking-data"/>) thus do not represent the prevalence of cancer amongst smokers in the general population <mdash/> but they can tell us about the relationship between cancer and smoking.
+        For example, let's take the case of smoking and lung cancer. A study published in the International Journal of Cancer in 2012 <xref ref="pesc-kend-gust-2012"/> combined data regarding the occurrence of lung cancer in smokers and individuals who have never smoked across a number of different studies. Note that these data come from case-control studies, which means that participants in the studies were recruited because they either did or did not have cancer; their smoking status was then examined. These numbers (shown in Table <xref ref="table-smoking-data"/>) thus do not represent the prevalence of cancer amongst smokers in the general population <mdash/> but they can tell us about the relationship between cancer and smoking.
       </p>
 
       <table xml:id="table-smoking-data">
@@ -311,7 +312,7 @@
   <section xml:id="sec-statistical-power">
     <title>Statistical power</title>
     <p>
-      Remember from the previous chapter that under the Neyman-Pearson hypothesis testing approach, we have to specify our level of tolerance for two kinds of errors: False positives (which they called <em>Type I error</em>) and false negatives (which they called <em>Type II error</em>). People often focus heavily on Type I error, because making a false positive claim is generally viewed as a very bad thing; for example, the now discredited claims by Wakefield (1999) that autism was associated with vaccination led to anti-vaccine sentiment that has resulted in substantial increases in childhood diseases such as measles. Similarly, we don't want to claim that a drug cures a disease if it really doesn't. That's why the tolerance for Type I errors is generally set fairly low, usually at <m>\alpha = 0.05</m>. But what about Type II errors?
+      Remember from the previous chapter that under the Neyman-Pearson hypothesis testing approach, we have to specify our level of tolerance for two kinds of errors: False positives (which they called <em>Type I error</em>) and false negatives (which they called <em>Type II error</em>). People often focus heavily on Type I error, because making a false positive claim is generally viewed as a very bad thing; for example, the now discredited claims by Wakefield <xref ref="wake-1999"/> that autism was associated with vaccination led to anti-vaccine sentiment that has resulted in substantial increases in childhood diseases such as measles. Similarly, we don't want to claim that a drug cures a disease if it really doesn't. That's why the tolerance for Type I errors is generally set fairly low, usually at <m>\alpha = 0.05</m>. But what about Type II errors?
     </p>
     <p>
       The concept of <em>statistical power</em> is the complement of Type II error <mdash/> that is, it is the likelihood of finding a positive result given that it exists:

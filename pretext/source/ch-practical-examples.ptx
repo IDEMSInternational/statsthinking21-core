@@ -4,7 +4,7 @@
 
   <introduction>
     <p>
-      In this chapter we will bring together everything that we have learned, by applying our knowledge to a practical example. In 2007, Christopher Gardner and colleagues from Stanford published a study in the <em>Journal of the American Medical Association</em> titled <q>Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women <mdash/> The A TO Z Weight Loss Study: A Randomized Trial</q>. We will use this study to show how one would go about analyzing an experimental dataset from start to finish.
+      In this chapter we will bring together everything that we have learned, by applying our knowledge to a practical example. In 2007, Christopher Gardner and colleagues from Stanford published a study in the <em>Journal of the American Medical Association</em> titled <q>Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women <mdash/> The A TO Z Weight Loss Study: A Randomized Trial</q> <xref ref="gard-kiaz-alha-2007"/>. We will use this study to show how one would go about analyzing an experimental dataset from start to finish.
 
     <program language="r">
       <input>
