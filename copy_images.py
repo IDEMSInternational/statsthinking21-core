@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Copy and convert images to PreTeXt generated-assets directory.
-This script prepares images for the PreTeXt build process.
+Copy and convert images into PreTeXt external assets directory.
+This script prepares image files so <image source="..."> paths resolve.
 """
 
 import os
@@ -13,16 +13,15 @@ def main():
     # Define paths
     script_dir = Path(__file__).parent
     source_images_dir = script_dir / "images"
-    # Put generated images in pretext/assets/generated/ directory
-    # This matches the publication.ptx configuration where "external" is ../assets
-    # and source files reference images as source="generated/*.png"
-    pretext_assets = script_dir / "pretext" / "assets" / "generated"
+    if not source_images_dir.exists():
+        source_images_dir = script_dir / "pretext" / "assets" / "images"
+    pretext_assets = script_dir / "pretext" / "assets"
     
     print("Preparing images for PreTeXt book...")
     print(f"Source: {source_images_dir}")
     print(f"Target: {pretext_assets}")
     
-    # Create assets/generated directory
+    # Create assets directory
     pretext_assets.mkdir(parents=True, exist_ok=True)
     
     # Check if ImageMagick convert is available
@@ -31,21 +30,22 @@ def main():
     if convert_available:
         print("ImageMagick found - will convert EPS to PNG")
     else:
-        print("ImageMagick not found - will only copy existing PNG files")
+        print("ImageMagick not found - will only copy existing image files")
     
     images_copied = 0
     images_converted = 0
     
-    # Copy existing PNG files first
-    for png_file in source_images_dir.rglob("*.png"):
-        # Skip defunct images
-        if "defunct_images" in str(png_file):
-            continue
-            
-        target_file = pretext_assets / png_file.name
-        shutil.copy2(png_file, target_file)
-        images_copied += 1
-        print(f"  Copied: {png_file.name}")
+    # Copy existing image files first
+    for ext in ("*.png", "*.jpg", "*.jpeg"):
+        for image_file in source_images_dir.rglob(ext):
+            # Skip defunct images
+            if "defunct_images" in str(image_file):
+                continue
+
+            target_file = pretext_assets / image_file.name
+            shutil.copy2(image_file, target_file)
+            images_copied += 1
+            print(f"  Copied: {image_file.name}")
     
     # Convert EPS files to PNG if ImageMagick is available
     if convert_available:
@@ -78,11 +78,11 @@ def main():
                 continue
     
     # Summary
-    total_images = len(list(pretext_assets.glob("*.png")))
+    total_images = sum(len(list(pretext_assets.glob(ext))) for ext in ("*.png", "*.jpg", "*.jpeg"))
     print(f"\nComplete!")
-    print(f"  Copied: {images_copied} PNG files")
+    print(f"  Copied: {images_copied} image files")
     print(f"  Converted: {images_converted} EPS files")
-    print(f"  Total images in assets/generated: {total_images}")
+    print(f"  Total images in assets: {total_images}")
     
     if total_images == 0:
         print("\nNote: No images were found in the source directory.")
