@@ -63,21 +63,21 @@ PhysActive_table &lt;- NHANES %&gt;%
           </row>
           <row>
             <cell>No</cell>
-            <cell>3677</cell>
+            <cell>2473</cell>
           </row>
           <row>
             <cell>Yes</cell>
-            <cell>4649</cell>
+            <cell>2972</cell>
           </row>
           <row>
             <cell>NA</cell>
-            <cell>1674</cell>
+            <cell>1334</cell>
           </row>
         </tabular>
       </table>
 
       <p>
-        <xref ref="table-phys-active"/> shows the frequencies of each of the different values; there were 3677 individuals who responded <q>No</q> to the question, 4649 who responded <q>Yes</q>, and 1674 for whom no response was given. We call this a <em>frequency distribution</em> because it tells us how frequent each of the possible values is within our sample.
+        <xref ref="table-phys-active"/> shows the frequencies of each of the different values; there were 2473 individuals who responded <q>No</q> to the question, 2972 who responded <q>Yes</q>, and 1334 for whom no response was given. We call this a <em>frequency distribution</em> because it tells us how frequent each of the possible values is within our sample.
       </p>
 
       <p>
@@ -92,21 +92,6 @@ PhysActive_table &lt;- NHANES %&gt;%
         The relative frequency provides a much easier way to see how big the imbalance is. We can also interpret the relative frequencies as percentages by multiplying them by 100. In this example, we will drop the NA values as well, since we would like to be able to interpret the relative frequencies of active versus inactive people. However, for this to make sense we have to assume that the NA values are missing <q>at random</q>, meaning that their presence or absence is not related to the true value of the variable for that person. For example, if inactive participants were more likely to refuse to answer the question than active participants, then that would <em>bias</em> our estimate of the frequency of physical activity, meaning that our estimate would be different from the true value.
       </p>
 
-      <program language="r">
-        <input>
-# Compute percentages for physical activity categories
-PhysActive_table_filtered &lt;- NHANES %&gt;%
-  drop_na(PhysActive) %&gt;%
-  dplyr::select(PhysActive) %&gt;%
-  group_by(PhysActive) %&gt;%
-  summarize(AbsoluteFrequency = n()) %&gt;%
-  mutate(
-    RelativeFrequency = AbsoluteFrequency / sum(AbsoluteFrequency),
-    Percentage = RelativeFrequency * 100
-  )
-        </input>
-      </program>
-
       <table xml:id="table-phys-active-filtered">
         <title>Absolute and relative frequencies and percentages for PhysActive variable</title>
         <tabular halign="left">
@@ -118,21 +103,21 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
           </row>
           <row>
             <cell>No</cell>
-            <cell>3677</cell>
-            <cell>0.442</cell>
-            <cell>44.2</cell>
+            <cell>2473</cell>
+            <cell>0.454</cell>
+            <cell>45.4</cell>
           </row>
           <row>
             <cell>Yes</cell>
-            <cell>4649</cell>
-            <cell>0.558</cell>
-            <cell>55.8</cell>
+            <cell>2972</cell>
+            <cell>0.546</cell>
+            <cell>54.6</cell>
           </row>
         </tabular>
       </table>
 
       <p>
-        <xref ref="table-phys-active-filtered"/> lets us see that 44.2 percent of the individuals in the NHANES sample said <q>No</q> and 55.8 percent said <q>Yes</q>.
+        <xref ref="table-phys-active-filtered"/> lets us see that 45.4 percent of the individuals in the NHANES sample said <q>No</q> and 54.6 percent said <q>Yes</q>.
       </p>
     </subsection>
 
@@ -148,80 +133,80 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
 
       <table xml:id="table-sleep">
         <title>Frequency distribution for number of hours of sleep per night in the NHANES dataset</title>
-        <tabular halign="center">
-          <row header="yes" bottom="minor">
-            <cell>SleepHrsNight</cell>
-            <cell>AbsoluteFrequency</cell>
-            <cell>RelativeFrequency</cell>
-            <cell>Percentage</cell>
-          </row>
-          <row>
-            <cell>2</cell>
-            <cell>9</cell>
-            <cell>0.001</cell>
-            <cell>0.1</cell>
-          </row>
-          <row>
-            <cell>3</cell>
-            <cell>49</cell>
-            <cell>0.006</cell>
-            <cell>0.6</cell>
-          </row>
-          <row>
-            <cell>4</cell>
-            <cell>200</cell>
-            <cell>0.024</cell>
-            <cell>2.4</cell>
-          </row>
-          <row>
-            <cell>5</cell>
-            <cell>406</cell>
-            <cell>0.049</cell>
-            <cell>4.9</cell>
-          </row>
-          <row>
-            <cell>6</cell>
-            <cell>1172</cell>
-            <cell>0.141</cell>
-            <cell>14.1</cell>
-          </row>
-          <row>
-            <cell>7</cell>
-            <cell>1394</cell>
-            <cell>0.168</cell>
-            <cell>16.8</cell>
-          </row>
-          <row>
-            <cell>8</cell>
-            <cell>2641</cell>
-            <cell>0.318</cell>
-            <cell>31.8</cell>
-          </row>
-          <row>
-            <cell>9</cell>
-            <cell>1101</cell>
-            <cell>0.133</cell>
-            <cell>13.3</cell>
-          </row>
-          <row>
-            <cell>10</cell>
-            <cell>594</cell>
-            <cell>0.072</cell>
-            <cell>7.2</cell>
-          </row>
-          <row>
-            <cell>11</cell>
-            <cell>73</cell>
-            <cell>0.009</cell>
-            <cell>0.9</cell>
-          </row>
-          <row>
-            <cell>12</cell>
-            <cell>667</cell>
-            <cell>0.080</cell>
-            <cell>8.0</cell>
-          </row>
-        </tabular>
+  <tabular halign="right">
+    <row header="yes">
+      <cell>SleepHrsNight</cell>
+      <cell>AbsoluteFrequency</cell>
+      <cell>RelativeFrequency</cell>
+      <cell>Percentage</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>9</cell>
+      <cell>0.00</cell>
+      <cell>0.18</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>49</cell>
+      <cell>0.01</cell>
+      <cell>0.97</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell>200</cell>
+      <cell>0.04</cell>
+      <cell>3.97</cell>
+    </row>
+    <row>
+      <cell>5</cell>
+      <cell>406</cell>
+      <cell>0.08</cell>
+      <cell>8.06</cell>
+    </row>
+    <row>
+      <cell>6</cell>
+      <cell>1172</cell>
+      <cell>0.23</cell>
+      <cell>23.28</cell>
+    </row>
+    <row>
+      <cell>7</cell>
+      <cell>1394</cell>
+      <cell>0.28</cell>
+      <cell>27.69</cell>
+    </row>
+    <row>
+      <cell>8</cell>
+      <cell>1405</cell>
+      <cell>0.28</cell>
+      <cell>27.90</cell>
+    </row>
+    <row>
+      <cell>9</cell>
+      <cell>271</cell>
+      <cell>0.05</cell>
+      <cell>5.38</cell>
+    </row>
+    <row>
+      <cell>10</cell>
+      <cell>97</cell>
+      <cell>0.02</cell>
+      <cell>1.93</cell>
+    </row>
+    <row>
+      <cell>11</cell>
+      <cell>15</cell>
+      <cell>0.00</cell>
+      <cell>0.30</cell>
+    </row>
+    <row>
+      <cell>12</cell>
+      <cell>17</cell>
+      <cell>0.00</cell>
+      <cell>0.34</cell>
+    </row>
+  </tabular>
       </table>
 
       <figure xml:id="fig-sleep-hist">
@@ -241,69 +226,69 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
 
       <table xml:id="table-sleep-cumulative">
         <title>Absolute and cumulative frequency distributions for SleepHrsNight variable</title>
-        <tabular halign="center">
-          <row header="yes" bottom="minor">
-            <cell>SleepHrsNight</cell>
-            <cell>AbsoluteFrequency</cell>
-            <cell>CumulativeFrequency</cell>
-          </row>
-          <row>
-            <cell>2</cell>
-            <cell>9</cell>
-            <cell>9</cell>
-          </row>
-          <row>
-            <cell>3</cell>
-            <cell>49</cell>
-            <cell>58</cell>
-          </row>
-          <row>
-            <cell>4</cell>
-            <cell>200</cell>
-            <cell>258</cell>
-          </row>
-          <row>
-            <cell>5</cell>
-            <cell>406</cell>
-            <cell>664</cell>
-          </row>
-          <row>
-            <cell>6</cell>
-            <cell>1172</cell>
-            <cell>1836</cell>
-          </row>
-          <row>
-            <cell>7</cell>
-            <cell>1394</cell>
-            <cell>3230</cell>
-          </row>
-          <row>
-            <cell>8</cell>
-            <cell>2641</cell>
-            <cell>5871</cell>
-          </row>
-          <row>
-            <cell>9</cell>
-            <cell>1101</cell>
-            <cell>6972</cell>
-          </row>
-          <row>
-            <cell>10</cell>
-            <cell>594</cell>
-            <cell>7566</cell>
-          </row>
-          <row>
-            <cell>11</cell>
-            <cell>73</cell>
-            <cell>7639</cell>
-          </row>
-          <row>
-            <cell>12</cell>
-            <cell>667</cell>
-            <cell>8306</cell>
-          </row>
-        </tabular>
-      </table>
+  <tabular halign="right">
+    <row header="yes">
+      <cell>SleepHrsNight</cell>
+      <cell>AbsoluteFrequency</cell>
+      <cell>CumulativeFrequency</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>9</cell>
+      <cell>9</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>49</cell>
+      <cell>58</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell>200</cell>
+      <cell>258</cell>
+    </row>
+    <row>
+      <cell>5</cell>
+      <cell>406</cell>
+      <cell>664</cell>
+    </row>
+    <row>
+      <cell>6</cell>
+      <cell>1172</cell>
+      <cell>1836</cell>
+    </row>
+    <row>
+      <cell>7</cell>
+      <cell>1394</cell>
+      <cell>3230</cell>
+    </row>
+    <row>
+      <cell>8</cell>
+      <cell>1405</cell>
+      <cell>4635</cell>
+    </row>
+    <row>
+      <cell>9</cell>
+      <cell>271</cell>
+      <cell>4906</cell>
+    </row>
+    <row>
+      <cell>10</cell>
+      <cell>97</cell>
+      <cell>5003</cell>
+    </row>
+    <row>
+      <cell>11</cell>
+      <cell>15</cell>
+      <cell>5018</cell>
+    </row>
+    <row>
+      <cell>12</cell>
+      <cell>17</cell>
+      <cell>5035</cell>
+    </row>
+  </tabular>
+</table>
 
       <p>
         Let's do this for our sleep variable, computing the absolute and cumulative frequency. In the left panel of <xref ref="fig-sleep-cumulative"/> we plot the data to see what these representations look like; the absolute frequency values are plotted in solid lines, and the cumulative frequencies are plotted in dashed lines. We see that the cumulative frequency is <em>monotonically increasing</em> <mdash/> that is, it can only go up or stay constant, but it can never decrease. Again, we usually find the relative frequencies to be more useful than the absolute; those are plotted in the right panel of <xref ref="fig-sleep-cumulative"/>. Importantly, the shape of the relative frequency plot is exactly the same as the absolute frequency plot <mdash/> only the size of the values has changed.
