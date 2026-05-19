@@ -24,7 +24,7 @@
   <section xml:id="sec-summarizing-tables">
     <title>Summarizing data using tables</title>
     <p>
-      A simple way to summarize data is to generate a table representing counts of various types of observations. This type of table has been used for thousands of years (see Figure <xref ref="fig-sales-contract"/>).
+      A simple way to summarize data is to generate a table representing counts of various types of observations. This type of table has been used for thousands of years (see <xref ref="fig-sales-contract"/>).
     </p>
 
     <figure xml:id="fig-sales-contract">
@@ -77,7 +77,7 @@ PhysActive_table &lt;- NHANES %&gt;%
       </table>
 
       <p>
-        Table <xref ref="table-phys-active"/> shows the frequencies of each of the different values; there were 3677 individuals who responded <q>No</q> to the question, 4649 who responded <q>Yes</q>, and 1674 for whom no response was given. We call this a <em>frequency distribution</em> because it tells us how frequent each of the possible values is within our sample.
+        <xref ref="table-phys-active"/> shows the frequencies of each of the different values; there were 3677 individuals who responded <q>No</q> to the question, 4649 who responded <q>Yes</q>, and 1674 for whom no response was given. We call this a <em>frequency distribution</em> because it tells us how frequent each of the possible values is within our sample.
       </p>
 
       <p>
@@ -132,7 +132,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
       </table>
 
       <p>
-        Table <xref ref="table-phys-active-filtered"/> lets us see that 44.2 percent of the individuals in the NHANES sample said <q>No</q> and 55.8 percent said <q>Yes</q>.
+        <xref ref="table-phys-active-filtered"/> lets us see that 44.2 percent of the individuals in the NHANES sample said <q>No</q> and 55.8 percent said <q>Yes</q>.
       </p>
     </subsection>
 
@@ -143,7 +143,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
       </p>
 
       <p>
-        Let's look at another variable in the NHANES dataset, called <em>SleepHrsNight</em> which records how many hours the participant reports sleeping on usual weekdays. Table <xref ref="table-sleep"/> shows a frequency table created as we did above, after removing anyone with missing data for this question. We can already begin to summarize the dataset just by looking at the table; for example, we can see that most people report sleeping between 6 and 8 hours. To see this even more clearly, we can plot a <em>histogram</em> which shows the number of cases having each of the different values; see left panel of Figure <xref ref="fig-sleep-hist"/>. We can also plot the relative frequencies, which we will often refer to as <em>densities</em> <mdash/> see the right panel of Figure <xref ref="fig-sleep-hist"/>.
+        Let's look at another variable in the NHANES dataset, called <em>SleepHrsNight</em> which records how many hours the participant reports sleeping on usual weekdays. <xref ref="table-sleep"/> shows a frequency table created as we did above, after removing anyone with missing data for this question. We can already begin to summarize the dataset just by looking at the table; for example, we can see that most people report sleeping between 6 and 8 hours. To see this even more clearly, we can plot a <em>histogram</em> which shows the number of cases having each of the different values; see left panel of <xref ref="fig-sleep-hist"/>. We can also plot the relative frequencies, which we will often refer to as <em>densities</em> <mdash/> see the right panel of <xref ref="fig-sleep-hist"/>.
       </p>
 
       <table xml:id="table-sleep">
@@ -306,7 +306,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
       </table>
 
       <p>
-        Let's do this for our sleep variable, computing the absolute and cumulative frequency. In the left panel of Figure <xref ref="fig-sleep-cumulative"/> we plot the data to see what these representations look like; the absolute frequency values are plotted in solid lines, and the cumulative frequencies are plotted in dashed lines. We see that the cumulative frequency is <em>monotonically increasing</em> <mdash/> that is, it can only go up or stay constant, but it can never decrease. Again, we usually find the relative frequencies to be more useful than the absolute; those are plotted in the right panel of Figure <xref ref="fig-sleep-cumulative"/>. Importantly, the shape of the relative frequency plot is exactly the same as the absolute frequency plot <mdash/> only the size of the values has changed.
+        Let's do this for our sleep variable, computing the absolute and cumulative frequency. In the left panel of <xref ref="fig-sleep-cumulative"/> we plot the data to see what these representations look like; the absolute frequency values are plotted in solid lines, and the cumulative frequencies are plotted in dashed lines. We see that the cumulative frequency is <em>monotonically increasing</em> <mdash/> that is, it can only go up or stay constant, but it can never decrease. Again, we usually find the relative frequencies to be more useful than the absolute; those are plotted in the right panel of <xref ref="fig-sleep-cumulative"/>. Importantly, the shape of the relative frequency plot is exactly the same as the absolute frequency plot <mdash/> only the size of the values has changed.
       </p>
 
       <figure xml:id="fig-sleep-cumulative">
@@ -320,7 +320,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
     <subsection xml:id="subsec-plotting-histograms">
       <title>Plotting histograms</title>
       <p>
-        The variables that we examined above were fairly simple, having only a few possible values. Now let's look at a more complex variable: Age. First let's plot the <em>Age</em> variable for all of the individuals in the NHANES dataset (see left panel of Figure <xref ref="fig-age-hist"/>). What do you see there? First, you should notice that the number of individuals in each age group is declining over time. This makes sense because the population is being randomly sampled, and thus death over time leads to fewer people in the older age ranges. Second, you probably notice a large spike in the graph at age 80. What do you think that's about?
+        The variables that we examined above were fairly simple, having only a few possible values. Now let's look at a more complex variable: Age. First let's plot the <em>Age</em> variable for all of the individuals in the NHANES dataset (see left panel of <xref ref="fig-age-hist"/>). What do you see there? First, you should notice that the number of individuals in each age group is declining over time. This makes sense because the population is being randomly sampled, and thus death over time leads to fewer people in the older age ranges. Second, you probably notice a large spike in the graph at age 80. What do you think that's about?
       </p>
 
       <p>
@@ -335,11 +335,11 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
       </figure>
 
       <p>
-        Let's look at another more complex variable in the NHANES dataset: Height. The histogram of height values is plotted in the right panel of Figure <xref ref="fig-age-hist"/>. The first thing you should notice about this distribution is that most of its density is centered around about 170 cm, but the distribution has a <q>tail</q> on the left; there are a small number of individuals with much smaller heights. What do you think is going on here?
+        Let's look at another more complex variable in the NHANES dataset: Height. The histogram of height values is plotted in the right panel of <xref ref="fig-age-hist"/>. The first thing you should notice about this distribution is that most of its density is centered around about 170 cm, but the distribution has a <q>tail</q> on the left; there are a small number of individuals with much smaller heights. What do you think is going on here?
       </p>
 
       <p>
-        You may have intuited that the small heights are coming from the children in the dataset. One way to examine this is to plot the histogram with separate colors for children and adults (left panel of Figure <xref ref="fig-height-hist-sep"/>). This shows that all of the very short heights were indeed coming from children in the sample. Let's create a new version of NHANES that only includes adults, and then plot the histogram just for them (right panel of Figure <xref ref="fig-height-hist-sep"/>). In that plot the distribution looks much more symmetric. As we will see later, this is a nice example of a <em>normal</em> (or <em>Gaussian</em>) distribution.
+        You may have intuited that the small heights are coming from the children in the dataset. One way to examine this is to plot the histogram with separate colors for children and adults (left panel of <xref ref="fig-height-hist-sep"/>). This shows that all of the very short heights were indeed coming from children in the sample. Let's create a new version of NHANES that only includes adults, and then plot the histogram just for them (right panel of <xref ref="fig-height-hist-sep"/>). In that plot the distribution looks much more symmetric. As we will see later, this is a nice example of a <em>normal</em> (or <em>Gaussian</em>) distribution.
       </p>
 
       <figure xml:id="fig-height-hist-sep">
@@ -353,7 +353,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
     <subsection xml:id="subsec-histogram-bins">
       <title>Histogram bins</title>
       <p>
-        In our earlier example with the sleep variable, the data were reported in whole numbers, and we simply counted the number of people who reported each possible value. However, if you look at a few values of the Height variable in NHANES (as shown in Table <xref ref="table-height-vals"/>), you will see that it was measured in centimeters down to the first decimal place.
+        In our earlier example with the sleep variable, the data were reported in whole numbers, and we simply counted the number of people who reported each possible value. However, if you look at a few values of the Height variable in NHANES (as shown in <xref ref="table-height-vals"/>), you will see that it was measured in centimeters down to the first decimal place.
       </p>
 
       <table xml:id="table-height-vals">
@@ -384,7 +384,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
       </table>
 
       <p>
-        Panel C of Figure <xref ref="fig-height-hist-sep"/> shows a histogram that counts the density of each possible value down the first decimal place. That histogram looks really jagged, which is because of the variability in specific decimal place values. For example, the value 173.2 occurs many times, while the value 173.3 only occurs a few times. We probably don't think that there is really such a big difference between the prevalence of these two heights; more likely this is just due to random variability in our sample of people.
+        Panel C of <xref ref="fig-height-hist-sep"/> shows a histogram that counts the density of each possible value down the first decimal place. That histogram looks really jagged, which is because of the variability in specific decimal place values. For example, the value 173.2 occurs many times, while the value 173.3 only occurs a few times. We probably don't think that there is really such a big difference between the prevalence of these two heights; more likely this is just due to random variability in our sample of people.
       </p>
 
       <p>
@@ -408,7 +408,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
   <section xml:id="sec-idealized-distributions">
     <title>Idealized representations of distributions</title>
     <p>
-      Datasets are like snowflakes, in that every one is different, but nonetheless there are patterns that one often sees in different types of data. This allows us to use idealized representations of the data to further summarize them. Let's take the adult height data plotted in Figure <xref ref="fig-height-hist-sep"/>, and plot them alongside a very different variable: pulse rate (heartbeats per minute), also measured in NHANES (see Figure <xref ref="fig-normal-dist-plots"/>).
+      Datasets are like snowflakes, in that every one is different, but nonetheless there are patterns that one often sees in different types of data. This allows us to use idealized representations of the data to further summarize them. Let's take the adult height data plotted in <xref ref="fig-height-hist-sep"/>, and plot them alongside a very different variable: pulse rate (heartbeats per minute), also measured in NHANES (see <xref ref="fig-normal-dist-plots"/>).
     </p>
 
     <figure xml:id="fig-normal-dist-plots">
@@ -419,7 +419,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
     </figure>
 
     <p>
-      While these plots certainly don't look exactly the same, both have the general characteristic of being relatively symmetric around a rounded peak in the middle. This shape is in fact one of the commonly observed shapes of distributions when we collect data, which we call the <em>normal</em> (or <em>Gaussian</em>) distribution. This distribution is defined in terms of two values (which we call <em>parameters</em> of the distribution): the location of the center peak (which we call the <em>mean</em>) and the width of the distribution (which is described in terms of a parameter called the <em>standard deviation</em>). Figure <xref ref="fig-normal-dist-plots"/> shows the appropriate normal distribution plotted on top of each of the histograms. You can see that although the curves don't fit the data exactly, they do a pretty good job of characterizing the distribution <mdash/> with just two numbers!
+      While these plots certainly don't look exactly the same, both have the general characteristic of being relatively symmetric around a rounded peak in the middle. This shape is in fact one of the commonly observed shapes of distributions when we collect data, which we call the <em>normal</em> (or <em>Gaussian</em>) distribution. This distribution is defined in terms of two values (which we call <em>parameters</em> of the distribution): the location of the center peak (which we call the <em>mean</em>) and the width of the distribution (which is described in terms of a parameter called the <em>standard deviation</em>). <xref ref="fig-normal-dist-plots"/> shows the appropriate normal distribution plotted on top of each of the histograms. You can see that although the curves don't fit the data exactly, they do a pretty good job of characterizing the distribution <mdash/> with just two numbers!
     </p>
 
     <p>
@@ -429,11 +429,11 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
     <subsection xml:id="subsec-skewness">
       <title>Skewness</title>
       <p>
-        The examples in Figure <xref ref="fig-normal-dist-plots"/> followed the normal distribution fairly well, but in many cases the data will deviate in a systematic way from the normal distribution. One way in which the data can deviate is when they are asymmetric, such that one tail of the distribution is more dense than the other. We refer to this as <q>skewness</q>. Skewness commonly occurs when the measurement is constrained to be non-negative, such as when we are counting things or measuring elapsed times (and thus the variable can't take on negative values).
+        The examples in <xref ref="fig-normal-dist-plots"/> followed the normal distribution fairly well, but in many cases the data will deviate in a systematic way from the normal distribution. One way in which the data can deviate is when they are asymmetric, such that one tail of the distribution is more dense than the other. We refer to this as <q>skewness</q>. Skewness commonly occurs when the measurement is constrained to be non-negative, such as when we are counting things or measuring elapsed times (and thus the variable can't take on negative values).
       </p>
 
       <p>
-        An example of relatively mild skewness can be seen in the average waiting times at the airport security lines at San Francisco International Airport, plotted in the left panel of Figure <xref ref="fig-sfo-wait-times"/>. You can see that while most wait times are less than 20 minutes, there are a number of cases where they are much longer, over 60 minutes! This is an example of a <q>right-skewed</q> distribution, where the right tail is longer than the left; these are common when looking at counts or measured times, which can't be less than zero. It's less common to see <q>left-skewed</q> distributions, but they can occur, for example when looking at fractional values that can't take a value greater than one.
+        An example of relatively mild skewness can be seen in the average waiting times at the airport security lines at San Francisco International Airport, plotted in the left panel of <xref ref="fig-sfo-wait-times"/>. You can see that while most wait times are less than 20 minutes, there are a number of cases where they are much longer, over 60 minutes! This is an example of a <q>right-skewed</q> distribution, where the right tail is longer than the left; these are common when looking at counts or measured times, which can't be less than zero. It's less common to see <q>left-skewed</q> distributions, but they can occur, for example when looking at fractional values that can't take a value greater than one.
       </p>
 
       <figure xml:id="fig-sfo-wait-times">
@@ -447,7 +447,7 @@ PhysActive_table_filtered &lt;- NHANES %&gt;%
     <subsection xml:id="subsec-long-tailed">
       <title>Long-tailed distributions</title>
       <p>
-        Historically, statistics has focused heavily on data that are normally distributed, but there are many data types that look nothing like the normal distribution. In particular, many real-world distributions are <q>long-tailed</q>, meaning that the right tail extends far beyond the most typical members of the distribution; that is, they are extremely skewed. One of the most interesting types of data where long-tailed distributions occur arises from the analysis of social networks. For an example, let's look at the Facebook friend data from the <url href="https://snap.stanford.edu/data/egonets-Facebook.html" visual="snap.stanford.edu">Stanford Large Network Database</url> and plot the histogram of number of friends across the 3,663 people in the database (see right panel of Figure <xref ref="fig-sfo-wait-times"/>). As we can see, this distribution has a very long right tail <mdash/> the average person has 44 friends, while the person with the most friends (denoted by the diamond) has 1043!
+        Historically, statistics has focused heavily on data that are normally distributed, but there are many data types that look nothing like the normal distribution. In particular, many real-world distributions are <q>long-tailed</q>, meaning that the right tail extends far beyond the most typical members of the distribution; that is, they are extremely skewed. One of the most interesting types of data where long-tailed distributions occur arises from the analysis of social networks. For an example, let's look at the Facebook friend data from the <url href="https://snap.stanford.edu/data/egonets-Facebook.html" visual="snap.stanford.edu">Stanford Large Network Database</url> and plot the histogram of number of friends across the 3,663 people in the database (see right panel of <xref ref="fig-sfo-wait-times"/>). As we can see, this distribution has a very long right tail <mdash/> the average person has 44 friends, while the person with the most friends (denoted by the diamond) has 1043!
       </p>
 
       <p>
