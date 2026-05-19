@@ -95,7 +95,7 @@ NHANES_child %&gt;%
       error_i = y_i - \hat{y_i}
     </me>
     <p>
-      How good of a model is this? In general we define the goodness of a model in terms of the magnitude of the error, which represents the degree to which the data diverge from the model's predictions; all things being equal, the model that produces lower error is the better model. (Though as we will see later, all things are usually not equal...) What we find in this case is that the average individual has a fairly large error when we use the mode as our estimator for <m>\beta</m>, which doesn't seem very good on its face.
+      How good of a model is this? In general we define the goodness of a model in terms of the magnitude of the error, which represents the degree to which the data diverge from the model's predictions; all things being equal, the model that produces lower error is the better model. (Though as we will see later, all things are usually not equal...) What we find in this case is that the average individual has a fairly large error of -28.8 centimeters when we use the mode as our estimator for <m>\beta</m>, which doesn't seem very good on its face.
     </p>
     <p>
       How might we find a better estimator for our model parameter? We might start by trying to find an estimator that gives us an average error of zero. One good candidate is the arithmetic mean (that is, the <em>average</em>, often denoted by a bar over the variable, such as <m>\bar{X}</m>), computed as the sum of all of the values divided by the number of values. Mathematically, we express this as:
@@ -121,7 +121,7 @@ NHANES_child %&gt;%
       There are several common ways to summarize the squared error that you will encounter at various points in this book, so it's important to understand how they relate to one another. First, we could simply add them up; this is referred to as the <em>sum of squared errors</em>. The reason we don't usually use this is that its magnitude depends on the number of data points, so it can be difficult to interpret unless we are looking at the same number of observations. Second, we could take the mean of the squared error values, which is referred to as the <em>mean squared error (MSE)</em>. However, because we squared the values before averaging, they are not on the same scale as the original data; they are in <m>centimeters^2</m>. For this reason, it's also common to take the square root of the MSE, which we refer to as the <em>root mean squared error (RMSE)</em>, so that the error is measured in the same units as the original values (in this example, centimeters).
     </p>
     <p>
-      The mean has a pretty substantial amount of error <mdash/> any individual data point will be about 21 cm from the mean on average <mdash/> but it's still much better than the mode, which has a root mean squared error of about 28 cm.
+      The mean has a pretty substantial amount of error <mdash/> any individual data point will be about 27 cm from the mean on average <mdash/> but it's still much better than the mode, which has a root mean squared error of about 39 cm.
     </p>
 
     <subsection xml:id="subsec-improving-model">
@@ -153,7 +153,7 @@ NHANES_child %&gt;%
         y = slope*x + intercept
       </me>
       <p>
-        If age is the <m>X</m> variable, then that means that our prediction of height from age will be a line with a slope of <m>\beta</m> and an intercept of zero - to see this, let's plot the best fitting line in blue on top of the data (Panel B in <xref ref="fig-child-height-line"/>). Something is clearly wrong with this model, as the line doesn't seem to follow the data very well. In fact, the RMSE for this model is actually higher than the model that only includes the mean! The problem comes from the fact that our model only includes age, which means that the predicted value of height from the model must take on a value of zero when age is zero. Even though the data do not include any children with an age of zero, the line is mathematically required to have a y-value of zero when x is zero, which explains why the line is pulled down below the younger datapoints. We can fix this by including an intercept in our model, which basically represents the estimated height when age is equal to zero; even though an age of zero is not plausible in this dataset, this is a mathematical trick that will allow the model to account for the overall magnitude of the data. The model is:
+        If age is the <m>X</m> variable, then that means that our prediction of height from age will be a line with a slope of <m>\beta</m> and an intercept of zero - to see this, let's plot the best fitting line in blue on top of the data (Panel B in <xref ref="fig-child-height-line"/>). Something is clearly wrong with this model, as the line doesn't seem to follow the data very well. In fact, the RMSE for this model (39.16) is actually higher than the model that only includes the mean! The problem comes from the fact that our model only includes age, which means that the predicted value of height from the model must take on a value of zero when age is zero. Even though the data do not include any children with an age of zero, the line is mathematically required to have a y-value of zero when x is zero, which explains why the line is pulled down below the younger datapoints. We can fix this by including an intercept in our model, which basically represents the estimated height when age is equal to zero; even though an age of zero is not plausible in this dataset, this is a mathematical trick that will allow the model to account for the overall magnitude of the data. The model is:
       </p>
       <me>
         \widehat{y_i} = \hat{\beta_0} + \hat{\beta_1} * age_i
@@ -162,7 +162,7 @@ NHANES_child %&gt;%
         where <m>\hat{\beta_0}</m> is our estimate for the <em>intercept</em>, which is a constant value added to the prediction for each individual; we call it the intercept because it maps onto the intercept in the equation for a straight line. We will learn later how it is that we actually estimate these parameter values for a particular dataset; for now, we will use our statistical software to estimate the parameter values that give us the smallest error for these particular data. Panel C in <xref ref="fig-child-height-line"/> shows this model applied to the NHANES data, where we see that the line matches the data much better than the one without a constant.
       </p>
       <p>
-        Our error is much smaller using this model <mdash/> only about 8 centimeters on average. Can you think of other variables that might also be related to height? What about gender? In Panel D of <xref ref="fig-child-height-line"/> we plot the data with lines fitted separately for males and females. From the plot, it seems that there is a difference between males and females, but it is relatively small and only emerges after the age of puberty. In <xref ref="fig-mse-plot"/> we plot the root mean squared error values across the different models, including one with an additional parameter that models the effect of gender. From this we see that the model got a little bit better going from mode to mean, much better going from mean to mean + age, and only very slightly better by including gender as well.
+        Our error is much smaller using this model <mdash/> only 8.36 centimeters on average. Can you think of other variables that might also be related to height? What about gender? In Panel D of <xref ref="fig-child-height-line"/> we plot the data with lines fitted separately for males and females. From the plot, it seems that there is a difference between males and females, but it is relatively small and only emerges after the age of puberty. In <xref ref="fig-mse-plot"/> we plot the root mean squared error values across the different models, including one with an additional parameter that models the effect of gender. From this we see that the model got a little bit better going from mode to mean, much better going from mean to mean + age, and only very slightly better by including gender as well.
       </p>
 
       <figure xml:id="fig-mse-plot">
@@ -364,7 +364,7 @@ NHANES_child %&gt;%
   <section xml:id="sec-mode">
     <title>The mode</title>
     <p>
-      Sometimes we wish to describe the central tendency of a dataset that is not numeric. For example, let's say that we want to know which models of iPhone are most commonly used. To test this, we could ask a large group of iPhone users which model each person owns. If we were to take the average of these values, we might see that the mean iPhone model is some value like 9.6, which is clearly nonsensical, since the iPhone model numbers are not meant to be quantitative measurements. In this case, a more appropriate measure of central tendency is the mode, which is the most common value in the dataset, as we discussed above.
+      Sometimes we wish to describe the central tendency of a dataset that is not numeric. For example, let's say that we want to know which models of iPhone are most commonly used. To test this, we could ask a large group of iPhone users which model each person owns. If we were to take the average of these values, we might see that the mean iPhone model is 9.51, which is clearly nonsensical, since the iPhone model numbers are not meant to be quantitative measurements. In this case, a more appropriate measure of central tendency is the mode, which is the most common value in the dataset, as we discussed above.
     </p>
   </section>
 
@@ -414,15 +414,15 @@ NHANES_child %&gt;%
         </row>
         <row>
           <cell>Population variance</cell>
-          <cell>277.5</cell>
+          <cell>725</cell>
         </row>
         <row>
           <cell>Variance estimate using n</cell>
-          <cell>271.9</cell>
+          <cell>710</cell>
         </row>
         <row>
           <cell>Variance estimate using n-1</cell>
-          <cell>277.5</cell>
+          <cell>725</cell>
         </row>
       </tabular>
     </table>
@@ -435,7 +435,7 @@ NHANES_child %&gt;%
   <section xml:id="sec-z-scores">
     <title>Z-scores</title>
     <p>
-      Having characterized a distribution in terms of its central tendency and variability, it is often useful to express the individual scores in terms of where they sit with respect to the overall distribution. Let's say that we are interested in characterizing the relative level of crimes across different states, in order to determine whether California is a particularly dangerous place. We can ask this question using data for 2014 from the FBI's Uniform Crime Reporting site. The left panel of <xref ref="fig-crime-hist"/> shows a histogram of the number of violent crimes per state, highlighting the value for California. Looking at these data, it seems like California is terribly dangerous, with a large number of crimes in that year. We can visualize these data by generating a map showing the distribution of a variable across states, which is presented in the right panel of <xref ref="fig-crime-hist"/>.
+      Having characterized a distribution in terms of its central tendency and variability, it is often useful to express the individual scores in terms of where they sit with respect to the overall distribution. Let's say that we are interested in characterizing the relative level of crimes across different states, in order to determine whether California is a particularly dangerous place. We can ask this question using data for 2014 from the FBI's Uniform Crime Reporting site. The left panel of <xref ref="fig-crime-hist"/> shows a histogram of the number of violent crimes per state, highlighting the value for California. Looking at these data, it seems like California is terribly dangerous, with 153709 crimes in that year. We can visualize these data by generating a map showing the distribution of a variable across states, which is presented in the right panel of <xref ref="fig-crime-hist"/>.
     </p>
 
     <figure xml:id="fig-crime-hist">
@@ -457,8 +457,9 @@ NHANES_child %&gt;%
     </figure>
 
     <p>
-      Instead of using the raw numbers of crimes, we should instead use the violent crime <em>rate</em> per capita, which we obtain by dividing the number of crimes per state by the population of each state. The dataset from the FBI already includes this value (expressed as rate per 100,000 people). Looking at the right panel of <xref ref="fig-pop-vs-crime"/>, we see that California is not so dangerous after all <mdash/> its crime rate is a bit above the mean across states, but well within the range of many other states. But what if we want to get a clearer view of how far it is from the rest of the distribution?
-    </p>
+      Instead of using the raw numbers of crimes, we should instead use the violent crime <em>rate</em> per capita, which we obtain by dividing the number of crimes per state by the population of each state. The dataset from the FBI already includes this value (expressed as rate per 100,000 people). Looking at the right panel of <xref ref="fig-pop-vs-crime"/>, we see that California is not so dangerous after all <mdash/> 
+its crime rate of 396.10 per 100,000 people is a bit above the mean across states of 346.81, but well within the range of many other states. But what if we want to get a clearer view of how far it is from the rest of the distribution?
+</p>
     <p>
       The <em>Z-score</em> allows us to express data in a way that provides more insight into each data point's relationship to the overall distribution. The formula to compute a Z-score for an individual data point given that we know the value of the population mean <m>\mu</m> and standard deviation <m>\sigma</m> is:
     </p>
