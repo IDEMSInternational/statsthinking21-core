@@ -2,12 +2,6 @@
 <chapter xml:id="ch-working-with-data" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Working with Data</title>
 
-  <introduction>
-    <p>
-      This chapter introduces the fundamental concepts of data and measurement that are essential for statistical thinking.
-    </p>
-  </introduction>
-
   <section xml:id="sec-what-are-data">
     <title>What are data?</title>
     <p>
@@ -24,7 +18,7 @@
     <subsection xml:id="subsec-quantitative-data">
       <title>Quantitative data</title>
       <p>
-        More commonly in statistics we will work with <em>quantitative</em> data, meaning data that are numerical. For example, Table <xref ref="table-why-taking-class"/> shows the results from another question that I ask in my introductory class, which is <q>Why are you taking this class?</q>
+        More commonly in statistics we will work with <em>quantitative</em> data, meaning data that are numerical. For example, <xref ref="table-why-taking-class"/> shows the results from another question that I ask in my introductory class, which is <q>Why are you taking this class?</q>
       </p>
 
       <table xml:id="table-why-taking-class">
@@ -129,7 +123,7 @@
     <subsection xml:id="subsec-validity">
       <title>Validity</title>
       <p>
-        Reliability is important, but on its own it's not enough: After all, I could create a perfectly reliable measurement on a personality test by re-coding every answer using the same number, regardless of how the person actually answers. We want our measurements to also be <em>valid</em> <mdash/> that is, we want to make sure that we are actually measuring the construct that we think we are measuring (Figure <xref ref="fig-reliability-validity"/>). There are many different types of validity that are commonly discussed; we will focus on three of them.
+        Reliability is important, but on its own it's not enough: After all, I could create a perfectly reliable measurement on a personality test by re-coding every answer using the same number, regardless of how the person actually answers. We want our measurements to also be <em>valid</em> <mdash/> that is, we want to make sure that we are actually measuring the construct that we think we are measuring (<xref ref="fig-reliability-validity"/>). There are many different types of validity that are commonly discussed; we will focus on three of them.
       </p>
       <p>
         <term>Face validity</term>. Does the measurement make sense on its face? If I were to tell you that I was going to measure a person's blood pressure by looking at the color of their tongue, you would probably think that this was not a valid measure on its face. On the other hand, using a blood pressure cuff would have face validity. This is usually a first reality check before we dive into more complicated aspects of validity.
@@ -191,7 +185,7 @@
         <term>Ratio scale</term>. A ratio scale variable has all four of the features outlined above: identity, magnitude, equal intervals, and absolute zero. The difference between a ratio scale variable and an interval scale variable is that the ratio scale variable has a true zero point. Examples of ratio scale variables include physical height and weight, along with temperature measured in Kelvin.
       </p>
       <p>
-        There are two important reasons that we must pay attention to the scale of measurement of a variable. First, the scale determines what kind of mathematical operations we can apply to the data (see Table <xref ref="table-measurement-types"/>). A nominal variable can only be compared for equality; that is, do two observations on that variable have the same numeric value? It would not make sense to apply other mathematical operations to a nominal variable, since they don't really function as numbers in a nominal variable, but rather as labels. With ordinal variables, we can also test whether one value is greater or lesser than another, but we can't do any arithmetic. Interval and ratio variables allow us to perform arithmetic; with interval variables we can only add or subtract values, whereas with ratio variables we can also multiply and divide values.
+        There are two important reasons that we must pay attention to the scale of measurement of a variable. First, the scale determines what kind of mathematical operations we can apply to the data (see <xref ref="table-measurement-types"/>). A nominal variable can only be compared for equality; that is, do two observations on that variable have the same numeric value? It would not make sense to apply other mathematical operations to a nominal variable, since they don't really function as numbers in a nominal variable, but rather as labels. With ordinal variables, we can also test whether one value is greater or lesser than another, but we can't do any arithmetic. Interval and ratio variables allow us to perform arithmetic; with interval variables we can only add or subtract values, whereas with ratio variables we can also multiply and divide values.
       </p>
 
       <table xml:id="table-measurement-types">
