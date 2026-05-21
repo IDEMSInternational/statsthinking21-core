@@ -103,10 +103,22 @@
     <subsection xml:id="subsec-ci-bootstrap">
       <title>Computing confidence intervals using the bootstrap</title>
       <p>
-        In some cases we can't assume normality, or we don't know the sampling distribution of the statistic. In these cases, we can use the bootstrap (which we introduced in Chapter <xref ref="ch-resampling"/>). As a reminder, the bootstrap involves repeatedly resampling the data <em>with replacement</em>, and then using the distribution of the statistic computed on those samples as a surrogate for the sampling distribution of the statistic. These are the results when we use the built-in bootstrapping function in R to compute the confidence interval for weight in our NHANES sample:
+        In some cases we can't assume normality, or we don't know the sampling distribution of the statistic. In these cases, we can use the bootstrap (which we introduced in <xref ref="ch-resampling"/>). As a reminder, the bootstrap involves repeatedly resampling the data <em>with replacement</em>, and then using the distribution of the statistic computed on those samples as a surrogate for the sampling distribution of the statistic. These are the results when we use the built-in bootstrapping function in R to compute the confidence interval for weight in our NHANES sample:
       </p>
+<console><output>
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = bs, type = "perc")
+## 
+## Intervals : 
+## Level     Percentile     
+## 95%   (78, 84 )  
+## Calculations and Intervals on Original Scale
+</output></console>
       <p>
-        The bootstrap confidence interval computed using the percentile method gives us [78.74, 84.01]. These values are fairly close to the values obtained using the t distribution above, though not exactly the same.
+These values are fairly close to the values obtained using the t distribution above, though not exactly the same.
       </p>
     </subsection>
 
@@ -192,14 +204,14 @@
       </figure>
 
       <p>
-        It is also worth noting that we rarely encounter effects of this magnitude in science, in part because they are such obvious effects that we don't need scientific research to find them. As we will see in Chapter <xref ref="ch-reproducible-research"/> on reproducibility, very large reported effects in scientific research often reflect the use of questionable research practices rather than truly huge effects in nature. It is also worth noting that even for such a huge effect, the two distributions still overlap <mdash/> there will be some females who are taller than the average male, and vice versa. For most interesting scientific effects, the degree of overlap will be much greater, so we shouldn't immediately jump to strong conclusions about individuals from different populations based on even a large effect size.
+        It is also worth noting that we rarely encounter effects of this magnitude in science, in part because they are such obvious effects that we don't need scientific research to find them. As we will see in <xref ref="ch-reproducible-research"/> on reproducibility, very large reported effects in scientific research often reflect the use of questionable research practices rather than truly huge effects in nature. It is also worth noting that even for such a huge effect, the two distributions still overlap <mdash/> there will be some females who are taller than the average male, and vice versa. For most interesting scientific effects, the degree of overlap will be much greater, so we shouldn't immediately jump to strong conclusions about individuals from different populations based on even a large effect size.
       </p>
     </subsection>
 
     <subsection xml:id="subsec-pearsons-r">
       <title>Pearson's r</title>
       <p>
-        Pearson's <em>r</em>, also known as the <em>correlation coefficient</em>, is a measure of the strength of the linear relationship between two continuous variables. We will discuss correlation in much more detail in Chapter <xref ref="ch-continuous-relationships"/>, so we will save the details for that chapter; here, we simply introduce <em>r</em> as a way to quantify the relation between two variables.
+        Pearson's <em>r</em>, also known as the <em>correlation coefficient</em>, is a measure of the strength of the linear relationship between two continuous variables. We will discuss correlation in much more detail in <xref ref="ch-continuous-relationships"/>, so we will save the details for that chapter; here, we simply introduce <em>r</em> as a way to quantify the relation between two variables.
       </p>
       <p>
         <em>r</em> is a measure that varies from -1 to 1, where a value of 1 represents a perfect positive relationship between the variables, 0 represents no relationship, and -1 represents a perfect negative relationship. <xref ref="fig-correlation-examples"/> shows examples of various levels of correlation using randomly generated data.
@@ -292,7 +304,7 @@
       This simulation shows us that even with a sample size of 96, we will have relatively little power to find a small effect (<m>d = 0.2</m>) with <m>\alpha = 0.005</m>. This means that a study designed to do this would be <em>futile</em> <mdash/> that is, it is almost guaranteed to find nothing even if a true effect of that size exists.
     </p>
     <p>
-      There are at least two important reasons to care about statistical power. First, if you are a researcher, you probably don't want to spend your time doing futile experiments. Running an underpowered study is essentially futile, because it means that there is a very low likelihood that one will find an effect, even if it exists. Second, it turns out that any positive findings that come from an underpowered study are more likely to be false compared to a well-powered study, a point we discuss in more detail in Chapter <xref ref="ch-reproducible-research"/>.
+      There are at least two important reasons to care about statistical power. First, if you are a researcher, you probably don't want to spend your time doing futile experiments. Running an underpowered study is essentially futile, because it means that there is a very low likelihood that one will find an effect, even if it exists. Second, it turns out that any positive findings that come from an underpowered study are more likely to be false compared to a well-powered study, a point we discuss in more detail in <xref ref="ch-reproducible-research"/>.
     </p>
 
     <subsection xml:id="subsec-power-analysis">
@@ -303,14 +315,38 @@
       <p>
         Let's say that we are interested in running a study of how a particular personality trait differs between users of iOS versus Android devices. Our plan is collect two groups of individuals and measure them on the personality trait, and then compare the two groups using a t-test. In this case, we would think that a medium effect (<m>d = 0.5</m>) is of scientific interest, so we will use that level for our power analysis. In order to determine the necessary sample size, we can use power function from our statistical software:
       </p>
+<console><output>
+## 
+##      Two-sample t test power calculation 
+## 
+##               n = 64
+##           delta = 0.5
+##              sd = 1
+##       sig.level = 0.05
+##           power = 0.8
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group
+</output></console>
       <p>
-        This tells us that we would need at least 64 subjects in each group in order to have sufficient power to find a medium-sized effect. It's always important to run a power analysis before one starts a new study, to make sure that the study won't be futile due to a sample that is too small.
+This tells us that we would need at least 64 subjects in each group in order to have sufficient power to find a medium-sized effect. It’s always important to run a power analysis before one starts a new study, to make sure that the study won’t be futile due to a sample that is too small.      </p>
+      <p>
+It might have occurred to you that if the effect size is large enough, then the necessary sample will be very small. For example, if we run the same power analysis with an effect size of d=2, then we will see that we only need about 5 subjects in each group to have sufficient power to find the difference.
       </p>
+<console><output>
+## 
+##      Two-sample t test power calculation 
+## 
+##               n = 5.1
+##               d = 2
+##       sig.level = 0.05
+##           power = 0.8
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group
+</output></console>
       <p>
-        It might have occurred to you that if the effect size is large enough, then the necessary sample will be very small. For example, if we run the same power analysis with an effect size of d=2, then we will see that we only need about 5 subjects in each group to have sufficient power to find the difference.
-      </p>
-      <p>
-        However, it's rare in science to be doing an experiment where we expect to find such a large effect <mdash/> just as we don't need statistics to tell us that 16-year-olds are taller than than 6-year-olds. When we run a power analysis, we need to specify an effect size that is plausible and/or scientifically interesting for our study, which would usually come from previous research. However, in Chapter <xref ref="ch-reproducible-research"/> we will discuss a phenomenon known as the <q>winner's curse</q> that likely results in published effect sizes being larger than the true effect size, so this should also be kept in mind.
+        However, it's rare in science to be doing an experiment where we expect to find such a large effect <mdash/> just as we don't need statistics to tell us that 16-year-olds are taller than than 6-year-olds. When we run a power analysis, we need to specify an effect size that is plausible and/or scientifically interesting for our study, which would usually come from previous research. However, in <xref ref="ch-reproducible-research"/> we will discuss a phenomenon known as the <q>winner's curse</q> that likely results in published effect sizes being larger than the true effect size, so this should also be kept in mind.
       </p>
     </subsection>
   </section>
