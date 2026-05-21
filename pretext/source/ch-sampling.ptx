@@ -130,12 +130,6 @@ sampMeans_df %&gt;%
         <description>A histogram showing two distributions: the gray histogram shows the distribution of height in the full NHANES adult dataset, while the blue histogram shows the sampling distribution of the mean over 5000 random samples of size 50. The sampling distribution is much narrower than the population distribution and is centered around the population mean, shown by a vertical line at 168.35 cm.</description>
       </image>
     </figure>
-
-    <note>
-      <p>
-        <alert>Note on figures:</alert> The figures in this chapter are dynamically generated from the NHANES dataset using R code in the original .Rmd file. In a complete PreTeXt implementation, these figures would need to be generated separately and saved as image files to be included here.
-      </p>
-    </note>
   </section>
 
   <section xml:id="sec-standard-error-of-the-mean">
