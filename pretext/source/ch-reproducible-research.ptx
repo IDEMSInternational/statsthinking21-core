@@ -44,7 +44,7 @@
   <section xml:id="sec-how-science-sometimes-actually-works">
     <title>How science (sometimes) actually works</title>
     <p>
-      Brian Wansink is well known for his books on "Mindless Eating", and his fee for corporate speaking engagements was at one point in the tens of thousands of dollars. In 2017, a set of researchers began to scrutinize some of his published research, starting with a set of papers about how much pizza people ate at a buffet. The researchers asked Wansink to share the data from the studies but he refused, so they dug into his published papers and found a large number of inconsistencies and statistical problems in the papers. The publicity around this analysis led a number of others to dig into Wansink's past, including obtaining emails between Wansink and his collaborators. As reported by Stephanie Lee at Buzzfeed, these emails showed just how far Wansink's actual research practices were from the naive model:
+      Brian Wansink is well known for his books on "Mindless Eating", and his fee for corporate speaking engagements was at one point in the tens of thousands of dollars. In 2017, a set of researchers began to scrutinize some of his published research, starting with a set of papers about how much pizza people ate at a buffet. The researchers asked Wansink to share the data from the studies but he refused, so they dug into his published papers and found a large number of inconsistencies and statistical problems in the papers. The publicity around this analysis led a number of others to dig into Wansink's past, including obtaining emails between Wansink and his collaborators. As reported by <url href="https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking" visual="buzzfeednews.com">Stephanie Lee at Buzzfeed</url>, these emails showed just how far Wansink's actual research practices were from the naive model:
     </p>
     <blockquote>
       <p>
@@ -64,7 +64,7 @@
       </p>
     </blockquote>
     <p>
-      This kind of behavior finally caught up with Wansink; fifteen of his research studies have been retracted and in 2018 he resigned from his faculty position at Cornell University.
+      This kind of behavior finally caught up with Wansink; <url href="https://www.vox.com/science-and-health/2018/9/19/17879102/brian-wansink-cornell-food-brand-lab-retractions-jama" visual="vox.com">fifteen of his research studies have been retracted</url> and in 2018 he resigned from his faculty position at Cornell University.
     </p>
   </section>
 
@@ -201,7 +201,7 @@
         </p>
       </blockquote>
       <p>
-        As researchers began to examine Bem's article, it became clear that he had engaged in all of the QRPs that he had recommended in the chapter discussed above. As Tal Yarkoni pointed out in a blog post that examined the article:
+        As researchers began to examine Bem's article, it became clear that he had engaged in all of the QRPs that he had recommended in the chapter discussed above. As Tal Yarkoni pointed out in <url href="http://www.talyarkoni.org/blog/2011/01/10/the-psychology-of-parapsychology-or-why-good-researchers-publishing-good-articles-in-good-journals-can-still-get-it-totally-wrong/" visual="talyarkoni.org">a blog post that examined the article</url>:
       </p>
       <ul>
         <li><p>Sample sizes varied across studies</p></li>
@@ -223,10 +223,10 @@
     <subsection xml:id="subsec-pre-registration">
       <title>Pre-registration</title>
       <p>
-        One of the ideas that has gained the greatest traction is <em>pre-registration</em>, in which one submits a detailed description of a study (including all data analyses) to a trusted repository (such as the Open Science Framework or AsPredicted.org). By specifying one's plans in detail prior to analyzing the data, pre-registration provides greater faith that the analyses do not suffer from p-hacking or other questionable research practices.
+        One of the ideas that has gained the greatest traction is <em>pre-registration</em>, in which one submits a detailed description of a study (including all data analyses) to a trusted repository (such as the <url href="http://osf.io" visual="osf.io">Open Science Framework</url> or <url href="http://aspredicted.org" visual="aspredicted.org">AsPredicted.org</url>). By specifying one's plans in detail prior to analyzing the data, pre-registration provides greater faith that the analyses do not suffer from p-hacking or other questionable research practices.
       </p>
       <p>
-        The effects of pre-registration in clinical trials in medicine have been striking. In 2000, the National Heart, Lung, and Blood Institute (NHLBI) began requiring all clinical trials to be pre-registered using the system at ClinicalTrials.gov. This provides a natural experiment to observe the effects of study pre-registration. When Kaplan and Irvin <xref ref="kapl-irvi-2015"/> examined clinical trial outcomes over time, they found that the number of positive outcomes in clinical trials was greatly reduced after 2000 compared to before. While there are many possible causes, it seems likely that prior to study registration researchers were able to change their methods or hypotheses in order to find a positive result, which became more difficult after registration was required.
+        The effects of pre-registration in clinical trials in medicine have been striking. In 2000, the National Heart, Lung, and Blood Institute (NHLBI) began requiring all clinical trials to be pre-registered using the system at <url href="http://clinicaltrials.gov" visual="clinicaltrials.gov">ClinicalTrials.gov</url>. This provides a natural experiment to observe the effects of study pre-registration. When Kaplan and Irvin <xref ref="kapl-irvi-2015"/> examined clinical trial outcomes over time, they found that the number of positive outcomes in clinical trials was greatly reduced after 2000 compared to before. While there are many possible causes, it seems likely that prior to study registration researchers were able to change their methods or hypotheses in order to find a positive result, which became more difficult after registration was required.
       </p>
     </subsection>
 
@@ -268,7 +268,7 @@
       The ability to reproduce analyses is one reason that we strongly advocate for the use of scripted analyses (such as those using R) rather than using a "point-and-click" software package. It's also a reason that we advocate the use of free and open-source software (like R) as opposed to commercial software packages, which would require others to buy the software in order to reproduce any analyses.
     </p>
     <p>
-      There are many ways to share both code and data. A common way to share code is via web sites that support <em>version control</em> for software, such as Github. Small datasets can also be shared via these same sites; larger datasets can be shared through data sharing portals such as Zenodo, or through specialized portals for specific types of data (such as OpenNeuro for neuroimaging data).
+      There are many ways to share both code and data. A common way to share code is via web sites that support <em>version control</em> for software, such as <url href="http://github.com" visual="github.com">Github</url>. Small datasets can also be shared via these same sites; larger datasets can be shared through data sharing portals such as <url href="https://zenodo.org/" visual="zenodo.org">Zenodo</url>, or through specialized portals for specific types of data (such as <url href="http://openneuro.org" visual="openneuro.org">OpenNeuro</url> for neuroimaging data).
     </p>
   </section>
 
