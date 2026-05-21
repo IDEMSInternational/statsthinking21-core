@@ -48,7 +48,7 @@
   <section xml:id="sec-generating-random-numbers">
     <title>Generating random numbers</title>
     <p>
-      Running a Monte Carlo simulation requires that we generate random numbers. Generating truly random numbers (i.e. numbers that are completely unpredictable) is only possible through physical processes, such as the decay of atoms or the rolling of dice, which are difficult to obtain and/or too slow to be useful for computer simulation (though they can be obtained from the NIST Randomness Beacon).
+      Running a Monte Carlo simulation requires that we generate random numbers. Generating truly random numbers (i.e. numbers that are completely unpredictable) is only possible through physical processes, such as the decay of atoms or the rolling of dice, which are difficult to obtain and/or too slow to be useful for computer simulation (though they can be obtained from the <url href = "https://www.nist.gov/programs-projects/nist-randomness-beacon%5D">NIST Randomness Beacon</url>).
     </p>
     <p>
       In general, instead of truly random numbers we use <em>pseudo-random</em> numbers generated using a computer algorithm; these numbers will seem random in the sense that they are difficult to predict, but the series of numbers will actually repeat at some point. For example, the random number generator used in R will repeat after <m>2^{19937} - 1</m> numbers. That's far more than the number of seconds in the history of the universe, and we generally think that this is fine for most purposes in statistical analysis.
