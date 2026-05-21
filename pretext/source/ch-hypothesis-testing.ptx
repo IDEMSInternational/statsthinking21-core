@@ -113,7 +113,7 @@
     <subsection xml:id="subsec-step3-collect">
       <title>Step 3: Collect some data</title>
       <p>
-        In this case, we will sample 250 individuals from the NHANES dataset. Figure <xref ref="fig-bmi-sample"/> shows an example of such a sample, with BMI shown separately for active and inactive individuals, and Table <xref ref="table-bmi-summary"/> shows summary statistics for each group.
+        In this case, we will sample 250 individuals from the NHANES dataset. <xref ref="fig-bmi-sample"/> shows an example of such a sample, with BMI shown separately for active and inactive individuals, and <xref ref="table-bmi-summary"/> shows summary statistics for each group.
       </p>
 
       <program language="r">
@@ -150,14 +150,14 @@ sampleSummary &lt;-
           <row>
             <cell>No</cell>
             <cell>131</cell>
-            <cell>30.44</cell>
-            <cell>7.41</cell>
+            <cell>30</cell>
+            <cell>9.0</cell>
           </row>
           <row>
             <cell>Yes</cell>
             <cell>119</cell>
-            <cell>27.87</cell>
-            <cell>5.33</cell>
+            <cell>27</cell>
+            <cell>5.2</cell>
           </row>
         </tabular>
       </table>
@@ -195,13 +195,13 @@ ggplot(NHANES_sample, aes(PhysActive, BMI)) +
         where <m>\bar{X}_1</m> and <m>\bar{X}_2</m> are the means of the two groups, <m>S^2_1</m> and <m>S^2_2</m> are the estimated variances of the groups, and <m>n_1</m> and <m>n_2</m> are the sizes of the two groups. Because the variance of a difference between two independent variables is the sum of the variances of each individual variable (<m>var(A - B) = var(A) + var(B)</m>), we add the variances for each group divided by their sample sizes in order to compute the standard error of the difference. Thus, one can view the <em>t</em> statistic as a way of quantifying how large the difference between groups is in relation to the sampling variability of the difference between means.
       </p>
       <p>
-        The <em>t</em> statistic is distributed according to a probability distribution known as a <em>t</em> distribution. The <em>t</em> distribution looks quite similar to a normal distribution, but it differs depending on the number of degrees of freedom. When the degrees of freedom are large (say 1000), then the <em>t</em> distribution looks essentially like the normal distribution, but when they are small then the <em>t</em> distribution has longer tails than the normal (see Figure <xref ref="fig-t-versus-normal"/>). In the simplest case, where the groups are the same size and have equal variance, the degrees of freedom for the <em>t</em> test is the number of observations minus 2, since we have computed two means and thus given up two degrees of freedom. In this case it's pretty clear from the box plot that the inactive group is more variable than the active group, and the numbers in each group differ, so we need to use a slightly more complex formula for the degrees of freedom, which is often referred to as a <q>Welch t-test</q>. The formula is:
+        The <em>t</em> statistic is distributed according to a probability distribution known as a <em>t</em> distribution. The <em>t</em> distribution looks quite similar to a normal distribution, but it differs depending on the number of degrees of freedom. When the degrees of freedom are large (say 1000), then the <em>t</em> distribution looks essentially like the normal distribution, but when they are small then the <em>t</em> distribution has longer tails than the normal (see <xref ref="fig-t-versus-normal"/>). In the simplest case, where the groups are the same size and have equal variance, the degrees of freedom for the <em>t</em> test is the number of observations minus 2, since we have computed two means and thus given up two degrees of freedom. In this case it's pretty clear from the box plot that the inactive group is more variable than the active group, and the numbers in each group differ, so we need to use a slightly more complex formula for the degrees of freedom, which is often referred to as a <q>Welch t-test</q>. The formula is:
       </p>
       <me>
         \mathrm{d.f.} = \frac{\left(\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}\right)^2}{\frac{\left(S_1^2/n_1\right)^2}{n_1-1} + \frac{\left(S_2^2/n_2\right)^2}{n_2-1}}
       </me>
       <p>
-        This will be equal to <m>n_1 + n_2 - 2</m> when the variances and sample sizes are equal, and otherwise will be smaller, in effect imposing a penalty on the test for differences in sample size or variance. For this example, that comes out to 222.62 which is slightly below the value of 248 that one would get by subtracting 2 from the sample size.
+        This will be equal to <m>n_1 + n_2 - 2</m> when the variances and sample sizes are equal, and otherwise will be smaller, in effect imposing a penalty on the test for differences in sample size or variance. For this example, that comes out to 241.12 which is slightly below the value of 248 that one would get by subtracting 2 from the sample size.
       </p>
 
       <figure xml:id="fig-t-versus-normal">
@@ -275,20 +275,20 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
           Using the binomial distribution, the probability of 69 or fewer heads given P(heads)=0.5 is 0.999965, so the probability of 70 or more heads is simply one minus that value (0.000035). This computation shows us that the likelihood of getting 70 or more heads if the coin is indeed fair is very small.
         </p>
         <p>
-          Now, what if we didn't have a standard function to tell us the probability of that number of heads? We could instead determine it by simulation <mdash/> we repeatedly flip a coin 100 times using a true probability of 0.5, and then compute the distribution of the number of heads across those simulation runs. Figure <xref ref="fig-coin-flips"/> shows the result from this simulation. Here we can see that the probability computed via simulation (0.000040) is very close to the theoretical probability (0.000035).
+          Now, what if we didn't have a standard function to tell us the probability of that number of heads? We could instead determine it by simulation <mdash/> we repeatedly flip a coin 100 times using a true probability of 0.5, and then compute the distribution of the number of heads across those simulation runs. <xref ref="fig-coin-flips"/> shows the result from this simulation. Here we can see that the probability computed via simulation (0.000040) is very close to the theoretical probability (0.000035).
         </p>
       </subsubsection>
 
       <subsubsection xml:id="subsubsec-pvalues-tdist">
         <title>Computing p-values using the <em>t</em> distribution</title>
         <p>
-          Now let's compute a p-value for our BMI example using the <em>t</em> distribution. First we compute the <em>t</em> statistic using the values from our sample that we calculated above, where we find that <m>t = 3.03</m>. The question that we then want to ask is: What is the likelihood that we would find a <em>t</em> statistic of this size, if the true difference between groups is zero or less (i.e. the directional null hypothesis)?
+          Now let's compute a p-value for our BMI example using the <em>t</em> distribution. First we compute the <em>t</em> statistic using the values from our sample that we calculated above, where we find that <m>t = 3.86</m>. The question that we then want to ask is: What is the likelihood that we would find a <em>t</em> statistic of this size, if the true difference between groups is zero or less (i.e. the directional null hypothesis)?
         </p>
         <p>
-          We can use the <em>t</em> distribution to determine this probability. Above we noted that the appropriate degrees of freedom (after correcting for differences in variance and sample size) was 222.62. We can use a function from our statistical software to determine the probability of finding a value of the <em>t</em> statistic greater than or equal to our observed value. We find that <m>p(t \gt 3.03, df = 222.62) = 0.001355</m>, which tells us that our observed <em>t</em> statistic value of 3.03 is relatively unlikely if the null hypothesis really is true.
+          We can use the <em>t</em> distribution to determine this probability. Above we noted that the appropriate degrees of freedom (after correcting for differences in variance and sample size) was t = 241.12. We can use a function from our statistical software to determine the probability of finding a value of the <em>t</em> statistic greater than or equal to our observed value. We find that <m>p(t \gt 3.86, df = 241.12) = 0.0.000072</m>, which tells us that our observed <em>t</em> statistic value of 3.86 is relatively unlikely if the null hypothesis really is true.
         </p>
         <p>
-          In this case, we used a directional hypothesis, so we only had to look at one end of the null distribution. If we wanted to test a non-directional hypothesis, then we would need to be able to identify how unexpected the size of the effect is, regardless of its direction. In the context of the t-test, this means that we need to know how likely it is that the statistic would be as extreme in either the positive or negative direction. To do this, we multiply the observed <em>t</em> value by -1, since the <em>t</em> distribution is centered around zero, and then add together the two tail probabilities to get a <em>two-tailed</em> p-value: <m>p(t \gt 3.03 \text{ or } t \lt -3.03, df = 222.62) = 0.002710</m>. Here we see that the p value for the two-tailed test is twice as large as that for the one-tailed test, which reflects the fact that an extreme value is less surprising since it could have occurred in either direction.
+          In this case, we used a directional hypothesis, so we only had to look at one end of the null distribution. If we wanted to test a non-directional hypothesis, then we would need to be able to identify how unexpected the size of the effect is, regardless of its direction. In the context of the t-test, this means that we need to know how likely it is that the statistic would be as extreme in either the positive or negative direction. To do this, we multiply the observed <em>t</em> value by -1, since the <em>t</em> distribution is centered around zero, and then add together the two tail probabilities to get a <em>two-tailed</em> p-value: <m>p(t \gt 3.86 \text{ or } t \lt -3.86, df = 241.12) = 0.000145</m>. Here we see that the p value for the two-tailed test is twice as large as that for the one-tailed test, which reflects the fact that an extreme value is less surprising since it could have occurred in either direction.
         </p>
         <p>
           How do you choose whether to use a one-tailed versus a two-tailed test? The two-tailed test is always going to be more conservative, so it's always a good bet to use that one, unless you had a very strong prior reason for using a one-tailed test. In that case, you should have written down the hypothesis before you ever looked at the data. In Chapter 18 we will discuss the idea of pre-registration of hypotheses, which formalizes the idea of writing down your hypotheses before you ever see the actual data. You should <em>never</em> make a decision about how to perform a hypothesis test once you have looked at the data, as this can introduce serious bias into the results.
@@ -305,68 +305,71 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       <subsubsection xml:id="subsubsec-randomization-simple">
         <title>Randomization: a simple example</title>
         <p>
-          Let's start with a simple example. Let's say that we want to compare the mean squatting ability of football players with cross-country runners, with <m>H_0: \mu_{FB} \le \mu_{XC}</m> and <m>H_A: \mu_{FB} \gt \mu_{XC}</m>. We measure the maximum squatting ability of 5 football players and 5 cross-country runners (which we will generate randomly, assuming that <m>\mu_{FB} = 300</m>, <m>\mu_{XC} = 140</m>, and <m>\sigma = 30</m>). The data are shown in Table <xref ref="table-squat-data"/>.
+          Let's start with a simple example. Let's say that we want to compare the mean squatting ability of football players with cross-country runners, with <m>H_0: \mu_{FB} \le \mu_{XC}</m> and <m>H_A: \mu_{FB} \gt \mu_{XC}</m>. We measure the maximum squatting ability of 5 football players and 5 cross-country runners (which we will generate randomly, assuming that <m>\mu_{FB} = 300</m>, <m>\mu_{XC} = 140</m>, and <m>\sigma = 30</m>). The data are shown in <xref ref="table-squat-data"/>.
         </p>
 
         <table xml:id="table-squat-data">
           <title>Squatting data for the two groups</title>
-          <tabular halign="center">
-            <row header="yes" bottom="minor">
-              <cell>Group</cell>
-              <cell>Squat (lbs)</cell>
-              <cell>Shuffled Squat (lbs)</cell>
-            </row>
-            <row>
-              <cell>FB</cell>
-              <cell>295</cell>
-              <cell>295</cell>
-            </row>
-            <row>
-              <cell>FB</cell>
-              <cell>310</cell>
-              <cell>150</cell>
-            </row>
-            <row>
-              <cell>FB</cell>
-              <cell>325</cell>
-              <cell>155</cell>
-            </row>
-            <row>
-              <cell>FB</cell>
-              <cell>275</cell>
-              <cell>310</cell>
-            </row>
-            <row>
-              <cell>FB</cell>
-              <cell>345</cell>
-              <cell>345</cell>
-            </row>
-            <row>
-              <cell>XC</cell>
-              <cell>150</cell>
-              <cell>135</cell>
-            </row>
-            <row>
-              <cell>XC</cell>
-              <cell>155</cell>
-              <cell>325</cell>
-            </row>
-            <row>
-              <cell>XC</cell>
-              <cell>135</cell>
-              <cell>125</cell>
-            </row>
-            <row>
-              <cell>XC</cell>
-              <cell>160</cell>
-              <cell>275</cell>
-            </row>
-            <row>
-              <cell>XC</cell>
-              <cell>125</cell>
-              <cell>160</cell>
-            </row>
-          </tabular>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>group</cell>
+      <cell>squat</cell>
+      <cell>shuffledSquat</cell>
+    </row>
+    <row>
+      <cell>FB</cell>
+      <cell>265</cell>
+      <cell>125</cell>
+    </row>
+    <row>
+      <cell>FB</cell>
+      <cell>310</cell>
+      <cell>230</cell>
+    </row>
+    <row>
+      <cell>FB</cell>
+      <cell>335</cell>
+      <cell>125</cell>
+    </row>
+    <row>
+      <cell>FB</cell>
+      <cell>230</cell>
+      <cell>315</cell>
+    </row>
+    <row>
+      <cell>FB</cell>
+      <cell>315</cell>
+      <cell>115</cell>
+    </row>
+    <row>
+      <cell>XC</cell>
+      <cell>155</cell>
+      <cell>335</cell>
+    </row>
+    <row>
+      <cell>XC</cell>
+      <cell>125</cell>
+      <cell>155</cell>
+    </row>
+    <row>
+      <cell>XC</cell>
+      <cell>125</cell>
+      <cell>125</cell>
+    </row>
+    <row>
+      <cell>XC</cell>
+      <cell>125</cell>
+      <cell>265</cell>
+    </row>
+    <row>
+      <cell>XC</cell>
+      <cell>115</cell>
+      <cell>310</cell>
+    </row>
+  </tabular>
         </table>
 
         <figure xml:id="fig-squat-boxplot">
@@ -377,13 +380,28 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
         </figure>
 
         <p>
-          From the plot on the left side of Figure <xref ref="fig-squat-boxplot"/> it's clear that there is a large difference between the two groups. We can do a standard t-test to test our hypothesis, which gives a result with <m>t = 7.78</m>, <m>df = 8</m>, and <m>p = 0.00004</m>.
+          From the plot on the left side of <xref ref="fig-squat-boxplot"/> it's clear that there is a large difference between the two groups. We can do a standard t-test to test our hypothesis, which gives the following result:
         </p>
+
+<console><output>
+## 
+##  Welch Two Sample t-test
+## 
+## data:  squat by group
+## t = 8, df = 5, p-value = 2e-04
+## alternative hypothesis: true difference in means between group FB and group XC is greater than 0
+## 95 percent confidence interval:
+##  121 Inf
+## sample estimates:
+## mean in group FB mean in group XC 
+##              291              129
+</output></console>
+
         <p>
           If we look at the p-value reported here, we see that the likelihood of such a difference under the null hypothesis is very small, using the <em>t</em> distribution to define the null.
         </p>
         <p>
-          Now let's see how we could answer the same question using randomization. The basic idea is that if the null hypothesis of no difference between groups is true, then it shouldn't matter which group one comes from (football players versus cross-country runners) <mdash/> thus, to create data that are like our actual data but also conform to the null hypothesis, we can randomly reorder the data for the individuals in the dataset, and then recompute the difference between the groups. The results of such a shuffle are shown in the column labeled <q>shuffleSquat</q> in Table <xref ref="table-squat-data"/>, and the boxplots of the resulting data are in the right panel of Figure <xref ref="fig-squat-boxplot"/>.
+          Now let's see how we could answer the same question using randomization. The basic idea is that if the null hypothesis of no difference between groups is true, then it shouldn't matter which group one comes from (football players versus cross-country runners) <mdash/> thus, to create data that are like our actual data but also conform to the null hypothesis, we can randomly reorder the data for the individuals in the dataset, and then recompute the difference between the groups. The results of such a shuffle are shown in the column labeled <q>shuffleSquat</q> in <xref ref="table-squat-data"/>, and the boxplots of the resulting data are in the right panel of <xref ref="fig-squat-boxplot"/>.
         </p>
 
         <figure xml:id="fig-shuffle-hist">
@@ -394,14 +412,14 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
         </figure>
 
         <p>
-          After scrambling the data, we see that the two groups are now much more similar, and in fact the cross-country group now has a slightly higher mean. Now let's do that 10000 times and store the <em>t</em> statistic for each iteration; if you are doing this on your own computer, it will take a moment to complete. Figure <xref ref="fig-shuffle-hist"/> shows the histogram of the <em>t</em> values across all of the random shuffles. As expected under the null hypothesis, this distribution is centered at zero (the mean of the distribution is -0.001). From the figure we can also see that the distribution of <em>t</em> values after shuffling roughly follows the theoretical <em>t</em> distribution under the null hypothesis (with mean=0), showing that randomization worked to generate null data. We can compute the p-value from the randomized data by measuring how many of the shuffled values are at least as extreme as the observed value: <m>p(t \gt 7.78, df = 8)</m> using randomization = 0.00005. This p-value is very similar to the p-value that we obtained using the <em>t</em> distribution, and both are quite extreme, suggesting that the observed data are very unlikely to have arisen if the null hypothesis is true <mdash/> and in this case we <em>know</em> that it's not true, because we generated the data.
+          After scrambling the data, we see that the two groups are now much more similar, and in fact the cross-country group now has a slightly higher mean. Now let's do that 10000 times and store the <em>t</em> statistic for each iteration; if you are doing this on your own computer, it will take a moment to complete. <xref ref="fig-shuffle-hist"/> shows the histogram of the <em>t</em> values across all of the random shuffles. As expected under the null hypothesis, this distribution is centered at zero (the mean of the distribution is 0.007). From the figure we can also see that the distribution of <em>t</em> values after shuffling roughly follows the theoretical <em>t</em> distribution under the null hypothesis (with mean=0), showing that randomization worked to generate null data. We can compute the p-value from the randomized data by measuring how many of the shuffled values are at least as extreme as the observed value: <m>p(t \gt 8.01, df = 8)</m> using randomization = 0.00410. This p-value is very similar to the p-value that we obtained using the <em>t</em> distribution, and both are quite extreme, suggesting that the observed data are very unlikely to have arisen if the null hypothesis is true <mdash/> and in this case we <em>know</em> that it's not true, because we generated the data.
         </p>
       </subsubsection>
 
       <subsubsection xml:id="subsubsec-randomization-bmi">
         <title>Randomization: BMI/activity example</title>
         <p>
-          Now let's use randomization to compute the p-value for the BMI/activity example. In this case, we will randomly shuffle the <c>PhysActive</c> variable and compute the difference between groups after each shuffle, and then compare our observed <em>t</em> statistic to the distribution of <em>t</em> statistics from the shuffled datasets. Figure <xref ref="fig-sim-diff"/> shows the distribution of <em>t</em> values from the shuffled samples, and we can also compute the probability of finding a value as large or larger than the observed value. The p-value obtained from randomization (0.001400) is very similar to the one obtained using the <em>t</em> distribution (0.001355). The advantage of the randomization test is that it doesn't require that we assume that the data from each of the groups are normally distributed, though the t-test is generally quite robust to violations of that assumption. In addition, the randomization test can allow us to compute p-values for statistics when we don't have a theoretical distribution like we do for the t-test.
+          Now let's use randomization to compute the p-value for the BMI/activity example. In this case, we will randomly shuffle the <c>PhysActive</c> variable and compute the difference between groups after each shuffle, and then compare our observed <em>t</em> statistic to the distribution of <em>t</em> statistics from the shuffled datasets. <xref ref="fig-sim-diff"/> shows the distribution of <em>t</em> values from the shuffled samples, and we can also compute the probability of finding a value as large or larger than the observed value. The p-value obtained from randomization (0.000000) is very similar to the one obtained using the <em>t</em> distribution (0.000075). The advantage of the randomization test is that it doesn't require that we assume that the data from each of the groups are normally distributed, though the t-test is generally quite robust to violations of that assumption. In addition, the randomization test can allow us to compute p-values for statistics when we don't have a theoretical distribution like we do for the t-test.
         </p>
 
         <figure xml:id="fig-sim-diff">
@@ -527,7 +545,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       </figure>
 
       <p>
-        Figure <xref ref="fig-sig-results"/> shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets. While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of <em>statistical power</em> in Chapter 10, but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance.
+        <xref ref="fig-sig-results"/> shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets. While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of <em>statistical power</em> in Chapter 10, but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance.
       </p>
     </subsection>
   </section>
@@ -541,7 +559,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       Let's look at an example to see how this might work. There is great interest in understanding the genetic factors that can predispose individuals to major mental illnesses such as schizophrenia, because we know that about 80% of the variation between individuals in the presence of schizophrenia is due to genetic differences. The Human Genome Project and the ensuing revolution in genome science has provided tools to examine the many ways in which humans differ from one another in their genomes. One approach that has been used in recent years is known as a <em>genome-wide association study</em> (GWAS), in which the genome of each individual is characterized at one million or more places to determine which letters of the genetic code they have at each location, focusing on locations where humans tend to differ frequently. After these have been determined, the researchers perform a statistical test at each location in the genome to determine whether people diagnosed with schizophrenia are more or less likely to have one specific version of the genetic sequence at that location.
     </p>
     <p>
-      Let's imagine what would happen if the researchers simply asked whether the test was significant at <m>p \lt .05</m> at each location, when in fact there is no true effect at any of the locations. To do this, we generate a large number of simulated <em>t</em> values from a null distribution, and ask how many of them are significant at <m>p \lt .05</m>. Let's do this many times, and each time count up how many of the tests come out as significant (see Figure <xref ref="fig-null-sim"/>).
+      Let's imagine what would happen if the researchers simply asked whether the test was significant at <m>p \lt .05</m> at each location, when in fact there is no true effect at any of the locations. To do this, we generate a large number of simulated <em>t</em> values from a null distribution, and ask how many of them are significant at <m>p \lt .05</m>. Let's do this many times, and each time count up how many of the tests come out as significant (see <xref ref="fig-null-sim"/>).
     </p>
 
     <figure xml:id="fig-null-sim">
@@ -555,7 +573,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       This shows that about 5% of all of the tests were significant in each run, meaning that if we were to use <m>p \lt .05</m> as our threshold for statistical significance, then even if there were no truly significant relationships present, we would still <q>find</q> about 500 genes that were seemingly significant in each study (the expected number of significant results is simply <m>n \times \alpha</m>). That is because while we controlled for the error per test, we didn't control the error rate across our entire <em>family</em> of tests (known as the <em>familywise error</em>), which is what we really want to control if we are going to be looking at the results from a large number of tests. Using <m>p \lt .05</m>, our familywise error rate in the above example is one <mdash/> that is, we are pretty much guaranteed to make at least one error in any particular study.
     </p>
     <p>
-      A simple way to control for the familywise error is to divide the alpha level by the number of tests; this is known as the <em>Bonferroni</em> correction, named after the Italian statistician Carlo Bonferroni. Using the data from our example above, we see in Figure <xref ref="fig-null-sim"/> that only about 5 percent of studies show any significant results using the corrected alpha level of 0.000005 instead of the nominal level of .05. We have effectively controlled the familywise error, such that the probability of making <em>any</em> errors in our study is controlled at right around .05.
+      A simple way to control for the familywise error is to divide the alpha level by the number of tests; this is known as the <em>Bonferroni</em> correction, named after the Italian statistician Carlo Bonferroni. Using the data from our example above, we see in <xref ref="fig-null-sim"/> that only about 5 percent of studies show any significant results using the corrected alpha level of 0.000005 instead of the nominal level of .05. We have effectively controlled the familywise error, such that the probability of making <em>any</em> errors in our study is controlled at right around .05.
     </p>
   </section>
 
