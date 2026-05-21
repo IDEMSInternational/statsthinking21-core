@@ -22,7 +22,7 @@
       The specific type of hypothesis testing that we will discuss is known (for reasons that will become clear) as <em>null hypothesis statistical testing</em> (NHST). If you pick up almost any scientific or biomedical research publication, you will see NHST being used to test hypotheses, and in their introductory psychology textbook, Gerrig <ampersand/> Zimbardo (2002) referred to NHST as the <q>backbone of psychological research</q>. Thus, learning how to use and interpret the results from hypothesis testing is essential to understand the results from many fields of research.
     </p>
     <p>
-      It is also important for you to know, however, that NHST is deeply flawed, and that many statisticians and researchers (including myself) think that it has been the cause of serious problems in science, which we will discuss in Chapter 18. For more than 50 years, there have been calls to abandon NHST in favor of other approaches (like those that we will discuss in the following chapters):
+      It is also important for you to know, however, that NHST is deeply flawed, and that many statisticians and researchers (including myself) think that it has been the cause of serious problems in science, which we will discuss in <xref ref="ch-reproducible-research"/>. For more than 50 years, there have been calls to abandon NHST in favor of other approaches (like those that we will discuss in the following chapters):
     </p>
     <ul>
       <li><q>The test of statistical significance in psychological research may be taken as an instance of a kind of essential mindlessness in the conduct of research</q> (Bakan, 1966)</li>
@@ -291,7 +291,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
           In this case, we used a directional hypothesis, so we only had to look at one end of the null distribution. If we wanted to test a non-directional hypothesis, then we would need to be able to identify how unexpected the size of the effect is, regardless of its direction. In the context of the t-test, this means that we need to know how likely it is that the statistic would be as extreme in either the positive or negative direction. To do this, we multiply the observed <em>t</em> value by -1, since the <em>t</em> distribution is centered around zero, and then add together the two tail probabilities to get a <em>two-tailed</em> p-value: <m>p(t \gt 3.86 \text{ or } t \lt -3.86, df = 241.12) = 0.000145</m>. Here we see that the p value for the two-tailed test is twice as large as that for the one-tailed test, which reflects the fact that an extreme value is less surprising since it could have occurred in either direction.
         </p>
         <p>
-          How do you choose whether to use a one-tailed versus a two-tailed test? The two-tailed test is always going to be more conservative, so it's always a good bet to use that one, unless you had a very strong prior reason for using a one-tailed test. In that case, you should have written down the hypothesis before you ever looked at the data. In Chapter 18 we will discuss the idea of pre-registration of hypotheses, which formalizes the idea of writing down your hypotheses before you ever see the actual data. You should <em>never</em> make a decision about how to perform a hypothesis test once you have looked at the data, as this can introduce serious bias into the results.
+          How do you choose whether to use a one-tailed versus a two-tailed test? The two-tailed test is always going to be more conservative, so it's always a good bet to use that one, unless you had a very strong prior reason for using a one-tailed test. In <xref ref="ch-reproducible-research"/> we will discuss the idea of pre-registration of hypotheses, which formalizes the idea of writing down your hypotheses before you ever see the actual data. You should <em>never</em> make a decision about how to perform a hypothesis test once you have looked at the data, as this can introduce serious bias into the results.
         </p>
       </subsubsection>
 
@@ -460,7 +460,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
         Instead, it is likely that <m>p \lt .05</m> became a ritual due to the reliance upon tables of p-values that were used before computing made it easy to compute p values for arbitrary values of a statistic. All of the tables had an entry for 0.05, making it easy to determine whether one's statistic exceeded the value needed to reach that level of significance.
       </p>
       <p>
-        The choice of statistical thresholds remains deeply controversial, and recently (Benjamin et al., 2018) it has been proposed that the default threshold be changed from .05 to .005, making it substantially more stringent and thus more difficult to reject the null hypothesis. In large part this move is due to growing concerns that the evidence obtained from a significant result at <m>p \lt .05</m> is relatively weak; we will return to this in our later discussion of reproducibility in Chapter 18.
+        The choice of statistical thresholds remains deeply controversial, and recently (Benjamin et al., 2018) it has been proposed that the default threshold be changed from .05 to .005, making it substantially more stringent and thus more difficult to reject the null hypothesis. In large part this move is due to growing concerns that the evidence obtained from a significant result at <m>p \lt .05</m> is relatively weak; we will return to this in our later discussion of reproducibility in <xref ref="ch-reproducible-research"/>.
       </p>
 
       <subsubsection xml:id="subsubsec-neyman-pearson">
@@ -498,7 +498,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
           <li>P(Type II error) = <m>\beta</m></li>
         </ul>
         <p>
-          That is, if we set <m>\alpha</m> to .05, then in the long run we should make a Type I error 5% of the time. Whereas it's common to set <m>\alpha</m> as .05, the standard value for an acceptable level of <m>\beta</m> is .2 <mdash/> that is, we are willing to accept that 20% of the time we will fail to detect a true effect when it truly exists. We will return to this later when we discuss statistical power in Chapter 10, which is the complement of Type II error.
+          That is, if we set <m>\alpha</m> to .05, then in the long run we should make a Type I error 5% of the time. Whereas it's common to set <m>\alpha</m> as .05, the standard value for an acceptable level of <m>\beta</m> is .2 <mdash/> that is, we are willing to accept that 20% of the time we will fail to detect a true effect when it truly exists. We will return to this later when we discuss statistical power in <xref ref="ch-quantifying-effects"/>, which is the complement of Type II error.
         </p>
       </subsubsection>
     </subsection>
@@ -534,7 +534,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
     <subsection xml:id="subsec-practical-importance">
       <title>Does it mean that you have found a practically important effect?</title>
       <p>
-        No. There is an essential distinction between <em>statistical significance</em> and <em>practical significance</em>. As an example, let's say that we performed a randomized controlled trial to examine the effect of a particular diet on body weight, and we find a statistically significant effect at <m>p \lt .05</m>. What this doesn't tell us is how much weight was actually lost, which we refer to as the <em>effect size</em> (to be discussed in more detail in Chapter 10). If we think about a study of weight loss, then we probably don't think that the loss of one ounce (i.e. the weight of a few potato chips) is practically significant. Let's look at our ability to detect a significant difference of 1 ounce as the sample size increases.
+        No. There is an essential distinction between <em>statistical significance</em> and <em>practical significance</em>. As an example, let's say that we performed a randomized controlled trial to examine the effect of a particular diet on body weight, and we find a statistically significant effect at <m>p \lt .05</m>. What this doesn't tell us is how much weight was actually lost, which we refer to as the <em>effect size</em> (to be discussed in more detail in <xref ref="ch-quantifying-effects"/>). If we think about a study of weight loss, then we probably don't think that the loss of one ounce (i.e. the weight of a few potato chips) is practically significant. Let's look at our ability to detect a significant difference of 1 ounce as the sample size increases.
       </p>
 
       <figure xml:id="fig-sig-results">
@@ -545,7 +545,7 @@ ggplot(data.frame(coinFlips), aes(coinFlips)) +
       </figure>
 
       <p>
-        <xref ref="fig-sig-results"/> shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets. While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of <em>statistical power</em> in Chapter 10, but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance.
+        <xref ref="fig-sig-results"/> shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets. While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of <em>statistical power</em> in <xref ref="ch-quantifying-effects"/>, but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance.
       </p>
     </subsection>
   </section>
