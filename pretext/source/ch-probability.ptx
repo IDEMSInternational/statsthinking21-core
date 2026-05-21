@@ -81,8 +81,14 @@ sampDf %&gt;%
       </program>
 
       <p>
-        A demonstration of the law of large numbers would show that as the number of coin flip trials increases, the estimated probability of heads converges onto the true value of 0.5. However, note that the estimates can be very far off from the true value when the sample sizes are small. A real-world example of this was seen in the 2017 special election for the US Senate in Alabama, which pitted the Republican Roy Moore against Democrat Doug Jones. Early in the evening the vote counts were especially volatile, swinging from a large initial lead for Jones to a long period where Moore had the lead, until finally Jones took the lead to win the race.
+        The left panel of <xref ref="fig-election-results"/> shows that as the number of samples (i.e., coin flip trials) increases, the estimated probability of heads converges onto the true value of 0.5. However, note that the estimates can be very far off from the true value when the sample sizes are small. A real-world example of this was seen in the 2017 special election for the US Senate in Alabama, which pitted the Republican Roy Moore against Democrat Doug Jones. The right panel of <xref ref="fig-election-results"/> shows the relative amount of the vote reported for each of the candidates over the course of the evening, as an increasing number of ballots were counted. Early in the evening the vote counts were especially volatile, swinging from a large initial lead for Jones to a long period where Moore had the lead, until finally Jones took the lead to win the race.
       </p>
+      <figure xml:id="fig-election-results">
+        <caption>Left: A demonstration of the law of large numbers. A coin was flipped 30,000 times, and after each flip the probability of heads was computed based on the number of heads and tail collected up to that point. It takes about 15,000 flips for the probability to settle at the true probability of 0.5. Right: Relative proportion of the vote in the Dec 12, 2017 special election for the US Senate seat in Alabama, as a function of the percentage of precincts reporting. These data were transcribed from https://www.ajc.com/news/national/alabama-senate-race-live-updates-roy-moore-doug-jones/KPRfkdaweoiXICW3FHjXqI/.</caption>
+        <image source="ElectionResults-1.png" width="80%">
+          <description>Two-panel figure. Left panel shows estimated probability of heads converging toward 0.5 across 30,000 simulated coin flips. Right panel shows vote share trajectories for Doug Jones and Roy Moore as Alabama precincts reported in the 2017 special Senate election.</description>
+        </image>
+      </figure>
       <p>
         These two examples show that while large samples will ultimately converge on the true probability, the results with small samples can be far off. Unfortunately, many people forget this and overinterpret results from small samples. This was referred to as the <em>law of small numbers</em> by the psychologists Danny Kahneman and Amos Tversky, who showed that people (even trained researchers) often behave as if the law of large numbers applies even to small samples, giving too much credence to results based on small datasets. We will see examples throughout the course of just how unstable statistical results can be when they are generated on the basis of small samples.
       </p>
@@ -155,8 +161,14 @@ sampDf %&gt;%
         <mrow>P(\text{Roll6}_{\text{throw1}} \cup \text{Roll6}_{\text{throw2}}) \amp = P(\text{Roll6}_{\text{throw1}}) + P(\text{Roll6}_{\text{throw2}}) - P(\text{Roll6}_{\text{throw1}} \cap \text{Roll6}_{\text{throw2}})</mrow>
         <mrow>\amp = \frac{1}{6} + \frac{1}{6} - \frac{1}{36} = \frac{11}{36}</mrow>
       </md>
+      <figure xml:id="fig-throw-matrix">
+        <caption>Each cell in this matrix represents one outcome of two throws of a die, with the columns representing the first throw and the rows representing the second throw. Cells shown in red represent the cells with a six in either the first or second throw; the rest are shown in blue.</caption>
+        <image source="ThrowMatrix-1.png" width="50%">
+          <description>A 6 by 6 matrix of die outcomes for two throws. Cells corresponding to at least one six are highlighted in red, and all other cells are blue.</description>
+        </image>
+      </figure>
       <p>
-        A matrix representation would show each cell representing one outcome of two throws of a die, with the columns representing the first throw and the rows representing the second throw. Cells with a six in either the first or second throw would be highlighted. If you count up the highlighted cells you will see that there are 11 such cells. This shows why the addition rule gives a different answer from de Méré's; if we were to simply add together the probabilities for the two throws as he did, then we would count (6,6) towards both, when it should really only be counted once.
+        Let's use a graphical depiction to get a different view of this rule. <xref ref="fig-throw-matrix"/> shows a matrix representing all possible combinations of results across two throws, and highlights the cells that involve a six on either the first or second throw. If you count up the cells in red you will see that there are 11 such cells. This shows why the addition rule gives a different answer from de Méré's; if we were to simply add together the probabilities for the two throws as he did, then we would count (6,6) towards both, when it should really only be counted once.
       </p>
     </subsection>
 
@@ -257,8 +269,14 @@ sampDf %&gt;%
     <p>
       That is, we want to know the probability that both things are true, given that the one being conditioned upon is true.
     </p>
+    <figure xml:id="fig-conditional-probability">
+      <caption>A graphical depiction of conditional probability, showing how the conditional probability limits our analysis to a subset of the data.</caption>
+      <image source="conditional_probability.png" width="80%">
+        <description>A flow-chart style diagram showing a full voting population split into Republicans and Democrats and then split again by vote choice, illustrating conditional probability.</description>
+      </image>
+    </figure>
     <p>
-      It can be useful to think of this graphically. A flow chart would show how the full population of voters breaks down into Republicans and Democrats, and how the conditional probability (conditioning on party) further breaks down the members of each party according to their vote.
+      It can be useful to think of this graphically. <xref ref="fig-conditional-probability"/> shows a flow chart depicting how the full population of voters breaks down into Republicans and Democrats, and how the conditional probability (conditioning on party) further breaks down the members of each party according to their vote.
     </p>
   </section>
 
