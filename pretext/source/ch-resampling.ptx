@@ -81,13 +81,6 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
     <figure xml:id="fig-rng-examples">
       <caption>Examples of random numbers generated from a uniform (left) or normal (right) distribution.</caption>
       <image source="rngExamples.png" width="80%">
-        <description>Two histograms side by side. The left panel shows values drawn from a uniform distribution between 0 and 1 with approximately equal counts across bins. The right panel shows values drawn from a normal distribution with a bell-shaped histogram centered near zero.</description>
-      </image>
-    </figure>
-
-    <figure xml:id="fig-rng-examples">
-      <caption>Examples of random numbers generated from a uniform (left) or normal (right) distribution.</caption>
-      <image source="rngExamples.png" width="80%">
         <description>Two side-by-side histograms. The left histogram (labeled Uniform) shows a roughly flat distribution of values between 0 and 1, with counts around 100 per bin. The right histogram (labeled Normal) shows a bell-shaped distribution of values centered around 0, with counts highest near the center and tapering off toward -4 and 4.</description>
       </image>
     </figure>
@@ -125,7 +118,7 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
     </figure>
 
     <p>
-      Figure <xref ref="fig-finish-time-sim"/> shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
+      <xref ref="fig-finish-time-sim"/> shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
     </p>
   </section>
 
