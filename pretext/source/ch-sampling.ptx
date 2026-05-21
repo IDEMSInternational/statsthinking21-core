@@ -33,7 +33,7 @@
       Sampling error is directly related to the quality of our measurement of the population. Clearly we want the estimates obtained from our sample to be as close as possible to the true value of the population parameter. However, even if our statistic is unbiased (that is, we expect it to have the same value as the population parameter), the value for any particular estimate will differ from the population value, and those differences will be greater when the sampling error is greater. Thus, reducing sampling error is an important step towards better measurement.
     </p>
     <p>
-      We will use the NHANES dataset as an example; we are going to assume that the NHANES dataset is the entire population of interest, and then we will draw random samples from this population. We will have more to say in the next chapter about exactly how the generation of <q>random</q> samples works in a computer.
+      We will use the NHANES dataset as an example; we are going to assume that the NHANES dataset is the entire population of interest, and then we will draw random samples from this population. We will have more to say in Chapter <xref ref="ch-resampling"/> about exactly how the generation of <q>random</q> samples works in a computer.
     </p>
     <p>
       In this example, we know the adult population mean (168.35 cm) and standard deviation (10.16 cm) for height because we are assuming that the NHANES dataset <em>is</em> the population. <xref ref="table-sample-example"/> shows the statistics computed from a few samples of 50 individuals from the NHANES population.
@@ -130,7 +130,6 @@ sampMeans_df %&gt;%
         <description>A histogram showing two distributions: the gray histogram shows the distribution of height in the full NHANES adult dataset, while the blue histogram shows the sampling distribution of the mean over 5000 random samples of size 50. The sampling distribution is much narrower than the population distribution and is centered around the population mean, shown by a vertical line at 168.35 cm.</description>
       </image>
     </figure>
-
   </section>
 
   <section xml:id="sec-standard-error-of-the-mean">
@@ -160,7 +159,7 @@ sampMeans_df %&gt;%
       The Central Limit Theorem tells us that as sample sizes get larger, the sampling distribution of the mean will become normally distributed, <em>even if the data within each sample are not normally distributed</em>.
     </p>
     <p>
-      First, let's say a little bit about the normal distribution. It's also known as the <em>Gaussian</em> distribution, after Carl Friedrich Gauss, a mathematician who didn't invent it but played a role in its development. The normal distribution is described in terms of two parameters: the mean (which you can think of as the location of the peak), and the standard deviation (which specifies the width of the distribution). The bell-like shape of the distribution never changes, only its location and width. The normal distribution is commonly observed in data collected in the real world, as we have already seen in Chapter 3 <mdash/> and the central limit theorem gives us some insight into why that occurs.
+      First, let's say a little bit about the normal distribution. It's also known as the <em>Gaussian</em> distribution, after Carl Friedrich Gauss, a mathematician who didn't invent it but played a role in its development. The normal distribution is described in terms of two parameters: the mean (which you can think of as the location of the peak), and the standard deviation (which specifies the width of the distribution). The bell-like shape of the distribution never changes, only its location and width. The normal distribution is commonly observed in data collected in the real world, as we have already seen in Chapter <xref ref="ch-summarizing-data"/> <mdash/> and the central limit theorem gives us some insight into why that occurs.
     </p>
     <p>
       To see the central limit theorem in action, let's work with the variable AlcoholYear from the NHANES dataset, which is highly skewed, as shown in the left panel of <xref ref="fig-alcohol-dist-50"/>. This distribution is, for lack of a better word, funky <mdash/> and definitely not normally distributed.  Now let's look at the sampling distribution of the mean for this variable. <xref ref="fig-alcohol-dist-50"/> shows the sampling distribution for this variable, which is obtained by repeatedly drawing samples of size 50 from the NHANES dataset and taking the mean. Despite the clear non-normality of the original data, the sampling distribution is remarkably close to the normal.

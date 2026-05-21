@@ -57,6 +57,10 @@
         How do we know that empirical probability gives us the right number? The answer to this question comes from the <em>law of large numbers</em>, which shows that the empirical probability will approach the true probability as the sample size increases. We can see this by simulating a large number of coin flips, and looking at our estimate of the probability of heads after each flip. We will spend more time discussing simulation in a later chapter; for now, just assume that we have a computational way to generate a random outcome for each coin flip.
       </p>
 
+      <p>
+        The left panel of <xref ref="fig-election-results"/> shows that as the number of samples (i.e., coin flip trials) increases, the estimated probability of heads converges onto the true value of 0.5. However, note that the estimates can be very far off from the true value when the sample sizes are small. A real-world example of this was seen in the 2017 special election for the US Senate in Alabama, which pitted the Republican Roy Moore against Democrat Doug Jones. The right panel of <xref ref="fig-election-results"/> shows the relative amount of the vote reported for each of the candidates over the course of the evening, as an increasing number of ballots were counted. Early in the evening the vote counts were especially volatile, swinging from a large initial lead for Jones to a long period where Moore had the lead, until finally Jones took the lead to win the race.
+      </p>
+
       <program language="r">
         <input>
 # Simulate coin flips to demonstrate law of large numbers
@@ -80,9 +84,6 @@ sampDf %&gt;%
         </input>
       </program>
 
-      <p>
-        The left panel of <xref ref="fig-election-results"/> shows that as the number of samples (i.e., coin flip trials) increases, the estimated probability of heads converges onto the true value of 0.5. However, note that the estimates can be very far off from the true value when the sample sizes are small. A real-world example of this was seen in the 2017 special election for the US Senate in Alabama, which pitted the Republican Roy Moore against Democrat Doug Jones. The right panel of <xref ref="fig-election-results"/> shows the relative amount of the vote reported for each of the candidates over the course of the evening, as an increasing number of ballots were counted. Early in the evening the vote counts were especially volatile, swinging from a large initial lead for Jones to a long period where Moore had the lead, until finally Jones took the lead to win the race.
-      </p>
       <figure xml:id="fig-election-results">
         <caption>Left: A demonstration of the law of large numbers. A coin was flipped 30,000 times, and after each flip the probability of heads was computed based on the number of heads and tail collected up to that point. It takes about 15,000 flips for the probability to settle at the true probability of 0.5. Right: Relative proportion of the vote in the Dec 12, 2017 special election for the US Senate seat in Alabama, as a function of the percentage of precincts reporting. These data were transcribed from https://www.ajc.com/news/national/alabama-senate-race-live-updates-roy-moore-doug-jones/KPRfkdaweoiXICW3FHjXqI/.</caption>
         <image source="ElectionResults-1.png" width="80%">
@@ -247,8 +248,45 @@ sampDf %&gt;%
         P(k \le 2) = P(k=2) + P(k=1) + P(k=0) = 6 \times 10^{-5} + 0.002 + 0.040 = 0.043
       </me>
       <p>
-        In many cases the number of possible outcomes would be too large for us to compute the cumulative probability by enumerating all possible values; fortunately, it can be computed directly for any theoretical probability distribution. A table showing the cumulative probability of each possible number of successful free throws would show that the probability of Curry landing 2 or fewer free throws out of 4 attempts is 0.043.
-      </p>
+        In many cases the number of possible outcomes would be too large for us to compute the cumulative probability by enumerating all possible values; fortunately, it can be computed directly for any theoretical probability distribution. 
+<xref ref = "table-curry-free-throws"/> shows the cumulative probability of each possible number of successful free throws in the example from above, from which we can see that the probability of Curry landing 2 or fewer free throws out of 4 attempts is 0.043.
+</p>
+<table xml:id="table-curry-free-throws">
+  <title>Simple and cumulative probability distributions for number of successful free throws by Steph Curry in 4 attempts</title>
+  <tabular halign="right">
+    <row header="yes">
+      <cell>numSuccesses</cell>
+      <cell>Probability</cell>
+      <cell>CumulativeProbability</cell>
+    </row>
+    <row>
+      <cell>0</cell>
+      <cell>0.000</cell>
+      <cell>0.000</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>0.003</cell>
+      <cell>0.003</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>0.040</cell>
+      <cell>0.043</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell>0.271</cell>
+      <cell>0.314</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell>0.686</cell>
+      <cell>1.000</cell>
+    </row>
+  </tabular>
+</table>
+
     </subsection>
   </section>
 
@@ -282,13 +320,108 @@ sampDf %&gt;%
 
   <section xml:id="sec-probability-computing-conditional">
     <title>Computing conditional probabilities from data</title>
-    <p>
-      We can also compute conditional probabilities directly from data. Let's say that we are interested in the following question: What is the probability that someone has diabetes, given that they are not physically active? <mdash/> that is, <m>P(\text{diabetes}|\text{inactive})</m>. The NHANES dataset includes two variables that address the two parts of this question. The first (Diabetes) asks whether the person has ever been told that they have diabetes, and the second (PhysActive) records whether the person engages in sports, fitness, or recreational activities that are at least of moderate intensity. We can first compute the simple probabilities. The data would show that the probability that someone in the NHANES dataset has diabetes is 0.1, and the probability that someone is inactive is 0.45.
-    </p>
-    <p>
-      To compute <m>P(\text{diabetes}|\text{inactive})</m> we would also need to know the joint probability of being diabetic <em>and</em> inactive, in addition to the simple probabilities of each. Based on these joint probabilities, we can compute <m>P(\text{diabetes}|\text{inactive})</m>. One way to do this in a computer program is to first determine whether the PhysActive variable was equal to <q>No</q> for each individual, and then take the mean of those truth values. Since TRUE/FALSE values are treated as 1/0 respectively by most programming languages (including R and Python), this allows us to easily identify the probability of a simple event by simply taking the mean of a logical variable representing its truth value. We then use that value to compute the conditional probability, where we might find that the probability of someone having diabetes given that they are physically inactive is approximately 0.14.
-    </p>
-  </section>
+<p>
+  We can also compute conditional probabilities directly from data. Let's say that we 
+  are interested in the following question: What is the probability that someone has 
+  diabetes, given that they are not physically active? <mdash/> that is, 
+  <m>P(\text{diabetes} | \text{inactive})</m>. The NHANES dataset includes two 
+  variables that address the two parts of this question. The first (<c>Diabetes</c>) 
+  asks whether the person has ever been told that they have diabetes, and the second 
+  (<c>PhysActive</c>) records whether the person engages in sports, fitness, or 
+  recreational activities that are at least of moderate intensity. Let's first compute 
+  the simple probabilities, which are shown in <xref ref="table-diabetes-physactive-simple"/>. 
+  The table shows that the probability that someone in the NHANES dataset has diabetes 
+  is .1, and the probability that someone is inactive is .45.
+</p>
+
+<table xml:id="table-diabetes-physactive-simple">
+  <title>Summary data for diabetes and physical activity</title>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>Answer</cell>
+      <cell>N_diabetes</cell>
+      <cell>P_diabetes</cell>
+      <cell>N_PhysActive</cell>
+      <cell>P_PhysActive</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>4893</cell>
+      <cell>0.9</cell>
+      <cell>2472</cell>
+      <cell>0.45</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>550</cell>
+      <cell>0.1</cell>
+      <cell>2971</cell>
+      <cell>0.55</cell>
+    </row>
+  </tabular>
+</table>
+
+<table xml:id="table-diabetes-physactive-joint">
+  <title>Joint probabilities for Diabetes and PhysActive variables</title>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>Diabetes</cell>
+      <cell>PhysActive</cell>
+      <cell>n</cell>
+      <cell>prob</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>No</cell>
+      <cell>2123</cell>
+      <cell>0.39</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>Yes</cell>
+      <cell>2770</cell>
+      <cell>0.51</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>No</cell>
+      <cell>349</cell>
+      <cell>0.06</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>Yes</cell>
+      <cell>201</cell>
+      <cell>0.04</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>
+  To compute <m>P(\text{diabetes} | \text{inactive})</m> we would also need to know 
+  the joint probability of being diabetic and inactive, in addition to the simple 
+  probabilities of each. These are shown in 
+  <xref ref="table-diabetes-physactive-joint"/>. Based on these joint probabilities, 
+  we can compute <m>P(\text{diabetes} | \text{inactive})</m>. One way to do this in 
+  a computer program is to first determine whether the <c>PhysActive</c> variable was 
+  equal to <c>"No"</c> for each individual, and then take the mean of those truth 
+  values. Since <c>TRUE</c><solidus/><c>FALSE</c> values are treated as 1/0 
+  respectively by most programming languages (including R and Python), this allows us 
+  to easily identify the probability of a simple event by simply taking the mean of a 
+  logical variable representing its truth value. We then use that value to compute the 
+  conditional probability, where we find that the probability of someone having diabetes 
+  given that they are physically inactive is 0.141.
+</p>
+</section>
 
   <section xml:id="sec-probability-independence">
     <title>Independence</title>
@@ -301,15 +434,147 @@ sampDf %&gt;%
     <p>
       That is, the probability of A given some value of B is just the same as the overall probability of A. Looking at it this way, we see that many cases of what we would call <q>independence</q> in the real world are not actually statistically independent. For example, there is currently a move by a small group of California citizens to declare a new independent state called Jefferson, which would comprise a number of counties in northern California and Oregon. If this were to happen, then the probability that a current California resident would now live in the state of Jefferson would be <m>P(\text{Jeffersonian}) = 0.014</m>, whereas the probability that they would remain a California resident would be <m>P(\text{Californian}) = 0.986</m>. The new states might be politically independent, but they would <em>not</em> be statistically independent, because if we know that a person is Jeffersonian, then we can be sure that they are <em>not</em> Californian! That is, while independence in common language often refers to sets that are exclusive, statistical independence refers to the case where one cannot predict anything about one variable from the value of another variable. For example, knowing a person's hair color is unlikely to tell you whether they prefer chocolate or strawberry ice cream.
     </p>
-    <p>
-      Let's look at another example, using the NHANES data: Are physical health and mental health independent of one another? NHANES includes two relevant questions: PhysActive, which asks whether the individual is physically active, and DaysMentHlthBad, which asks how many days out of the last 30 that the individual experienced bad mental health. Let's consider anyone who had more than 7 days of bad mental health in the last month to be in bad mental health. Based on this, we can define a new variable called badMentalHealth as a logical variable telling whether each person had more than 7 days of bad mental health or not. We can first summarize the data to show how many individuals fall into each combination of the two variables, and then divide by the total number of observations to create a table of proportions.
-    </p>
-    <p>
-      This shows us the proportion of all observations that fall into each cell. However, what we want to know here is the conditional probability of bad mental health, depending on whether one is physically active or not. To compute this, we divide each physical activity group by its total number of observations, so that each row now sums to one. Here we see the conditional probabilities of bad or good mental health for each physical activity group (in the top two rows) along with the overall probability of good or bad mental health in the third row. To determine whether mental health and physical activity are independent, we would compare the simple probability of bad mental health (in the third row) to the conditional probability of bad mental health given that one is physically active (in the second row).
-    </p>
-    <p>
-      The overall probability of bad mental health <m>P(\text{bad mental health})</m> might be, for example, 0.13, while the conditional probability <m>P(\text{bad mental health}|\text{physically active})</m> might be 0.11. Thus, it seems that the conditional probability is somewhat smaller than the overall probability, suggesting that they are not independent, though we can't know for sure just by looking at the numbers, since these numbers might be different due to random variability in our sample. Later in the book we will discuss statistical tools that will let us directly test whether two variables are independent.
-    </p>
+<p>
+  Let's look at another example, using the NHANES data: Are physical health and mental 
+  health independent of one another? NHANES includes two relevant questions: 
+  <c>PhysActive</c>, which asks whether the individual is physically active, and 
+  <c>DaysMentHlthBad</c>, which asks how many days out of the last 30 that the 
+  individual experienced bad mental health. Let's consider anyone who had more than 7 
+  days of bad mental health in the last month to be in bad mental health. Based on this, 
+  we can define a new variable called <c>badMentalHealth</c> as a logical variable 
+  telling whether each person had more than 7 days of bad mental health or not. We can 
+  first summarize the data to show how many individuals fall into each combination of 
+  the two variables (shown in <xref ref="table-mental-physical-absolute"/>), and then 
+  divide by the total number of observations to create a table of proportions (shown in 
+  <xref ref="table-mental-physical-relative"/>):
+</p>
+
+<table xml:id="table-mental-physical-absolute">
+  <title>Summary of absolute frequency data for mental health and physical activity</title>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>PhysActive</cell>
+      <cell>Bad Mental Health</cell>
+      <cell>Good Mental Health</cell>
+      <cell>Total</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>414</cell>
+      <cell>1664</cell>
+      <cell>2078</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>292</cell>
+      <cell>1926</cell>
+      <cell>2218</cell>
+    </row>
+    <row>
+      <cell>Total</cell>
+      <cell>706</cell>
+      <cell>3590</cell>
+      <cell>4296</cell>
+    </row>
+  </tabular>
+</table>
+
+<table xml:id="table-mental-physical-relative">
+  <title>Summary of relative frequency data for mental health and physical activity</title>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>PhysActive</cell>
+      <cell>Bad Mental Health</cell>
+      <cell>Good Mental Health</cell>
+      <cell>Total</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>0.10</cell>
+      <cell>0.39</cell>
+      <cell>0.48</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>0.07</cell>
+      <cell>0.45</cell>
+      <cell>0.52</cell>
+    </row>
+    <row>
+      <cell>Total</cell>
+      <cell>0.16</cell>
+      <cell>0.84</cell>
+      <cell>1.00</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>
+  This shows us the proportion of all observations that fall into each cell. However, 
+  what we want to know here is the conditional probability of bad mental health, 
+  depending on whether one is physically active or not. To compute this, we divide each 
+  physical activity group by its total number of observations, so that each row now sums 
+  to one (shown in <xref ref="table-mental-physical-conditional"/>). Here we see the 
+  conditional probabilities of bad or good mental health for each physical activity group 
+  (in the top two rows) along with the overall probability of good or bad mental health 
+  in the third row. To determine whether mental health and physical activity are 
+  independent, we would compare the simple probability of bad mental health (in the third 
+  row) to the conditional probability of bad mental health given that one is physically 
+  active (in the second row).
+</p>
+
+<table xml:id="table-mental-physical-conditional">
+  <title>Summary of conditional probabilities for mental health given physical activity</title>
+  <tabular halign="right">
+    <col halign="left"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <col halign="right"/>
+    <row header="yes">
+      <cell>PhysActive</cell>
+      <cell>Bad Mental Health</cell>
+      <cell>Good Mental Health</cell>
+      <cell>Total</cell>
+    </row>
+    <row>
+      <cell>No</cell>
+      <cell>0.20</cell>
+      <cell>0.80</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>Yes</cell>
+      <cell>0.13</cell>
+      <cell>0.87</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>Total</cell>
+      <cell>0.16</cell>
+      <cell>0.84</cell>
+      <cell>1</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>
+  The overall probability of bad mental health <m>P(\text{bad mental health})</m> is 
+  0.16 while the conditional probability 
+  <m>P(\text{bad mental health} | \text{physically active})</m> is 0.13. Thus, it seems 
+  that the conditional probability is somewhat smaller than the overall probability, 
+  suggesting that they are not independent, though we can't know for sure just by looking 
+  at the numbers, since these numbers might be different due to random variability in our 
+  sample. Later in the book we will discuss statistical tools that will let us directly 
+  test whether two variables are independent.
+</p>
   </section>
 
   <section xml:id="sec-probability-bayes-rule">

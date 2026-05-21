@@ -48,7 +48,7 @@
   <section xml:id="sec-generating-random-numbers">
     <title>Generating random numbers</title>
     <p>
-      Running a Monte Carlo simulation requires that we generate random numbers. Generating truly random numbers (i.e. numbers that are completely unpredictable) is only possible through physical processes, such as the decay of atoms or the rolling of dice, which are difficult to obtain and/or too slow to be useful for computer simulation (though they can be obtained from the NIST Randomness Beacon).
+      Running a Monte Carlo simulation requires that we generate random numbers. Generating truly random numbers (i.e. numbers that are completely unpredictable) is only possible through physical processes, such as the decay of atoms or the rolling of dice, which are difficult to obtain and/or too slow to be useful for computer simulation (though they can be obtained from the <url href = "https://www.nist.gov/programs-projects/nist-randomness-beacon%5D">NIST Randomness Beacon</url>).
     </p>
     <p>
       In general, instead of truly random numbers we use <em>pseudo-random</em> numbers generated using a computer algorithm; these numbers will seem random in the sense that they are difficult to predict, but the series of numbers will actually repeat at some point. For example, the random number generator used in R will repeat after <m>2^{19937} - 1</m> numbers. That's far more than the number of seconds in the history of the universe, and we generally think that this is fine for most purposes in statistical analysis.
@@ -78,6 +78,12 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
   labs(title = "Normal")
       </input>
     </program>
+    <figure xml:id="fig-rng-examples">
+      <caption>Examples of random numbers generated from a uniform (left) or normal (right) distribution.</caption>
+      <image source="rngExamples.png" width="80%">
+        <description>Two histograms side by side. The left panel shows values drawn from a uniform distribution between 0 and 1 with approximately equal counts across bins. The right panel shows values drawn from a normal distribution with a bell-shaped histogram centered near zero.</description>
+      </image>
+    </figure>
 
     <figure xml:id="fig-rng-examples">
       <caption>Examples of random numbers generated from a uniform (left) or normal (right) distribution.</caption>
@@ -119,7 +125,7 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
     </figure>
 
     <p>
-      This shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
+      Figure <xref ref="fig-finish-time-sim"/> shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
     </p>
   </section>
 
@@ -132,7 +138,7 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
     <subsection xml:id="subsec-computing-bootstrap">
       <title>Computing the bootstrap</title>
       <p>
-        In the previous chapter, we used our knowledge of the sampling distribution of the mean to compute the standard error of the mean. But what if we can't assume that the estimates are normally distributed, or we don't know their distribution? The idea of the bootstrap is to use the data themselves to estimate an answer. The name comes from the idea of pulling one's self up by one's own bootstraps, expressing the idea that we don't have any external source of leverage so we have to rely upon the data themselves. The bootstrap method was conceived by Bradley Efron of the Stanford Department of Statistics, who is one of the world's most influential statisticians.
+        In Chapter <xref ref="ch-sampling"/>, we used our knowledge of the sampling distribution of the mean to compute the standard error of the mean. But what if we can't assume that the estimates are normally distributed, or we don't know their distribution? The idea of the bootstrap is to use the data themselves to estimate an answer. The name comes from the idea of pulling one's self up by one's own bootstraps, expressing the idea that we don't have any external source of leverage so we have to rely upon the data themselves. The bootstrap method was conceived by Bradley Efron of the Stanford Department of Statistics, who is one of the world's most influential statisticians.
       </p>
       <p>
         The idea behind the bootstrap is that we repeatedly sample from the actual dataset; importantly, we sample <em>with replacement</em>, such that the same data point will often end up being represented multiple times within one of the samples. We then compute our statistic of interest on each of the bootstrap samples, and use the distribution of those estimates as our sampling distribution. In a sense, we treat our particular sample as the entire population, and then repeatedly sample with replacement to generate our samples for analysis. This makes the assumption that our particular sample is an accurate reflection of the population, which is probably reasonable for larger samples but can break down when samples are smaller.
