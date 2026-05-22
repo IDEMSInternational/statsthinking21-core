@@ -54,7 +54,7 @@
       In general, instead of truly random numbers we use <em>pseudo-random</em> numbers generated using a computer algorithm; these numbers will seem random in the sense that they are difficult to predict, but the series of numbers will actually repeat at some point. For example, the random number generator used in R will repeat after <m>2^{19937} - 1</m> numbers. That's far more than the number of seconds in the history of the universe, and we generally think that this is fine for most purposes in statistical analysis.
     </p>
     <p>
-      Most statistical software includes functions to generate random numbers for each of the major probability distributions, such as the uniform distribution (all values between 0 and 1 equally), normal distribution, and binomial distribution (e.g. rolling the dice, coin flips). Figure <xref ref="fig-rng-examples"/> shows examples of numbers generated from uniform and normal distribution functions.
+      Most statistical software includes functions to generate random numbers for each of the major probability distributions, such as the uniform distribution (all values between 0 and 1 equally), normal distribution, and binomial distribution (e.g. rolling the dice, coin flips). <xref ref="fig-rng-examples"/> shows examples of numbers generated from uniform and a normal distribution functions.
     </p>
 
     <program language="r">
@@ -81,7 +81,7 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
     <figure xml:id="fig-rng-examples">
       <caption>Examples of random numbers generated from a uniform (left) or normal (right) distribution.</caption>
       <image source="rngExamples.png" width="80%">
-        <description>Two histograms side by side. The left panel shows values drawn from a uniform distribution between 0 and 1 with approximately equal counts across bins. The right panel shows values drawn from a normal distribution with a bell-shaped histogram centered near zero.</description>
+        <description>Two side-by-side histograms. The left histogram (labeled Uniform) shows a roughly flat distribution of values between 0 and 1, with counts around 100 per bin. The right histogram (labeled Normal) shows a bell-shaped distribution of values centered around 0, with counts highest near the center and tapering off toward -4 and 4.</description>
       </image>
     </figure>
 
@@ -96,25 +96,29 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
   <section xml:id="sec-using-monte-carlo">
     <title>Using Monte Carlo simulation</title>
     <p>
-      Let's go back to our example of exam finishing times. Say that I administer three quizzes and record the finishing times for each student for each exam, which might look like the distributions presented in Figure <xref ref="fig-finishing-times"/>.
+      Let's go back to our example of exam finishing times. Say that I administer three quizzes and record the finishing times for each student for each exam, which might look like the distributions presented in <xref ref="fig-finishing-times"/>.
     </p>
+
     <figure xml:id="fig-finishing-times">
       <caption>Simulated finishing time distributions.</caption>
       <image source="finishingTimes.png" width="80%">
-        <description>Three faceted histograms showing simulated quiz finishing times for three quizzes, with most values centered around five minutes and spread roughly between zero and ten minutes.</description>
+        <description>Three side-by-side histograms labeled 1, 2, and 3, showing the distribution of simulated quiz finishing times for three separate quizzes. Each histogram shows finishing times roughly between 2.5 and 7.5 minutes, with a peak near 5 minutes, consistent with a normal distribution with mean 5 and standard deviation 1.</description>
       </image>
     </figure>
+
     <p>
-      What we really want to know to answer our question is not what the distribution of finishing times looks like, but rather what the distribution of the <em>longest</em> finishing time for each quiz looks like. To do this, we can simulate the finishing time for a quiz, using the assumption that the finishing times are distributed normally, as stated above; for each of these simulated quizzes, we then record the longest finishing time. We repeat this simulation a large number of times (5000 should be enough) and record the distribution of finishing times, which is shown in Figure <xref ref="fig-finish-time-sim"/>.
+      What we really want to know to answer our question is not what the distribution of finishing times looks like, but rather what the distribution of the <em>longest</em> finishing time for each quiz looks like. To do this, we can simulate the finishing time for a quiz, using the assumption that the finishing times are distributed normally, as stated above; for each of these simulated quizzes, we then record the longest finishing time. We repeat this simulation a large number of times (5000 should be enough) and record the distribution of finishing times, which is shown in <xref ref="fig-finish-time-sim"/>.
     </p>
+
     <figure xml:id="fig-finish-time-sim">
       <caption>Distribution of maximum finishing times across simulations.</caption>
-      <image source="finishTimeSim.png" width="65%">
-        <description>A histogram of maximum finishing times from repeated quiz simulations, with a red vertical line indicating the 99th percentile cutoff near 8.3 minutes.</description>
+      <image source="finishTimeSim.png" width="50%">
+        <description>A histogram showing the distribution of maximum finishing times across 5000 simulated quizzes. The distribution is roughly bell-shaped, centered around 7.5 minutes, with a red vertical line marking the 99th percentile at approximately 8.3 minutes.</description>
       </image>
     </figure>
+
     <p>
-      Figure <xref ref="fig-finish-time-sim"/> shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
+      <xref ref="fig-finish-time-sim"/> shows that the 99th percentile of the finishing time distribution falls at approximately 8.3 minutes, meaning that if we were to give that much time for the quiz, then everyone should finish 99% of the time. It's always important to remember that our assumptions matter <mdash/> if they are wrong, then the results of the simulation are useless. In this case, we assumed that the finishing time distribution was normally distributed with a particular mean and standard deviation; if these assumptions are incorrect (and they almost certainly are, since it's rare for elapsed times to be normally distributed), then the true answer could be very different.
     </p>
   </section>
 
@@ -135,14 +139,16 @@ p2 &lt;- tibble(x = normal_data) %&gt;%
       <p>
         Let's start by using the bootstrap to estimate the sampling distribution of the mean of adult height in the NHANES dataset, so that we can compare the result to the standard error of the mean (SEM) that we discussed earlier.
       </p>
+
       <figure xml:id="fig-bootstrap-sem">
         <caption>An example of bootstrapping to compute the standard error of the mean adult height in the NHANES dataset. The histogram shows the distribution of means across bootstrap samples, while the red line shows the normal distribution based on the sample mean and standard deviation.</caption>
-        <image source="bootstrapSEM.png" width="65%">
-          <description>A histogram of bootstrap sample means for adult height from the NHANES dataset, overlaid with a red normal curve based on the sample mean and standard error.</description>
+        <image source="bootstrapSEM.png" width="50%">
+          <description>A histogram showing the distribution of bootstrap sample means of adult height from the NHANES dataset. The distribution is bell-shaped and centered around 168–170 cm. A red curve showing the theoretical normal distribution is overlaid and closely matches the histogram.</description>
         </image>
       </figure>
+
       <p>
-        Figure <xref ref="fig-bootstrap-sem"/> shows that the distribution of means across bootstrap samples is fairly close to the theoretical estimate based on the assumption of normality. We would not usually employ the bootstrap to compute confidence intervals for the mean (since we can generally assume that the normal distribution is appropriate for the sampling distribution of the mean, as long as our sample is large enough), but this example shows how the method gives us roughly the same result as the standard method based on the normal distribution. The bootstrap would more often be used to generate standard errors for estimates of other statistics where we know or suspect that the normal distribution is not appropriate. In addition, in a later chapter you will see how we can also use the bootstrap samples to generate estimates of the uncertainty in our sample statistic as well.
+        <xref ref="fig-bootstrap-sem"/> shows that the distribution of means across bootstrap samples is fairly close to the theoretical estimate based on the assumption of normality. We would not usually employ the bootstrap to compute confidence intervals for the mean (since we can generally assume that the normal distribution is appropriate for the sampling distribution of the mean, as long as our sample is large enough), but this example shows how the method gives us roughly the same result as the standard method based on the normal distribution. The bootstrap would more often be used to generate standard errors for estimates of other statistics where we know or suspect that the normal distribution is not appropriate. In addition, in a later chapter you will see how we can also use the bootstrap samples to generate estimates of the uncertainty in our sample statistic as well.
       </p>
     </subsection>
   </section>
