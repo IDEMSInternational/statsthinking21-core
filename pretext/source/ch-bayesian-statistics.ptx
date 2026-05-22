@@ -298,8 +298,8 @@
 <program><output>
 ## Bayes factor analysis
 ## --------------
-## [1] Alt., r=0.707 0<d<Inf    : 3.4  ±0%
-## [2] Alt., r=0.707 !(0<d<Inf) : 0.12 ±0.01%
+## [1] Alt., r=0.707 0&lt;d&lt;Inf    : 3.4  ±0%
+## [2] Alt., r=0.707 !(0&lt;d&lt;Inf) : 0.12 ±0.01%
 ## 
 ## Against denominator:
 ##   Null, mu1-mu2 = 0 
@@ -319,7 +319,7 @@
 <program><output>
 ## Bayes factor analysis
 ## --------------
-## [1] Alt., r=0.707 0<d<Inf : 29 ±0.01%
+## [1] Alt., r=0.707 0&lt;d&lt;Inf : 29 ±0.01%
 ## 
 ## Against denominator:
 ##   Alternative, r = 0.707106781186548, mu =/= 0 !(0<d<Inf) 
