@@ -80,7 +80,7 @@
   <section xml:id="sec-contingency-tables-two-way-test">
     <title>Contingency tables and the two-way test</title>
     <p>
-      Another way that we often use the chi-squared test is to ask whether two categorical variables are related to one another. As a more realistic example, let's take the question of whether a Black driver is more likely to be searched when they are pulled over by a police officer, compared to a white driver. The Stanford Open Policing Project (https://openpolicing.stanford.edu/) has studied this, and provides data that we can use to analyze the question. We will use the data from the State of Connecticut since they are fairly small and thus easier to analyze.
+      Another way that we often use the chi-squared test is to ask whether two categorical variables are related to one another. As a more realistic example, let's take the question of whether a Black driver is more likely to be searched when they are pulled over by a police officer, compared to a white driver. The Stanford Open Policing Project (<url href = "https://openpolicing.stanford.edu/">https://openpolicing.stanford.edu/</url>) has studied this, and provides data that we can use to analyze the question. We will use the data from the State of Connecticut since they are fairly small and thus easier to analyze.
     </p>
 
     <p>
@@ -157,6 +157,16 @@
     <p>
       We then compute the chi-squared statistic, which comes out to 828.4. To compute a p-value, we need to compare it to the null chi-squared distribution in order to determine how extreme our chi-squared value is compared to our expectation under the null hypothesis. The degrees of freedom for this distribution are <m>df = (nRows - 1) * (nColumns - 1)</m> <mdash/> thus, for a 2X2 table like the one here, <m>df = (2-1)*(2-1)=1</m>. The intuition here is that computing the expected frequencies requires us to use three values: the total number of observations and the marginal probability for each of the two variables. Thus, once those values are computed, there is only one number that is free to vary, and thus there is one degree of freedom. Given this, we can compute the p-value for the chi-squared statistic, which is about as close to zero as one can get: <m>3.79 \times 10^{-182}</m>. This shows that the observed data would be highly unlikely if there was truly no relationship between race and police searches, and thus we should reject the null hypothesis of independence.
     </p>
+    <p>
+      We can also perform this test easily using our statistical software:
+    </p>
+<console><output>
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  summaryDf2wayTable and 1
+## X-squared = 828, df = 1, p-value &lt;2e-16
+</output></console>
   </section>
 
   <section xml:id="sec-standardized-residuals">
@@ -186,22 +196,22 @@
         <row>
           <cell>FALSE</cell>
           <cell>Black</cell>
-          <cell>-6.36</cell>
-        </row>
-        <row>
-          <cell>FALSE</cell>
-          <cell>White</cell>
-          <cell>2.54</cell>
+          <cell>-3.3</cell>
         </row>
         <row>
           <cell>TRUE</cell>
           <cell>Black</cell>
-          <cell>22.81</cell>
+          <cell>26.6</cell>
+        </row>
+        <row>
+          <cell>FALSE</cell>
+          <cell>White</cell>
+          <cell>1.3</cell>
         </row>
         <row>
           <cell>TRUE</cell>
           <cell>White</cell>
-          <cell>-9.11</cell>
+          <cell>-10.4</cell>
         </row>
       </tabular>
     </table>
@@ -212,37 +222,6 @@
     <p>
       We can also represent the relative likelihood of different outcomes in the contingency table using the odds ratio that we introduced earlier, in order to better understand the magnitude of the effect. First, we represent the odds of being stopped for each race, then we compute their ratio:
 
-    <program language="r">
-      <input>
-      # Calculate odds ratio for 2x2 table
-      library(epitools)
-      oddsratio(contingency_table)
-
-      # Manual odds ratio calculation
-      odds1 &lt;- contingency_table[1,1] / contingency_table[1,2]
-      odds2 &lt;- contingency_table[2,1] / contingency_table[2,2]
-      or &lt;- odds1 / odds2
-      log_or &lt;- log(or)
-      cat(sprintf("Odds Ratio: %.2f\n", or))
-      cat(sprintf("Log Odds Ratio: %.2f\n", log_or))
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Calculate odds ratio for 2x2 table
-      library(epitools)
-      oddsratio(contingency_table)
-
-      # Manual odds ratio calculation
-      odds1 &lt;- contingency_table[1,1] / contingency_table[1,2]
-      odds2 &lt;- contingency_table[2,1] / contingency_table[2,2]
-      or &lt;- odds1 / odds2
-      log_or &lt;- log(or)
-      cat(sprintf("Odds Ratio: %.2f\n", or))
-      cat(sprintf("Log Odds Ratio: %.2f\n", log_or))
-      </input>
-    </program>
     </p>
     <md>
       <mrow>
@@ -269,7 +248,19 @@
       K = \frac{P(data|H_A)}{P(data|H_0)} = \frac{P(H_A|data)*P(H_A)}{P(H_0|data)*P(H_0)}
     </me>
     <p>
-      We can compute the Bayes factor for the police search data using statistical software. The result shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong <mdash/> <m>1.8 \times 10^{142}</m> is about as close to infinity as we can imagine getting in statistics.
+      We can compute the Bayes factor for the police search data using statistical software:
+</p>
+<console><output>
+## Bayes factor analysis
+## --------------
+## [1] Non-indep. (a=1) : 1.8e+142 ±0%
+## 
+## Against denominator:
+##   Null, independence, a = 1 
+## ---
+## Bayes factor type: BFcontingencyTable, independent multinomial
+</output></console>
+<p>The result shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong <mdash/> <m>1.8 \times 10^{142}</m> is about as close to infinity as we can imagine getting in statistics.
     </p>
   </section>
 
@@ -292,30 +283,54 @@
           <cell>YesSleepTrouble</cell>
         </row>
         <row>
-          <cell>Most</cell>
-          <cell>223</cell>
-          <cell>240</cell>
-        </row>
-        <row>
           <cell>None</cell>
           <cell>2614</cell>
-          <cell>634</cell>
+          <cell>676</cell>
         </row>
         <row>
           <cell>Several</cell>
-          <cell>575</cell>
-          <cell>306</cell>
+          <cell>418</cell>
+          <cell>249</cell>
+        </row>
+        <row>
+          <cell>Most</cell>
+          <cell>138</cell>
+          <cell>145</cell>
         </row>
       </tabular>
     </table>
 
     <p>
-      Simply by looking at these data, we can tell that it is likely that there is a relationship between the two variables; notably, while the total number of people with sleep trouble is much less than those without, for people who report being depresssed most days the number with sleep problems is greater than those without. We can quantify this directly using the chi-squared test, which shows that there is a strong relationship between depression and sleep trouble (chi-squared = 476.45, df = 2, p-value &lt; 2.2e-16).
+Simply by looking at these data, we can tell that it is likely that there is a relationship between the two variables; notably, while the total number of people with sleep trouble is much less than those without, for people who report being depresssed most days the number with sleep problems is greater than those without. We can quantify this directly using the chi-squared test:
     </p>
 
+<console><output>
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  depressedSleepTroubleTable
+## X-squared = 191, df = 2, p-value &lt;2e-16
+</output></console>
+
     <p>
-      We can also compute the Bayes factor to quantify the strength of the evidence in favor of the alternative hypothesis. Here we see that the Bayes factor is very large (<m>1.8 \times 10^{35}</m>), showing that the evidence in favor of a relation between depression and sleep problems is very strong.
+This test shows that there is a strong relationship between depression and sleep trouble. We can also compute the Bayes factor to quantify the strength of the evidence in favor of the alternative hypothesis:
     </p>
+
+<console><output>
+## Bayes factor analysis
+## --------------
+## [1] Non-indep. (a=1) : 1.8e+35 ±0%
+## 
+## Against denominator:
+##   Null, independence, a = 1 
+## ---
+## Bayes factor type: BFcontingencyTable, joint multinomial
+</output></console>
+
+<p>
+Here we see that the Bayes factor is very large (<m>1.8∗10^{35}</m>), showing that the evidence in favor of a relation between depression and sleep problems is very strong.
+</p>
+
   </section>
 
   <section xml:id="sec-simpsons-paradox">
