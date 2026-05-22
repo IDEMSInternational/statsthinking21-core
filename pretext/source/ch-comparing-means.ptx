@@ -15,9 +15,23 @@
     </p>
     
     <p>
-      One simple way to test for this difference is using a test called the <term>sign test</term>, which asks whether the proportion of positive differences between the actual value and the hypothesized value is different than what we would expect by chance. To do this, we take the differences between each data point and the hypothesized mean value and compute their sign. If the data are normally distributed and the actual mean is equal to the hypothesized mean, then the proportion of values above the hypothesized mean (or below it) should be 0.5, such that the proportion of positive differences should also be 0.5. In our sample, we see that 43.0 percent of individuals have a diastolic blood pressure above 80. We can then use a binomial test to ask whether this proportion of positive differences is greater than 0.5, using the binomial testing function in our statistical software.
+One simple way to test for this difference is using a test called the sign test, which asks whether the proportion of positive differences between the actual value and the hypothesized value is different than what we would expect by chance. To do this, we take the differences between each data point and the hypothesized mean value and compute their sign. If the data are normally distributed and the actual mean is equal to the hypothesized mean, then the proportion of values above the hypothesized mean (or below it) should be 0.5, such that the proportion of positive differences should also be 0.5. In our sample, we see that 19.0 percent of individuals have a diastolic blood pressure above 80. We can then use a binomial test to ask whether this proportion of positive differences is greater than 0.5, using the binomial testing function in our statistical software:
     </p>
-    
+
+<console><output>
+## 
+##  Exact binomial test
+## 
+## data:  npos and nrow(NHANES_sample)
+## number of successes = 38, number of trials = 200, p-value = 1
+## alternative hypothesis: true probability of success is greater than 0.5
+## 95 percent confidence interval:
+##  0.15 1.00
+## sample estimates:
+## probability of success 
+##                   0.19
+</output></console>
+
     <p>
       Here we see that the proportion of individuals with positive signs is not very surprising under the null hypothesis of <m>p \le 0.5</m>, which should not surprise us given that the observed value is actually less than <m>0.5</m>.
     </p>
@@ -41,26 +55,68 @@
     <p>
       In essence, the t statistic asks how large the deviation of the sample mean from the hypothesized quantity is with respect to the sampling variability of the mean.
     </p>
-    
-    <p>
-      We can compute this for the NHANES dataset using our statistical software. This shows us that the mean diastolic blood pressure in the dataset (approximately 70.6) is actually much lower than 80, so our test for whether it is above 80 is very far from significance.
-    </p>
-    
-    <p>
-      Remember that a large p-value doesn't provide us with evidence in favor of the null hypothesis, since we had already assumed that the null hypothesis is true to start with. However, as we discussed in the chapter on Bayesian analysis, we can use the Bayes factor to quantify evidence for or against the null hypothesis. The Bayes factor listed here (approximately <m>2.73 \times 10^{16}</m>) denotes the fact that there is exceedingly strong evidence in favor of the null hypothesis over the alternative.
+<p>
+  We can compute this for the NHANES dataset using our statistical software:
+</p>
 
-    <program language="r">
-      <input>
-      ttestBF(NHANES_sample$BPDiaAve, mu=80, nullInterval=c(-Inf, 80))
-      </input>
-    </program>
-    </p>
+<console>
+  <output>
+    ## 
+    ##  One Sample t-test
+    ## 
+    ## data:  NHANES_adult$BPDiaAve
+    ## t = -55, df = 4593, p-value = 1
+    ## alternative hypothesis: true mean is greater than 80
+    ## 95 percent confidence interval:
+    ##   69 Inf
+    ## sample estimates:
+    ## mean of x 
+    ##        70
+  </output>
+</console>
+
+<p>
+  This shows us that the mean diastolic blood pressure in the dataset (69.5) is actually 
+  much lower than 80, so our test for whether it is above 80 is very far from 
+  significance.
+</p>
+
+<p>
+  Remember that a large p-value doesn't provide us with evidence in favor of the null 
+  hypothesis, since we had already assumed that the null hypothesis is true to start 
+  with. However, as we discussed in the chapter on Bayesian analysis, we can use the 
+  Bayes factor to quantify evidence for or against the null hypothesis:
+</p>
+
+<console>
+  <input>
+    ttestBF(NHANES_sample$BPDiaAve, mu=80, nullInterval=c(-Inf, 80))
+  </input>
+  <output>
+    ## Bayes factor analysis
+    ## --------------
+    ## [1] Alt., r=0.707 -Inf&lt;d&lt;80    : 2.7e+16  ±NA%
+    ## [2] Alt., r=0.707 !(-Inf&lt;d&lt;80) : NaNe-Inf ±NA%
+    ## 
+    ## Against denominator:
+    ##   Null, mu = 80 
+    ## ---
+    ## Bayes factor type: BFoneSample, JZS
+  </output>
+</console>
+
+<p>
+  The first Bayes factor listed here (<m>2.73 \times 10^{16}</m>) denotes the fact that 
+  there is exceedingly strong evidence in favor of the null hypothesis over the 
+  alternative.
+</p>
+
   </section>
 
   <section xml:id="sec-comparing-two-means">
     <title>Comparing Two Means</title>
     <p>
-      A more common question that often arises in statistics is whether there is a difference between the means of two different groups. Let's say that we would like to know whether regular marijuana smokers watch more television, which we can also ask using the NHANES dataset. We take a sample of 200 individuals from the dataset and test whether the number of hours of television watching per day is related to regular marijuana use. The left panel of Figure <xref ref="fig-pot-tv-violin"/> shows these data using a violin plot.
+      A more common question that often arises in statistics is whether there is a difference between the means of two different groups. Let's say that we would like to know whether regular marijuana smokers watch more television, which we can also ask using the NHANES dataset. We take a sample of 200 individuals from the dataset and test whether the number of hours of television watching per day is related to regular marijuana use. The left panel of <xref ref="fig-pot-tv-violin"/> shows these data using a violin plot.
     </p>
     
     <figure xml:id="fig-pot-tv-violin">
@@ -80,7 +136,22 @@
     
     <p>
       where <m>\bar{X}_1</m> and <m>\bar{X}_2</m> are the means of the two groups, <m>S^2_1</m> and <m>S^2_2</m> are the variances for each of the groups, and <m>n_1</m> and <m>n_2</m> are the sizes of the two groups. Under the null hypothesis of no difference between means, this statistic is distributed according to a t distribution, with degrees of freedom computed using the Welch test (as discussed previously) since the number of individuals differs between the two groups. In this case, we started with the specific hypothesis that smoking marijuana is associated with greater TV watching, so we will use a one-tailed test.
+     Here are the results from our statistical software:
     </p>
+
+<console><output>
+## 
+##  Welch Two Sample t-test
+## 
+## data:  TVHrsNum by RegularMarij
+## t = -3, df = 85, p-value = 6e-04
+## alternative hypothesis: true difference in means between group No and group Yes is less than 0
+## 95 percent confidence interval:
+##   -Inf -0.39
+## sample estimates:
+##  mean in group No mean in group Yes 
+##               2.0               2.8
+</output></console>
     
     <p>
       In this case we see that there is a statistically significant difference between groups, in the expected direction<mdash/>regular pot smokers watch more TV.
@@ -100,9 +171,29 @@
     <p>
       Since smoking is a binary variable, we treat it as a <term>dummy variable</term> like we discussed in the previous chapter, setting it to a value of 1 for smokers and zero for nonsmokers. In that case, <m>\hat{\beta_1}</m> is simply the difference in means between the two groups, and <m>\hat{\beta_0}</m> is the mean for the group that was coded as zero. We can fit this model using the general linear model function in our statistical software, and see that it gives the same t statistic as the t-test above, except that it's positive in this case because of the way that our software arranges the groups.
     </p>
-    
+
+<console><output>
+## 
+## Call:
+## lm(formula = TVHrsNum ~ RegularMarij, data = NHANES_sample)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.2843 -1.0067 -0.0067  0.9933  2.9933 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        2.007      0.116   17.27  &lt; 2e-16 ***
+## RegularMarijYes    0.778      0.230    3.38  0.00087 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.4 on 198 degrees of freedom
+## Multiple R-squared:  0.0546, Adjusted R-squared:  0.0498 
+## F-statistic: 11.4 on 1 and 198 DF,  p-value: 0.000872
+</output></console>
     <p>
-      We can also view the linear model results graphically (see the right panel of Figure <xref ref="fig-pot-tv-violin"/>). In this case, the predicted value for nonsmokers is <m>\hat{\beta_0}</m> and the predicted value for smokers is <m>\hat{\beta_0} + \hat{\beta_1}</m>.
+      We can also view the linear model results graphically (see the right panel of <xref ref="fig-pot-tv-violin"/>). In this case, the predicted value for nonsmokers is <m>\hat{\beta_0}</m> and the predicted value for smokers is <m>\hat{\beta_0} + \hat{\beta_1}</m>.
     </p>
     
     <p>
@@ -131,15 +222,37 @@
 
   <section xml:id="sec-bayes-factor-mean-diff">
     <title>Bayes Factor for Mean Differences</title>
-    <p>
-      As we discussed in the chapter on Bayesian analysis, Bayes factors provide a way to better quantify evidence in favor of or against the null hypothesis of no difference. We can perform that analysis on the same data. Because of the way that the data are organized, the Bayes factor for this analysis is 61.4. This shows us that the evidence against the null hypothesis is quite strong.
-    </p>
+<p>
+  As we discussed in the chapter on Bayesian analysis, Bayes factors provide a way to 
+  better quantify evidence in favor of or against the null hypothesis of no difference. 
+  We can perform that analysis on the same data:
+</p>
+
+<console>
+  <output>
+    ## Bayes factor analysis
+    ## --------------
+    ## [1] Alt., r=0.707 0&lt;d&lt;Inf    : 0.041 ±0%
+    ## [2] Alt., r=0.707 !(0&lt;d&lt;Inf) : 61    ±0%
+    ## 
+    ## Against denominator:
+    ##   Null, mu1-mu2 = 0 
+    ## ---
+    ## Bayes factor type: BFindepSample, JZS
+  </output>
+</console>
+
+<p>
+  Because of the way that the data are organized, the second line shows us the relevant 
+  Bayes factor for this analysis, which is 61.4. This shows us that the evidence against 
+  the null hypothesis is quite strong.
+</p>
   </section>
 
   <section xml:id="sec-paired-ttests">
     <title>Comparing Paired Observations</title>
     <p>
-      In experimental research, we often use <term>within-subjects</term> designs, in which we compare the same person on multiple measurements. The measurements that come from this kind of design are often referred to as <term>repeated measures</term>. For example, in the NHANES dataset blood pressure was measured three times. Let's say that we are interested in testing whether there is a difference in mean systolic blood pressure between the first and second measurement across individuals in our sample (Figure <xref ref="fig-bp-measurements"/>).
+      In experimental research, we often use <term>within-subjects</term> designs, in which we compare the same person on multiple measurements. The measurements that come from this kind of design are often referred to as <term>repeated measures</term>. For example, in the NHANES dataset blood pressure was measured three times. Let's say that we are interested in testing whether there is a difference in mean systolic blood pressure between the first and second measurement across individuals in our sample (<xref ref="fig-bp-measurements"/>).
     </p>
     
     <figure xml:id="fig-bp-measurements">
@@ -150,21 +263,29 @@
     </figure>
     
     <p>
-      We see that there does not seem to be much of a difference in mean blood pressure (about one point) between the first and second measurement. First let's test for a difference using an independent samples t-test, which ignores the fact that pairs of data points come from the same individuals. This analysis shows no significant difference. However, this analysis is inappropriate since it assumes that the two samples are independent, when in fact they are not, since the data come from the same individuals. We can plot the data with a line for each individual to show this (see the right panel in Figure <xref ref="fig-bp-measurements"/>).
+We see that there does not seem to be much of a difference in mean blood pressure (about one point) between the first and second measurement. First let’s test for a difference using an independent samples t-test, which ignores the fact that pairs of data points come from the the same individuals.
+   </p>
 
-    <program language="r">
-      <input>
-      # Independent samples t-test
-      t.test(BMI ~ PhysActive, data = NHANES_adult)
+<console><output>
+## 
+##  Two Sample t-test
+## 
+## data:  BPsys by timepoint
+## t = 0.6, df = 398, p-value = 0.5
+## alternative hypothesis: true difference in means between group BPSys1 and group BPSys2 is not equal to 0
+## 95 percent confidence interval:
+##  -2.1  4.1
+## sample estimates:
+## mean in group BPSys1 mean in group BPSys2 
+##                  121                  120
+</output></console>
 
-      # Welch's t-test (unequal variances)
-      t.test(BMI ~ PhysActive, data = NHANES_adult, var.equal = FALSE)
-      </input>
-    </program>
+<p>
+This analysis shows no significant difference. However, this analysis is inappropriate since it assumes that the two samples are independent, when in fact they are not, since the data come from the same individuals. We can plot the data with a line for each individual to show this (see the right panel in <xref ref="fig-bp-measurements"/>).
     </p>
     
     <p>
-      In this analysis, what we really care about is whether the blood pressure for each person changed in a systematic way between the two measurements, so another way to represent the data is to compute the difference between the two timepoints for each individual, and then analyze these difference scores rather than analyzing the individual measurements. In Figure <xref ref="fig-bp-diff-hist"/>, we show a histogram of these difference scores, with a blue line denoting the mean difference.
+      In this analysis, what we really care about is whether the blood pressure for each person changed in a systematic way between the two measurements, so another way to represent the data is to compute the difference between the two timepoints for each individual, and then analyze these difference scores rather than analyzing the individual measurements. In <xref ref="fig-bp-diff-hist"/>, we show a histogram of these difference scores, with a blue line denoting the mean difference.
     </p>
     
     <figure xml:id="fig-bp-diff-hist">
@@ -179,7 +300,19 @@
       <p>
         One simple way to test for differences is using the <term>sign test</term>. To do this, we take the differences and compute their sign, and then we use a binomial test to ask whether the proportion of positive signs differs from 0.5.
       </p>
-      
+      <console><output>
+## 
+##  Exact binomial test
+## 
+## data:  npos and nrow(NHANES_sample)
+## number of successes = 96, number of trials = 200, p-value = 0.6
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.41 0.55
+## sample estimates:
+## probability of success 
+##                   0.48
+</output></console>
       <p>
         Here we see that the proportion of individuals with positive signs is not large enough to be surprising under the null hypothesis of <m>p=0.5</m>. However, one problem with the sign test is that it is throwing away information about the magnitude of the differences, and thus might be missing something.
       </p>
@@ -187,24 +320,65 @@
     
     <subsection xml:id="subsec-paired-ttest">
       <title>Paired t-test</title>
-      <p>
-        A more common strategy is to use a <term>paired t-test</term>, which is equivalent to a one-sample t-test for whether the mean difference between the measurements within each person is zero. We can compute this using our statistical software, telling it that the data points are paired.
-      </p>
-      
-      <p>
-        With this analyses we see that there is in fact a significant difference between the two measurements. Let's compute the Bayes factor to see how much evidence is provided by the result. The observed Bayes factor of 2.97 tells us that although the effect was significant in the paired t-test, it actually provides very weak evidence in favor of the alternative hypothesis.
-      </p>
-      
-      <p>
-        The paired t-test can also be defined in terms of a linear model; see the Appendix for more details on this.
-      </p>
+<p>
+  A more common strategy is to use a paired t-test, which is equivalent to a one-sample 
+  t-test for whether the mean difference between the measurements within each person is 
+  zero. We can compute this using our statistical software, telling it that the data 
+  points are paired:
+</p>
+
+<console>
+  <output>
+    ## 
+    ##  Paired t-test
+    ## 
+    ## data:  BPsys by timepoint
+    ## t = 3, df = 199, p-value = 0.007
+    ## alternative hypothesis: true mean difference is not equal to 0
+    ## 95 percent confidence interval:
+    ##  0.29 1.75
+    ## sample estimates:
+    ## mean difference 
+    ##               1
+  </output>
+</console>
+
+<p>
+  With this analysis we see that there is in fact a significant difference between the 
+  two measurements. Let's compute the Bayes factor to see how much evidence is provided 
+  by the result:
+</p>
+
+<console>
+  <output>
+    ## Bayes factor analysis
+    ## --------------
+    ## [1] Alt., r=0.707 : 3 ±0.01%
+    ## 
+    ## Against denominator:
+    ##   Null, mu = 0 
+    ## ---
+    ## Bayes factor type: BFoneSample, JZS
+  </output>
+</console>
+
+<p>
+  The observed Bayes factor of 2.97 tells us that although the effect was significant 
+  in the paired t-test, it actually provides very weak evidence in favor of the 
+  alternative hypothesis.
+</p>
+
+<p>
+  The paired t-test can also be defined in terms of a linear model; see the Appendix 
+  for more details on this.
+</p>
     </subsection>
   </section>
 
   <section xml:id="sec-comparing-more-than-two">
     <title>Comparing More Than Two Means</title>
     <p>
-      Often we want to compare more than two means to determine whether any of them differ from one another. Let's say that we are analyzing data from a clinical trial for the treatment of high blood pressure. In the study, volunteers are randomized to one of three conditions: Drug 1, Drug 2 or placebo. Let's generate some data and plot them (see Figure <xref ref="fig-drug-trial"/>).
+      Often we want to compare more than two means to determine whether any of them differ from one another. Let's say that we are analyzing data from a clinical trial for the treatment of high blood pressure. In the study, volunteers are randomized to one of three conditions: Drug 1, Drug 2 or placebo. Let's generate some data and plot them (see <xref ref="fig-drug-trial"/>).
     </p>
     
     <figure xml:id="fig-drug-trial">
@@ -233,7 +407,7 @@
       </md>
       
       <p>
-        With ANOVA, we want to test whether the variance accounted for by the model is greater than what we would expect by chance, under the null hypothesis of no differences between means. Whereas for the t distribution the expected value is zero under the null hypothesis, that's not the case here, since sums of squares are always positive numbers. Fortunately, there is another theoretical distribution that describes how ratios of sums of squares are distributed under the null hypothesis: The <term>F distribution</term> (see Figure <xref ref="fig-f-dist"/>). This distribution has two degrees of freedom, which correspond to the degrees of freedom for the numerator (which in this case is the model), and the denominator (which in this case is the error).
+        With ANOVA, we want to test whether the variance accounted for by the model is greater than what we would expect by chance, under the null hypothesis of no differences between means. Whereas for the t distribution the expected value is zero under the null hypothesis, that's not the case here, since sums of squares are always positive numbers. Fortunately, there is another theoretical distribution that describes how ratios of sums of squares are distributed under the null hypothesis: The <term>F distribution</term> (see <xref ref="fig-f-dist"/>). This distribution has two degrees of freedom, which correspond to the degrees of freedom for the numerator (which in this case is the model), and the denominator (which in this case is the error).
       </p>
       
       <figure xml:id="fig-f-dist">
@@ -244,9 +418,29 @@
       </figure>
       
       <p>
-        To create an ANOVA model, we extend the idea of <term>dummy coding</term> that you encountered in the last chapter. Remember that for the t-test comparing two means, we created a single dummy variable that took the value of 1 for one of the conditions and zero for the others. Here we extend that idea by creating two dummy variables, one that codes for the Drug 1 condition and the other that codes for the Drug 2 condition. Just as in the t-test, we will have one condition (in this case, placebo) that doesn't have a dummy variable, and thus represents the baseline against which the others are compared; its mean defines the intercept of the model. Using dummy coding for drugs 1 and 2, we can fit a model using the same approach that we used in the previous chapter.
+        To create an ANOVA model, we extend the idea of <term>dummy coding</term> that you encountered in the last chapter. Remember that for the t-test comparing two means, we created a single dummy variable that took the value of 1 for one of the conditions and zero for the others. Here we extend that idea by creating two dummy variables, one that codes for the Drug 1 condition and the other that codes for the Drug 2 condition. Just as in the t-test, we will have one condition (in this case, placebo) that doesn't have a dummy variable, and thus represents the baseline against which the others are compared; its mean defines the intercept of the model. Using dummy coding for drugs 1 and 2, we can fit a model using the same approach that we used in the previous chapter:
       </p>
-      
+<console><output>
+## 
+## Call:
+## lm(formula = sysBP ~ d1 + d2, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -29.084  -7.745  -0.098   7.687  23.431 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   141.60       1.66   85.50  &lt; 2e-16 ***
+## d1            -10.24       2.34   -4.37  2.9e-05 ***
+## d2             -2.03       2.34   -0.87     0.39    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.9 on 105 degrees of freedom
+## Multiple R-squared:  0.169,  Adjusted R-squared:  0.154 
+## F-statistic: 10.7 on 2 and 105 DF,  p-value: 5.83e-05
+</output></console>
       <p>
         The output from this command provides us with two things. First, it shows us the result of a t-test for each of the dummy variables, which basically tell us whether each of the conditions separately differs from placebo; it appears that Drug 1 does whereas Drug 2 does not. However, keep in mind that if we wanted to interpret these tests, we would need to correct the p-values to account for the fact that we have done multiple hypothesis tests; we will see an example of how to do this in the next chapter.
       </p>
@@ -278,6 +472,45 @@
       <p>
         We can also define the paired t-test in terms of a general linear model. To do this, we include all of the measurements for each subject as data points (within a tidy data frame). We then include in the model a variable that codes for the identity of each individual (in this case, the ID variable that contains a subject ID for each person). This is known as a <term>mixed model</term>, since it includes effects of independent variables as well as effects of individuals. The standard model fitting procedure <c>lm()</c> can't do this, but we can do it using the <c>lmer()</c> function from a popular R package called <em>lme4</em>, which is specialized for estimating mixed models. The <c>(1|ID)</c> in the formula tells <c>lmer()</c> to estimate a separate intercept (which is what the <c>1</c> refers to) for each value of the <c>ID</c> variable (i.e. for each individual in the dataset), and then estimate a common slope relating timepoint to BP.
       </p>
+
+<program language="r">
+<input>
+# compute mixed model for paired test
+
+lmrResult &lt;- lmer(BPsys ~ timepoint + (1 | ID), 
+                  data = NHANES_sample_tidy)
+summary(lmrResult)
+</input></program>
+
+<console><output>
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: BPsys ~ timepoint + (1 | ID)
+##    Data: NHANES_sample_tidy
+## 
+## REML criterion at convergence: 2895
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.3843 -0.4808  0.0076  0.4221  2.1718 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  ID       (Intercept) 236.1    15.37   
+##  Residual              13.9     3.73   
+## Number of obs: 400, groups:  ID, 200
+## 
+## Fixed effects:
+##                 Estimate Std. Error      df t value Pr(&gt;|t|)    
+## (Intercept)      121.370      1.118 210.361  108.55   &lt;2e-16 ***
+## timepointBPSys2   -1.020      0.373 199.000   -2.74   0.0068 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## tmpntBPSys2 -0.167
+</output></console>
       
       <p>
         You can see that this shows us a p-value that is very close to the result from the paired t-test computed using the <c>t.test()</c> function.
