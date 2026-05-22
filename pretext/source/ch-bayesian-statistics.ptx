@@ -35,7 +35,7 @@
       The reason that Bayesian statistics has its name is because it takes advantage of Bayes' theorem to make inferences from data about the underlying process that generated the data. Let's say that we want to know whether a coin is fair. To test this, we flip the coin 10 times and come up with 7 heads. Before this test we were pretty sure that the <m>P_{heads}=0.5</m>, but finding 7 heads out of 10 flips would certainly give us pause if we believed that <m>P_{heads}=0.5</m>. We already know how to compute the conditional probability that we would flip 7 or more heads out of 10 if the coin is really fair (<m>P(n\ge7|p_{heads}=0.5)</m>), using the binomial distribution.
     </p>
     <p>
-      The resulting probability is 0.172. That is a fairly small number, but this number doesn't really answer the question that we are asking <mdash/> it is telling us about the likelihood of 7 or more heads given some particular probability of heads, whereas what we really want to know is the true probability of heads for this particular coin. This should sound familiar, as it's exactly the situation that we were in with null hypothesis testing, which told us about the likelihood of data rather than the likelihood of hypotheses.
+      The resulting probability is 0.055. That is a fairly small number, but this number doesn't really answer the question that we are asking <mdash/> it is telling us about the likelihood of 7 or more heads given some particular probability of heads, whereas what we really want to know is the true probability of heads for this particular coin. This should sound familiar, as it's exactly the situation that we were in with null hypothesis testing, which told us about the likelihood of data rather than the likelihood of hypotheses.
     </p>
     <p>
       Remember that Bayes' theorem provides us with the tool that we need to invert a conditional probability:
@@ -115,7 +115,7 @@
     <subsection xml:id="subsec-computing-posterior">
       <title>Computing the posterior</title>
       <p>
-        We now have all of the parts that we need to compute the posterior probability of an explosive being present, given the observed 3 positive outcomes out of 3 tests. This result shows us that the posterior probability of an explosive in the bag given these positive tests (0.495) is just under 50%, again highlighting the fact that testing for rare events is almost always liable to produce high numbers of false positives, even when the specificity and sensitivity are very high.
+        We now have all of the parts that we need to compute the posterior probability of an explosive being present, given the observed 3 positive outcomes out of 3 tests. This result shows us that the posterior probability of an explosive in the bag given these positive tests (0.492) is just under 50%, again highlighting the fact that testing for rare events is almost always liable to produce high numbers of false positives, even when the specificity and sensitivity are very high.
       </p>
       <p>
         An important aspect of Bayesian analysis is that it can be sequential. Once we have the posterior from one analysis, it can become the prior for the next analysis!
@@ -243,44 +243,6 @@
     <title>Bayesian hypothesis testing</title>
     <p>
       Having learned how to perform Bayesian estimation, we now turn to the use of Bayesian methods for hypothesis testing. Let's say that there are two politicians who differ in their beliefs about whether the public is in favor an extra tax to support the national parks. Senator Smith thinks that only 40% of people are in favor of the tax, whereas Senator Jones thinks that 60% of people are in favor. They arrange to have a poll done to test this, which asks 1000 randomly selected people whether they support such a tax. The results are that 490 of the people in the polled sample were in favor of the tax. Based on these data, we would like to know: Do the data support the claims of one senator over the other,and by how much? We can test this using a concept known as the <url href="https://bayesfactor.blogspot.com/2014/02/the-bayesfactor-package-this-blog-is.html">Bayes factor</url>, which quantifies which hypothesis is better by comparing how well each predicts the observed data.
-
-    <program language="r">
-      <input>
-      # Bayesian t-test with Bayes Factor
-      library(BayesFactor)
-
-      # Two-sample Bayesian t-test
-      bf &lt;- ttestBF(formula = BMI ~ PhysActive, data = NHANES_sample)
-      print(bf)
-
-      # Extract and interpret Bayes Factor
-      bf_value &lt;- extractBF(bf)$bf
-      cat(sprintf("Bayes Factor: %.2f\n", bf_value))
-
-      # Get posterior samples
-      samples &lt;- posterior(bf, iterations = 10000)
-      plot(samples[, "mu"])
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Bayesian t-test with Bayes Factor
-      library(BayesFactor)
-
-      # Two-sample Bayesian t-test
-      bf &lt;- ttestBF(formula = BMI ~ PhysActive, data = NHANES_sample)
-      print(bf)
-
-      # Extract and interpret Bayes Factor
-      bf_value &lt;- extractBF(bf)$bf
-      cat(sprintf("Bayes Factor: %.2f\n", bf_value))
-
-      # Get posterior samples
-      samples &lt;- posterior(bf, iterations = 10000)
-      plot(samples[, "mu"])
-      </input>
-    </program>
     </p>
 
     <subsection xml:id="subsec-bayes-factors">
@@ -292,7 +254,7 @@
         BF = \frac{p(data|H_1)}{p(data|H_2)}
       </me>
       <p>
-        for two hypotheses <m>H_1</m> and <m>H_2</m>. In the case of our two senators, we know how to compute the likelihood of the data under each hypothesis using the binomial distribution; let's assume for the moment that our prior probability for each senator being correct is the same (<m>P_{H_1} = P_{H_2} = 0.5</m>). We will put Senator Smith in the numerator and Senator Jones in the denominator, so that a value greater than one will reflect greater evidence for Senator Smith, and a value less than one will reflect greater evidence for Senator Jones. The resulting Bayes Factor (3158) provides a measure of the evidence that the data provides regarding the two hypotheses - in this case, it tells us the data support Senator Smith more than 3000 times more strongly than they support Senator Jones.
+        for two hypotheses <m>H_1</m> and <m>H_2</m>. In the case of our two senators, we know how to compute the likelihood of the data under each hypothesis using the binomial distribution; let's assume for the moment that our prior probability for each senator being correct is the same (<m>P_{H_1} = P_{H_2} = 0.5</m>). We will put Senator Smith in the numerator and Senator Jones in the denominator, so that a value greater than one will reflect greater evidence for Senator Smith, and a value less than one will reflect greater evidence for Senator Jones. The resulting Bayes Factor (3325.26) provides a measure of the evidence that the data provides regarding the two hypotheses - in this case, it tells us the data support Senator Smith more than 3000 times more strongly than they support Senator Jones.
       </p>
     </subsection>
 
@@ -315,9 +277,36 @@
         </image>
       </figure>
 
+<program><output>
+## 
+##  Welch Two Sample t-test
+## 
+## data:  hbchange by group
+## t = 2, df = 32, p-value = 0.02
+## alternative hypothesis: true difference in means between group 0 and group 1 is greater than 0
+## 95 percent confidence interval:
+##  0.11  Inf
+## sample estimates:
+## mean in group 0 mean in group 1 
+##          -0.082          -0.650
+</output></program>
+
       <p>
         This test tells us that there is a significant difference between the groups, but it doesn't quantify how strongly the evidence supports the null versus alternative hypotheses. To measure that, we can compute a Bayes factor using <c>ttestBF</c> function from the BayesFactor package in R.
       </p>
+
+<program><output>
+## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 0<d<Inf    : 3.4  ±0%
+## [2] Alt., r=0.707 !(0<d<Inf) : 0.12 ±0.01%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS
+</output></program>
+
       <p>
         We are particularly interested in the Bayes Factor for an effect greater than zero, which is listed in the line marked <q>[1]</q> in the report. The Bayes factor here tells us that the alternative hypothesis (i.e. that the difference is greater than zero) is about 3 times more likely than the point null hypothesis (i.e. a mean difference of exactly zero) given the data. Thus, while the effect is significant, the amount of evidence it provides us in favor of the alternative hypothesis is rather weak.
       </p>
@@ -327,6 +316,16 @@
         <p>
           We generally are less interested in testing against the null hypothesis of a specific point value (e.g. mean difference = 0) than we are in testing against a directional null hypothesis (e.g. that the difference is less than or equal to zero). We can also perform a directional (or <em>one-sided</em>) test using the results from <c>ttestBF</c> analysis, since it provides two Bayes factors: one for the alternative hypothesis that the mean difference is greater than zero, and one for the alternative hypothesis that the mean difference is less than zero. If we want to assess the relative evidence for a positive effect, we can compute a Bayes factor comparing the relative evidence for a positive versus a negative effect by simply dividing the two Bayes factors returned by the function.
         </p>
+<program><output>
+## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 0<d<Inf : 29 ±0.01%
+## 
+## Against denominator:
+##   Alternative, r = 0.707106781186548, mu =/= 0 !(0<d<Inf) 
+## ---
+## Bayes factor type: BFindepSample, JZS
+</output></program>
         <p>
           Now we see that the Bayes factor for a positive effect versus a negative effect is substantially larger (almost 30).
         </p>
@@ -405,8 +404,25 @@
     <subsection xml:id="subsec-rejection-sampling">
       <title>Rejection sampling</title>
       <p>
-        We will generate samples from our posterior distribution using a simple algorithm known as <url href="https://am207.github.io/2017/wiki/rejectionsampling.html"><em>rejection sampling</em></url>. The idea is that we choose a random value of x (in this case <m>p_{respond}</m>) and a random value of y (in this case, the posterior probability of <m>p_{respond}</m>) each from a uniform distribution. We then only accept the sample if <m>y &lt; f(x)</m> - in this case, if the randomly selected value of y is less than the actual posterior probability of y. <xref ref="fig-rejection-sampling"/> shows an example of a histogram of samples using rejection sampling, along with the 95% credible intervals obtained using this method.
+        We will generate samples from our posterior distribution using a simple algorithm known as <url href="https://am207.github.io/2017/wiki/rejectionsampling.html"><em>rejection sampling</em></url>. The idea is that we choose a random value of x (in this case <m>p_{respond}</m>) and a random value of y (in this case, the posterior probability of <m>p_{respond}</m>) each from a uniform distribution. We then only accept the sample if <m>y &lt; f(x)</m> - in this case, if the randomly selected value of y is less than the actual posterior probability of y. <xref ref="fig-rejection-sampling"/> shows an example of a histogram of samples using rejection sampling, along with the 95% credible intervals obtained using this method (with the values presented in <xref ref = "table-rejection-sampling"/>.
       </p>
+
+        <table xml:id="table-rejection-sampling">
+          <tabular>
+            <row header="yes">
+              <cell></cell>
+              <cell>x</cell>
+            </row>
+            <row>
+              <cell>2.5%</cell>
+              <cell>0.54</cell>
+            </row>
+            <row>
+              <cell>>97.5%</cell>
+              <cell>0.73</cell>
+            </row>
+          </tabular>
+        </table>
 
       <figure xml:id="fig-rejection-sampling">
         <caption>Rejection sampling example. The black line shows the density of all possible values of p(respond); the blue lines show the 2.5th and 97.5th percentiles of the distribution, which represent the 95 percent credible interval for the estimate of p(respond).</caption>
