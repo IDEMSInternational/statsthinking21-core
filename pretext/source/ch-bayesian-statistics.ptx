@@ -322,7 +322,7 @@
 ## [1] Alt., r=0.707 0&lt;d&lt;Inf : 29 ±0.01%
 ## 
 ## Against denominator:
-##   Alternative, r = 0.707106781186548, mu =/= 0 !(0<d<Inf) 
+##   Alternative, r = 0.707106781186548, mu =/= 0 !(0&lt;d&lt;Inf) 
 ## ---
 ## Bayes factor type: BFindepSample, JZS
 </output></program>
