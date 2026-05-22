@@ -11,94 +11,6 @@
     </p>
     <p>
       Second, we may want to take a large number of variables and reduce them to a smaller number of variables in a way that retains as much information as possible. This is referred to as <em>dimensionality reduction</em>, where <q>dimensionality</q> refers to the number of variables in the dataset. We will discuss two techniques commonly used for dimensionality reduction, known as <em>principal component analysis</em> and <em>factor analysis</em>.
-
-    <program language="r">
-      <input>
-      # Factor Analysis
-      library(psych)
-
-      # Determine number of factors
-      fa.parallel(data_numeric, fa = "fa")
-
-      # Perform factor analysis
-      fa_result &lt;- fa(data_numeric, nfactors = 2, rotate = "varimax")
-      print(fa_result)
-
-      # Factor loadings
-      fa_result$loadings
-
-      # Factor scores
-      factor_scores &lt;- factor.scores(data_numeric, fa_result)
-      head(factor_scores$scores)
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Principal Component Analysis
-      # Prepare data (numeric variables only)
-      data_numeric &lt;- data[, sapply(data, is.numeric)]
-
-      # Standardize and perform PCA
-      pca_result &lt;- prcomp(data_numeric, scale. = TRUE)
-
-      # Summary of variance explained
-      summary(pca_result)
-
-      # Scree plot
-      plot(pca_result, type = "l", main = "Scree Plot")
-
-      # Biplot
-      biplot(pca_result)
-
-      # Loadings
-      pca_result$rotation[, 1:2]
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Factor Analysis
-      library(psych)
-
-      # Determine number of factors
-      fa.parallel(data_numeric, fa = "fa")
-
-      # Perform factor analysis
-      fa_result &lt;- fa(data_numeric, nfactors = 2, rotate = "varimax")
-      print(fa_result)
-
-      # Factor loadings
-      fa_result$loadings
-
-      # Factor scores
-      factor_scores &lt;- factor.scores(data_numeric, fa_result)
-      head(factor_scores$scores)
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Principal Component Analysis
-      # Prepare data (numeric variables only)
-      data_numeric &lt;- data[, sapply(data, is.numeric)]
-
-      # Standardize and perform PCA
-      pca_result &lt;- prcomp(data_numeric, scale. = TRUE)
-
-      # Summary of variance explained
-      summary(pca_result)
-
-      # Scree plot
-      plot(pca_result, type = "l", main = "Scree Plot")
-
-      # Biplot
-      biplot(pca_result)
-
-      # Loadings
-      pca_result$rotation[, 1:2]
-      </input>
-    </program>
     </p>
     <p>
       Clustering and dimensionality reduction are often classified as forms of <em>unsupervised learning</em>; this is in contrast to <em>supervised learning</em> which characterizes models such as linear regression that you've learned about so far. The reason that we consider linear regression to be <q>supervised</q> is that we know the value of thing that we are trying to predict (i.e. the dependent variable) and we are trying to find the model that best predicts those values. In unspervised learning, we don't have a specific value that we are trying to predict; instead, we are trying to discover structure in the data that might be useful for understanding what's going on, which generally requires some assumptions about what kind of structure we want to find.
@@ -133,10 +45,9 @@
     <subsection xml:id="subsec-scatterplot-matrices">
       <title>Scatterplot of matrices</title>
       <p>
-        One useful way to visualize a small number of variables is to plot each pair of variables against one another, sometimes known as a <q>scatterplot of matrices</q>; An example is shown in <xref ref="fig-pair-panel"/>. Each row/column in the panel refers to a single variable <mdash/> in this case one of our psychological variables from the earlier example. The diagonal elements on the plot show the distribution of each variable as a histogram. The elements below the diagonal show a scatterplot for each pair of matrices, overlaid with a regression line describing the relationship between the variables. The elements above the diagonal show the correlation coefficient for each pair of variables. When the number of variables is relatively small (about 10 or less) this can be a useful way to get good insight into a multivariate dataset.
-      </p>
-
-      <!-- R code block: creates pairs.panels plot for nine self-control variables -->
+        One useful way to visualize a small number of variables is to plot each pair of variables against one another, sometimes known as a <q>scatterplot of matrices</q>; An example is shown in <xref ref="fig-pair-panel"/>. 
+Each row/column in the panel refers to a single variable – in this case one of our psychological variables from the earlier example. The diagonal elements on the plot show the distribution of each variable as a histogram. The elements below the diagonal show a scatterplot for each pair of matrices, overlaid with a regression line describing the relationship between the variables. The elements above the diagonal show the correlation coefficient for each pair of variables. When the number of variables is relatively small (about 10 or less) this can be a useful way to get good insight into a multivariate dataset.
+</p>
 
       <figure xml:id="fig-pair-panel">
         <caption>Scatterplot of matrices for the nine variables in the self-control dataset. The diagonal elements in the matrix show the histogram for each of the individual variables. The lower left panels show scatterplots of the relationship between each pair of variables, and the upper right panel shows the correlation coefficient for each pair of variables.</caption>
@@ -152,8 +63,6 @@
         In some cases we wish to visualize the relationships between a large number of variables at once, usually focusing on the correlation coefficient. A useful way to do this can be to plot the correlation values as a <em>heatmap</em>, in which the color of the map relates to the value of the correlation. <xref ref="fig-hmap"/> shows an example with a relatively small number of variables, using our psychological example from above. In this case, the heatmap helps the structure of the data <q>pop out</q> at us; we see that there are strong intercorrelations within the SSRT variables and within the UPPS variables, with relatively little correlation between the two sets of variables.
       </p>
 
-      <!-- R code block: creates correlation matrix and heatmap for nine self-control variables -->
-
       <figure xml:id="fig-hmap">
         <caption>Heatmap of the correlation matrix for the nine self-control variables. The brighter yellow areas in the top left and bottom right highlight the higher correlations within the two subsets of variables.</caption>
         <image source="hmap.png" width="80%">
@@ -162,13 +71,8 @@
       </figure>
 
       <p>
-        Heatmaps become particularly useful for visualizing correlations between large numbers of variables. We can use brain imaging data as an example. It is common for neuroscience researchers to collect data about brain function from a large number of locations in the brain using functional magnetic resonance imaging (fMRI), and then to assess the correlation between those locations, to measure <q>function connectivity</q> between the regions. For example, <xref ref="fig-parcel-heatmap"/> shows a heatmap for a large correlation matrix, based on activity in over 300 regions in the brain of a single individual (yours truly). The presence of clear structure in the data pops out simply by looking at the heatmap. In particular we see that there are large sets of brain regions whose activity is highly correlated with each other (visible in the large yellow blocks along the diagonal of the correlation matrix), whereas these blocks are also strongly negatively correlated with other blocks (visible in the large blue blocks seen off the diagonal). Heatmaps are a powerful tool for easily visualizing large data matrices.
+Heatmaps become particularly useful for visualizing correlations between large numbers of variables. We can use brain imaging data as an example. It is common for neuroscience researchers to collect data about brain function from a large number of locations in the brain using functional magnetic resonance imaging (fMRI), and then to assess the correlation between those locations, to measure “function connectivity” between the regions. For example, Figure 16.3 shows a heatmap for a large correlation matrix, based on activity in over 300 regions in the brain of a single individual (yours truly). The presence of clear structure in the data pops out simply by looking at the heatmap. In particular we see that there are large sets of brain regions whose activity is highly correlated with each other (visible in the large yellow blocks along the diagonal of the correlation matrix), whereas these blocks are also strongly negatively correlated with other blocks (visible in the large blue blocks seen off the diagonal). Heatmaps are a powerful tool for easily visualizing large data matrices.
       </p>
-
-      <!-- R code block: loads and processes brain parcel data -->
-
-      <!-- R code block: creates heatmap for brain connectivity matrix -->
-
       <figure xml:id="fig-parcel-heatmap">
         <caption>A heatmap showing the correlation coefficient of brain activity between 316 regions in the left hemisphere of a single individiual. Cells in yellow reflect strong positive correlation, whereas cells in blue reflect strong negative correlation. The large blocks of positive correlation along the diagonal of the matrix correspond to the major connected networks in the brain</caption>
         <image source="parcelheatmap.png" width="80%">
@@ -218,10 +122,8 @@
     <subsection xml:id="subsec-k-means-clustering">
       <title>K-means clustering</title>
       <p>
-        One commonly used method for clustering data is <em>K-means clustering</em>. This technique identifies a set of cluster centers, and then assigns each data point to the cluster whose center is the closest (that is, has the lowest Euclidean distance) from the data point. As an example, let's take the latitude and longitude of a number of countries around the world as our data points, and see whether K-means clustering can effectively identify the continents of the world.
-      </p>
-
-      <!-- R code block: loads country data with latitude/longitude coordinates -->
+        One commonly used method for clustering data is <em>K-means clustering</em>.  This technique identifies a set of cluster centers, and then assigns each data point to the cluster whose center is the closest (that is, has the lowest Euclidean distance) from the data point. As an example, let’s take the latitude and longitude of a number of countries around the world as our data points, and see whether K-means clustering can effectively identify the continents of the world.
+</p>
 
       <p>
         Most statistical software packages have a built-in function for performing K-means clustering using a single command, but it's useful to understand how it works step by step. We must first decide on a specific value for <m>K</m>, the number of clusters to be found in the data. It's important to point out that there is no unique <q>correct</q> value for the number of clusters; there are various techniques that one can use to try to determine which solution is <q>best</q> but they can often give different answers, as they incorporate different assumptions or tradeoffs. Nonetheless, clustering techniques such as K-means are an important tool for understanding the structure of data, especially as they become high-dimensional.
@@ -242,8 +144,16 @@
       <p>
         Applying K-means clustering to the latitude/longitude data (<xref ref="fig-kmeans"/>), we see that there is a reasonable match between the resulting clusters and the continents, though none of the continents is perfectly matched to any of the clusters. We can further examine this by plotting a table that compares the membership of each cluster to the actual continents for each country; this kind of table is often called a <em>confusion matrix</em>.
       </p>
-
-      <!-- R code block: creates confusion matrix table comparing clusters to actual continents -->
+<console><output>
+##       
+## labels AF AS EU NA OC SA
+##      1  5  1 36  0  0  0
+##      2  3 24  0  0  0  0
+##      3  0  0  0  0  0  7
+##      4  0  0  0 15  0  4
+##      5  0 10  0  0  6  0
+##      6 35  0  0  0  0  0
+</output></console>
 
       <ul>
         <li>Cluster 1 contains all European countries, as well as countries from northern Africa and Asia.</li>
@@ -255,10 +165,8 @@
       </ul>
 
       <p>
-        Although in this example we know the actual clusters (that is, the continents of the world), in general we don't actually know the ground truth for unsupervised learning problems, so we simply have to trust that the clustering method has found useful structure in the data. However, one important point about K-means clustering, and iterative procedures in general, is that they are not guaranteed to give the same answer each time they are run. The use of random numbers to determine the starting points means that the starting points can differ each time, and depending on the data this can sometimes lead to different solutions being found. For this example, K-means clustering will sometimes find a single cluster encompassing both North and South America, and sometimes find two clusters (as it did for the specific choice of random seed used here). Whenever using a method that involves an iterative solution, it is important to rerun the method a number of times using different random seeds, to make sure that the answers don't diverge too greatly between runs. If they do, then one should avoid making strong conclusions based on the unstable results. In fact, it's probably a good idea to avoid strong conclusions on the basis of clustering results more generally; they are primarily useful for getting intuition about the structure that might be present in a dataset.
+Although in this example we know the actual clusters (that is, the continents of the world), in general we don’t actually know the ground truth for unsupervised learning problems, so we simply have to trust that the clustering method has found useful structure in the data. However, one important point about K-means clustering, and iterative procedures in general, is that they are not guaranteed to give the same answer each time they are run. The use of random numbers to determine the starting points means that the starting points can differ each time, and depending on the data this can sometimes lead to different solutions being found. For this example, K-means clustering will sometimes find a single cluster encompassing both North and South America, and sometimes find two clusters (as it did for the specific choice of random seed used here). Whenever using a method that involves an iterative solution, it is important to rerun the method a number of times using different random seeds, to make sure that the answers don’t diverge too greatly between runs. If they do, then one should avoid making strong conclusions based on the unstable results. In fact, it’s probably a good idea to avoid strong conclusions on the basis of clustering results more generally; they are primarily useful for getting intuition about the structure that might be present in a dataset.
       </p>
-
-      <!-- R code block: runs K-means clustering 10 times with K=3 on impulsivity data to test stability -->
 
       <figure xml:id="fig-kmeans-sro">
         <caption>A visualization of the clustering results from 10 runs of the K-means clustering algorithm with K=3. Each row in the figure represents a different run of the clustering algorithm (with different random starting points), and variables sharing the same color are members of the same cluster.</caption>
@@ -354,7 +262,19 @@
       <p>
         We see in <xref ref="fig-vaf"/> that for the stop signal variables, the first principal component accounts for about 60% of the variance in the data, whereas for the UPPS it accounts for about 55% of the variance. We can then compute the correlation between the scores obtained using the first principal component from each set of variables, in order to ask whether the there is a relation between the two sets of variables. The correlation of -0.014 between the two summary variables suggests that there is no overall relationship between response inhibition and impulsivity in this dataset.
       </p>
-
+<console><output>
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  pca_df$SSRT and pca_df$UPPS
+## t = -0.3, df = 327, p-value = 0.8
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.123  0.093
+## sample estimates:
+##    cor 
+## -0.015
+</output></console>
       <!-- R code block: creates dataframe with PC1 scores from both analyses -->
 
       <!-- R code block: computes correlation test between the two PC1 scores -->
@@ -437,7 +357,21 @@
       <p>
         Let's apply an exploratory factor analysis to our synthetic data. As with clustering methods, we need to first determine how many latent factors we want to include in our model. In this case we know there are three factors, so let's start with that; later on we will examine ways to estimate the number of factors directly from the data. Here is the output from our statistical software for this model:
       </p>
-
+<console><output>
+## 
+## Factor analysis with Call: fa(r = observed_df, nfactors = 3)
+## 
+## Test of the hypothesis that 3 factors are sufficient.
+## The degrees of freedom for the model is 7  and the objective function was  0.04 
+## The number of observations was  200  with Chi Square =  8  with prob &lt;  0.34 
+## 
+## The root mean square of the residuals (RMSA) is  0.01 
+## The df corrected root mean square of the residuals is  0.03 
+## 
+## Tucker Lewis Index of factoring reliability =  0.99
+## RMSEA index =  0.026  and the 10 % confidence intervals are  0 0.094
+## BIC =  -29
+</output></console>
       <!-- R code block: performs exploratory factor analysis with 3 factors on synthetic data -->
 
       <p>
