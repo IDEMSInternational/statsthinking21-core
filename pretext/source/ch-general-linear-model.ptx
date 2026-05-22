@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <chapter xml:id="ch-general-linear-model" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>The General Linear Model</title>
-
-    <program language="r">
-      <input>
-      # Multiple regression example
-      model &lt;- lm(y ~ x1 + x2 + x3, data = data)
-      summary(model)
-
-      # Partial R-squared
-      library(rsq)
-      rsq.partial(model)
-
-      # ANOVA table
-      anova(model)
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Multiple regression example
-      model &lt;- lm(y ~ x1 + x2 + x3, data = data)
-      summary(model)
-
-      # Partial R-squared
-      library(rsq)
-      rsq.partial(model)
-
-      # ANOVA table
-      anova(model)
-      </input>
-    </program>
-
-    <program language="r">
-      <input>
-      # Multiple regression example
-      model &lt;- lm(Weight ~ Height + Age + Gender, data = NHANES_adult)
-      summary(model)
-
-      # Check model fit
-      summary(model)$r.squared
-      summary(model)$adj.r.squared
-
-      # ANOVA table
-      anova(model)
-      </input>
-    </program>
-
   <introduction>
     <p>
       Remember that early in the book we described the basic model of statistics:
