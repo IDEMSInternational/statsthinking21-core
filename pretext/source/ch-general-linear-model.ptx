@@ -618,7 +618,7 @@ df_matrix &lt;-
   dplyr::select(studyTime, grade) %&gt;%
   as.matrix()
 </input>
-</language>
+</program>
 
       <p>
         We can write the general linear model in linear algebra as follows:
