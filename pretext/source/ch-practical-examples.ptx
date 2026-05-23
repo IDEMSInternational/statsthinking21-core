@@ -108,9 +108,28 @@
         Most statistical software (including R) will automatically create a set of dummy variables when the model includes a nominal variable (such as the <em>diet</em> variable, which contains the name of the diet that each person received). Here are the results from this model fitted to our data:
       </p>
 
-      <!-- R code output showing ANOVA results would appear here
-           The output shows coefficients for dietLEARN, dietOrnish, dietZone
-           with Atkins as the baseline (intercept) -->
+<console><output>
+## 
+## Call:
+## lm(formula = BMIChange12Months ~ diet, data = dietDf)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -8.14  -1.37   0.07   1.50   6.33 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -1.622      0.251   -6.47  3.8e-10 ***
+## dietLEARN      0.772      0.352    2.19   0.0292 *  
+## dietOrnish     0.932      0.356    2.62   0.0092 ** 
+## dietZone       1.050      0.352    2.98   0.0031 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.2 on 307 degrees of freedom
+## Multiple R-squared:  0.0338, Adjusted R-squared:  0.0243 
+## F-statistic: 3.58 on 3 and 307 DF,  p-value: 0.0143
+</output></console>
 
       <p>
         Note that the software automatically generated dummy variables that correspond to three of the four diets, leaving the Atkins diet without a dummy variable. This means that the intercept represents the mean of the Atkins diet group, and the other three variables model the difference between the means for each of those diets and the mean for the Atkins diet. Atkins was chosen as the unmodeled baseline variable simply because it is first in alphabetical order.
@@ -153,8 +172,20 @@
         The significant result in the omnibus F test also doesn't tell us which diets differ from which others. We can find out more by comparing means across conditions. Because we are doing several comparisons, we need to correct for those comparisons, which is accomplished using a procedure known as the Tukey method, which is implemented by our statistical software:
       </p>
 
-      <!-- R code output showing Tukey HSD results with letter groupings
-           would appear here showing which diets differ significantly -->
+      <console><output>
+##  diet   emmean    SE  df lower.CL upper.CL .group
+##  Atkins  -1.62 0.251 307    -2.11    -1.13  a    
+##  LEARN   -0.85 0.247 307    -1.34    -0.36  ab   
+##  Ornish  -0.69 0.252 307    -1.19    -0.19   b   
+##  Zone    -0.57 0.247 307    -1.06    -0.08   b   
+## 
+## Confidence level used: 0.95 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.05 
+## NOTE: If two or more means share the same grouping symbol,
+##       then we cannot show them to be different.
+##       But we also did not show them to be the same.
+</output></console>
 
       <p>
         The letters in the rightmost column show us which of the groups differ from one another, using a method that adjusts for the number of comparisons being performed; conditions that share a letter are not significantly different from one another. This shows that Atkins and LEARN diets don't differ from one another (since they share the letter a), and the LEARN, Ornish, and Zone diets don't differ from one another (since they share the letter b), but the Atkins diet differs from the Ornish and Zone diets (since they share no letters).
@@ -179,22 +210,22 @@
         <row>
           <cell>Atkins</cell>
           <cell>77</cell>
-          <cell>0.286</cell>
+          <cell>0.29</cell>
         </row>
         <row>
           <cell>LEARN</cell>
           <cell>79</cell>
-          <cell>0.367</cell>
+          <cell>0.25</cell>
         </row>
         <row>
           <cell>Ornish</cell>
           <cell>76</cell>
-          <cell>0.355</cell>
+          <cell>0.38</cell>
         </row>
         <row>
           <cell>Zone</cell>
           <cell>79</cell>
-          <cell>0.253</cell>
+          <cell>0.34</cell>
         </row>
       </tabular>
     </table>
@@ -224,7 +255,13 @@
         Let's first compute that statistic, using the chi-squared test function in our statistical software:
       </p>
 
-      <!-- R code output showing chi-squared test results would appear here -->
+<console><output>
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  contTable
+## X-squared = 4, df = 3, p-value = 0.3
+</output></console>
 
       <p>
         This test shows that there is not a significant difference between means. However, it doesn't tell us how certain we are that there is no difference; remember that under NHST, we are always working under the assumption that the null is true unless the data show us enough evidence to cause us to reject the null hypothesis.
@@ -233,8 +270,16 @@
         What if we want to quantify the evidence for or against the null? We can do this using the Bayes factor.
       </p>
 
-      <!-- R code output showing Bayes factor results would appear here -->
-
+<console><output>
+## Bayes factor analysis
+## --------------
+## [1] Non-indep. (a=1) : 0.058 ±0%
+## 
+## Against denominator:
+##   Null, independence, a = 1 
+## ---
+## Bayes factor type: BFcontingencyTable, independent multinomial
+</output></console>
       <p>
         This shows us that the alternative hypothesis is 0.058 times more likely than the null hypothesis, which means that the null hypothesis is 1/0.058 <m>\approx</m> 17 times more likely than the alternative hypothesis given these data. This is fairly strong, if not completely overwhelming, evidence in favor of the null hypothesis.
       </p>
