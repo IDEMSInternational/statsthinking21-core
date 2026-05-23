@@ -28,6 +28,20 @@ jobs:
         run: |
           pip install -r pretext/requirements.txt
 
+      - name: Seed Runestone services cache for offline builds
+        run: |
+          python - <<'PY'
+          from pretext import resources
+          cache_dir = resources.resource_base_path() / "rs_cache"
+          cache_dir.mkdir(parents=True, exist_ok=True)
+          cache_file = cache_dir / "rs_services.xml"
+          if not cache_file.exists():
+              cache_file.write_text(
+                  "<all><js/><css/><cdn-url>https://runestone.academy/cdn/runestone/latest/</cdn-url><version>latest</version></all>",
+                  encoding="utf-8",
+              )
+          PY
+
       - name: Build PreTeXt book (HTML)
         run: |
           cd pretext
