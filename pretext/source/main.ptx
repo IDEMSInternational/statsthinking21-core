@@ -43,23 +43,25 @@
         <paragraphs xml:id="preface-about-version">
           <title>About This PreTeXt Version</title>
           <p>
-            This is a PreTeXt version of <em>Statistical Thinking for the 21st Century</em>, originally authored by Russell A. Poldrack.
-            The original work is available at <url href="https://github.com/statsthinking21/statsthinking21-core" visual="github.com/statsthinking21/statsthinking21-core">github.com/statsthinking21/statsthinking21-core</url>.
+            This is a <url href="https://pretextbook.org/" visual="PreTeXt">PreTeXt</url> conversion of
+            <em>Statistical Thinking for the 21st Century</em>, originally written by Russell A. Poldrack.
+            The original work is available online at
+            <url href="https://statsthinking21.org/" visual="statsthinking21.org">statsthinking21.org</url>,
+            and the original GitHub repository for the book source is at
+            <url href="https://github.com/statsthinking21/statsthinking21-core" visual="github.com/statsthinking21/statsthinking21-core">github.com/statsthinking21/statsthinking21-core</url>.
           </p>
           <p>
-            <alert>Full Credit to Russell A. Poldrack:</alert> All content in this book was created by Russell A. Poldrack, 
-            Professor of Psychology at Stanford University. This PreTeXt conversion maintains his original content, 
-            attributions, and acknowledgements in their entirety.
+            This PreTeXt edition was prepared by
+            <url href="https://github.com/PreTeXtBooks/statsthinking21-core" visual="the PreTeXtBooks project">the PreTeXtBooks project</url>
+            to make the content available in the PreTeXt format, enabling accessible and structured output in HTML, PDF,
+            and other formats. All prose, code examples, figures, and mathematical content are intended to be faithful
+            reproductions of the original work, though occasional typographical errors may have been introduced in the
+            conversion process. Report any issues to our
+            <url href="https://github.com/PreTeXtBooks/statsthinking21-core/issues" visual="GitHub Issues Page">GitHub Issues Page</url>.
           </p>
           <p>
-            <alert>Original Copyright:</alert> Copyright 2019 Russell A. Poldrack. This work is licensed under the 
-            Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
-          </p>
-          <p>
-            If you encounter any issues specific to this PreTeXt rendering or format, please report them at 
-            <url href="https://github.com/lilyclements/statsthinking21-core/issues" visual="github.com/lilyclements/statsthinking21-core/issues">the PreTeXt version repository</url>. 
-            For content-related issues with the original material, please refer to the 
-            <url href="https://github.com/statsthinking21/statsthinking21-core" visual="github.com/statsthinking21/statsthinking21-core">original repository</url>.
+            The original work by Russell A. Poldrack is licensed under a
+            <url href="https://creativecommons.org/licenses/by-nc/4.0/" visual="Creative Commons Attribution-NonCommercial 4.0 International License">Creative Commons Attribution-NonCommercial 4.0 International License</url>.
           </p>
         </paragraphs>
 
