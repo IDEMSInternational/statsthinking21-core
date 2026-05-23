@@ -258,7 +258,7 @@
   </section>
 
   <section xml:id="sec-fitting-complex-models">
-    <title&gt;Fitting more complex models</title>
+    <title>Fitting more complex models</title>
     <p>
       Often we would like to understand the effects of multiple variables on some particular outcome, and how they relate to one another. In the context of our study time example, let's say that we discovered that some of the students had previously taken a course on the topic. If we plot their grades (see <xref ref="fig-linear-regression-priorclass"/>), we can see that those who had a prior course perform much better than those who had not, given the same amount of study time. We would like to build a statistical model that takes this into account, which we can do by extending the model that we built above:
     </p>
