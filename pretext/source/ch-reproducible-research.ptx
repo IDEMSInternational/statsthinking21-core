@@ -122,7 +122,7 @@
         This means that in a field where most of the hypotheses are likely to be wrong (that is, an interesting scientific field where researchers are testing risky hypotheses), even when we find a positive result it is more likely to be false than true! In fact, this is just another example of the base rate effect that we discussed in the context of hypothesis testing <mdash/> when an outcome is unlikely, then it's almost certain that most positive outcomes will be false positives.
       </p>
       <p>
-        We can simulate this to show how PPV relates to statistical power, as a function of the prior probability of the hypothesis being true (see Figure <xref ref="fig-ppv-simulation"/>).
+        We can simulate this to show how PPV relates to statistical power, as a function of the prior probability of the hypothesis being true (see <xref ref="fig-ppv-simulation"/>).
       </p>
       <figure xml:id="fig-ppv-simulation">
         <caption>A simulation of positive predictive value as a function of statistical power (plotted on the x axis) and prior probability of the hypothesis being true (plotted as separate lines).</caption>
@@ -144,7 +144,7 @@
         Another kind of error can also occur when statistical power is low: Our estimates of the effect size will be inflated. This phenomenon often goes by the term "winner's curse", which comes from economics, where it refers to the fact that for certain types of auctions (where the value is the same for everyone, like a jar of quarters, and the bids are private), the winner is guaranteed to pay more than the good is worth. In science, the winner's curse refers to the fact that the effect size estimated from a significant result (i.e. a winner) is almost always an overestimate of the true effect size.
       </p>
       <p>
-        We can simulate this in order to see how the estimated effect size for significant results is related to the actual underlying effect size. Let's generate data for which there is a true effect size of d = 0.2, and estimate the effect size for those results where there is a significant effect detected. The left panel of Figure <xref ref="fig-curse-simulation"/> shows that when power is low, the estimated effect size for significant results can be highly inflated compared to the actual effect size.
+        We can simulate this in order to see how the estimated effect size for significant results is related to the actual underlying effect size. Let's generate data for which there is a true effect size of d = 0.2, and estimate the effect size for those results where there is a significant effect detected. The left panel of <xref ref="fig-curse-simulation"/> shows that when power is low, the estimated effect size for significant results can be highly inflated compared to the actual effect size.
       </p>
       <figure xml:id="fig-curse-simulation">
         <caption>Left: A simulation of the winner's curse as a function of statistical power (x axis). The solid line shows the estimated effect size, and the dotted line shows the actual effect size. Right: A histogram showing effect size estimates for a number of samples from a dataset, with significant results shown in blue and non-significant results in red.</caption>
@@ -153,7 +153,7 @@
         </image>
       </figure>
       <p>
-        We can look at a single simulation to see why this is the case. In the right panel of Figure <xref ref="fig-curse-simulation"/>, you can see a histogram of the estimated effect sizes for 1000 samples, separated by whether the test was statistically significant. It should be clear from the figure that if we estimate the effect size only based on significant results, then our estimate will be inflated; only when most results are significant (i.e. power is high and the effect is relatively large) will our estimate come near the actual effect size.
+        We can look at a single simulation to see why this is the case. In the right panel of <xref ref="fig-curse-simulation"/>, you can see a histogram of the estimated effect sizes for 1000 samples, separated by whether the test was statistically significant. It should be clear from the figure that if we estimate the effect size only based on significant results, then our estimate will be inflated; only when most results are significant (i.e. power is high and the effect is relatively large) will our estimate come near the actual effect size.
       </p>
     </subsection>
   </section>
